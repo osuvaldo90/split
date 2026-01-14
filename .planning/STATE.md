@@ -70,10 +70,8 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-Phase 2.1 complete. All todos resolved:
-- Receipt upload should replace items, not append (02.1-01)
-- Split quantity items into separate lines (02.1-02)
-- Format money inputs consistently (02.1-01)
+8 todos in `.planning/todos/pending/`:
+- **User-friendly error messages** (ui) — NEW
 
 ### Blockers/Concerns
 
