@@ -4,6 +4,7 @@ import { useQuery, useAction, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { Id } from "../../convex/_generated/dataModel";
 import ReceiptCapture from "../components/ReceiptCapture";
+import InlineItem from "../components/InlineItem";
 
 // Share code component with copy functionality
 function ShareCode({ code }: { code: string }) {
@@ -73,6 +74,7 @@ export default function Session() {
   const parseReceipt = useAction(api.actions.parseReceipt.parseReceipt);
   const addBulk = useMutation(api.items.addBulk);
   const updateTotals = useMutation(api.sessions.updateTotals);
+  const addItem = useMutation(api.items.add);
 
   // Handle receipt upload - triggers OCR processing and saves items directly
   async function handleReceiptUpload(storageId: Id<"_storage">) {
@@ -251,33 +253,26 @@ export default function Session() {
       </div>
 
       {/* Items list */}
-      {items && items.length > 0 && (
-        <div className="mb-6">
-          <h2 className="text-lg font-semibold mb-3">
-            Items ({items.length})
-          </h2>
-          <div className="space-y-2">
-            {items.map((item) => (
-              <div
-                key={item._id}
-                className="flex justify-between items-center p-3 bg-gray-50 rounded-lg"
-              >
-                <div>
-                  <span className="font-medium">{item.name}</span>
-                  {item.quantity > 1 && (
-                    <span className="text-gray-500 text-sm ml-2">
-                      x{item.quantity}
-                    </span>
-                  )}
-                </div>
-                <span className="text-gray-700">
-                  ${(item.price / 100).toFixed(2)}
-                </span>
-              </div>
-            ))}
-          </div>
+      <div className="mb-6">
+        <h2 className="text-lg font-semibold mb-3">
+          Items {items && items.length > 0 ? `(${items.length})` : ""}
+        </h2>
+        <div className="space-y-2">
+          {items?.map((item) => (
+            <InlineItem key={item._id} item={item} />
+          ))}
+        </div>
 
-          {/* Items total */}
+        {/* Add item button - available to all participants */}
+        <button
+          onClick={() => addItem({ sessionId: session._id, name: "", price: 0, quantity: 1 })}
+          className="w-full mt-3 py-3 px-4 border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-gray-400 hover:text-gray-700 transition-colors"
+        >
+          + Add Item
+        </button>
+
+        {/* Items total */}
+        {items && items.length > 0 && (
           <div className="mt-3 pt-3 border-t border-gray-200 flex justify-between items-center">
             <span className="font-medium">Items Total</span>
             <span className="font-semibold">
@@ -290,8 +285,8 @@ export default function Session() {
               ).toFixed(2)}
             </span>
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* Session totals if available */}
       {(session.subtotal !== undefined || session.tax !== undefined) && (
