@@ -60,10 +60,11 @@ None yet.
 
 ### Pending Todos
 
-3 todos in `.planning/todos/pending/`:
+4 todos in `.planning/todos/pending/`:
 - **Detect auto-gratuity on receipts** (api) — OCR should detect pre-added tips/service charges
 - **Split quantity items into separate lines** (api) — "2 Pilsner $13" → 2x "Pilsner" at $6.50
 - **Format money inputs consistently** (ui) — "$4.80" showing as "4.8"
+- **Improve item count input UX** (ui) — count input disappears at 1, deferred to later phase
 
 ### Blockers/Concerns
 
