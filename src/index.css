@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+/* Safe area utilities for iOS notch handling */
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}

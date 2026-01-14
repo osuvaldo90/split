@@ -11,7 +11,7 @@ export default function Layout() {
         </header>
 
         {/* Main content area */}
-        <main>
+        <main className="pb-safe">
           <Outlet />
         </main>
       </div>
