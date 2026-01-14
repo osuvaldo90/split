@@ -8,9 +8,11 @@
  * @module
  */
 
+import type * as actions_parseReceipt from "../actions/parseReceipt.js";
 import type * as claims from "../claims.js";
 import type * as items from "../items.js";
 import type * as participants from "../participants.js";
+import type * as receipts from "../receipts.js";
 import type * as sessions from "../sessions.js";
 import type * as test from "../test.js";
 
@@ -21,9 +23,11 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  "actions/parseReceipt": typeof actions_parseReceipt;
   claims: typeof claims;
   items: typeof items;
   participants: typeof participants;
+  receipts: typeof receipts;
   sessions: typeof sessions;
   test: typeof test;
 }>;
