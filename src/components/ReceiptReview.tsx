@@ -125,14 +125,15 @@ export default function ReceiptReview({
           <div className="flex items-center gap-1">
             <span className="text-gray-500">$</span>
             <input
-              type="number"
+              type="text"
+              inputMode="decimal"
               value={subtotal?.toFixed(2) ?? ""}
-              onChange={(e) =>
-                setSubtotal(e.target.value ? parseFloat(e.target.value) : null)
-              }
+              onChange={(e) => {
+                const cleaned = e.target.value.replace(/[^0-9.]/g, '');
+                setSubtotal(cleaned ? parseFloat(cleaned) : null);
+              }}
+              onFocus={(e) => e.target.select()}
               placeholder="Auto"
-              step="0.01"
-              min="0"
               className="w-24 px-2 py-1 border border-gray-300 rounded text-right focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -143,14 +144,15 @@ export default function ReceiptReview({
           <div className="flex items-center gap-1">
             <span className="text-gray-500">$</span>
             <input
-              type="number"
+              type="text"
+              inputMode="decimal"
               value={tax?.toFixed(2) ?? ""}
-              onChange={(e) =>
-                setTax(e.target.value ? parseFloat(e.target.value) : null)
-              }
+              onChange={(e) => {
+                const cleaned = e.target.value.replace(/[^0-9.]/g, '');
+                setTax(cleaned ? parseFloat(cleaned) : null);
+              }}
+              onFocus={(e) => e.target.select()}
               placeholder="0.00"
-              step="0.01"
-              min="0"
               className="w-24 px-2 py-1 border border-gray-300 rounded text-right focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
