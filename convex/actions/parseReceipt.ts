@@ -9,7 +9,8 @@ Return ONLY valid JSON in this exact format:
 {
   "merchant": "store name or null if unclear",
   "items": [
-    { "name": "item description", "price": 12.99, "quantity": 1 }
+    { "name": "item description", "price": 6.50, "quantity": 1 },
+    { "name": "item description", "price": 6.50, "quantity": 1 }
   ],
   "subtotal": 45.97,
   "tax": 3.68,
@@ -17,9 +18,19 @@ Return ONLY valid JSON in this exact format:
 }
 Rules:
 - Prices must be numbers (not strings), in dollars (not cents)
-- Include ALL items, even if quantity is 1
 - If a field is unclear or missing, use null
-- Do NOT include any explanation, ONLY the JSON object`;
+- Do NOT include any explanation, ONLY the JSON object
+
+IMPORTANT - Split quantity items for bill splitting:
+- If an item has quantity > 1, split it into SEPARATE items with quantity: 1 each
+- Example: "2 Pilsner $13" becomes TWO items: [{"name": "Pilsner", "price": 6.50, "quantity": 1}, {"name": "Pilsner", "price": 6.50, "quantity": 1}]
+- Divide the total price evenly among the split items
+- For odd divisions, add the extra cent to the first item (e.g., $10 / 3 = $3.34, $3.33, $3.33)
+- Common quantity patterns to detect and split:
+  - Leading number: "2 Beer", "3x Tacos"
+  - Trailing: "Beer (2)", "Tacos x3"
+  - Multiplication notation: "2 @ $5.00"
+- Every item in the output must have quantity: 1`;
 
 // Response type for parsed receipt data
 export type ParsedReceipt =
@@ -66,7 +77,7 @@ export const parseReceipt = action({
 
     // Call Claude Vision API
     const response = await anthropic.messages.create({
-      model: "claude-sonnet-4-5-20250514",
+      model: "claude-sonnet-4-5-20250929",
       max_tokens: 2048,
       messages: [
         {
@@ -93,9 +104,18 @@ export const parseReceipt = action({
     const responseText =
       response.content[0].type === "text" ? response.content[0].text : "";
 
+    // Strip markdown code fences if present
+    let jsonText = responseText.trim();
+    if (jsonText.startsWith("```")) {
+      // Remove opening fence (```json or ```)
+      jsonText = jsonText.replace(/^```(?:json)?\s*\n?/, "");
+      // Remove closing fence
+      jsonText = jsonText.replace(/\n?```\s*$/, "");
+    }
+
     // Parse JSON response
     try {
-      const parsed = JSON.parse(responseText);
+      const parsed = JSON.parse(jsonText);
       return parsed as ParsedReceipt;
     } catch {
       // If JSON parsing fails, return error with raw text for debugging
