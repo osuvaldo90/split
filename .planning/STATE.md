@@ -56,11 +56,12 @@ Recent decisions affecting current work:
 
 ### Deferred Issues
 
-4 todos deferred to later phase (in `.planning/todos/pending/`):
+5 todos deferred to later phase (in `.planning/todos/pending/`):
 - **Detect auto-gratuity on receipts** (api) — OCR should detect pre-added tips/service charges
 - **Split quantity items into separate lines** (api) — "2 Pilsner $13" → 2x "Pilsner" at $6.50
 - **Format money inputs consistently** (ui) — "$4.80" showing as "4.8"
 - **Improve item count input UX** (ui) — count input disappears at 1
+- **Receipt upload should replace items, not append** (ui) — uploading new receipt appends instead of replacing
 
 ### Pending Todos
 
