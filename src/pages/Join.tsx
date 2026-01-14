@@ -52,7 +52,14 @@ export default function Join() {
       });
       navigate(`/session/${session.code}`);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to join session");
+      // Parse Convex error messages to extract user-friendly portion
+      // Convex errors have format: "[CONVEX M(...)] [Request ID: ...] Server Error Uncaught Error: {message}"
+      let errorMessage = "Failed to join session";
+      if (err instanceof Error) {
+        const match = err.message.match(/Uncaught Error:\s*(.+)$/);
+        errorMessage = match ? match[1] : err.message;
+      }
+      setError(errorMessage);
       setIsJoining(false);
     }
   }
