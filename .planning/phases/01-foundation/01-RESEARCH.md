@@ -402,6 +402,128 @@ export function useSession(code: string) {
 **Verdict:** Convex for simplicity and automatic real-time. Supabase if you want SQL escape hatch.
 </claude_effectiveness>
 
+<ocr_research>
+## OCR Integration Research (Phase 2 Preview)
+
+This section previews OCR research to inform foundation architecture decisions.
+
+### OCR Options Comparison
+
+| Solution | Type | Accuracy | Cost | Best For |
+|----------|------|----------|------|----------|
+| **Claude Vision** | LLM Multimodal | 97% | ~$0.01-0.03/image | Recommended |
+| **GPT-4o Vision** | LLM Multimodal | 98% | ~$0.01-0.03/image | Alternative |
+| **Mindee** | Specialized API | 90%+ | $0.10-0.01/receipt | High volume |
+| **Veryfi** | Specialized API | High | $0.08/receipt | Enterprise |
+| **Azure Doc Intelligence** | Cloud OCR | 95%+ | ~$1.50/1000 pages | Complex docs |
+| **AWS Textract** | Cloud OCR | 94% | ~$1.50/1000 pages | AWS ecosystem |
+| **Tesseract.js** | Client-side | ~50-85% | Free | Cost-sensitive |
+
+### Recommendation: Claude/GPT-4 Vision API
+
+**Why LLM vision over traditional OCR for receipts:**
+
+1. **Single-step extraction**: Send image → get structured JSON (no parsing pipeline)
+2. **Context understanding**: Handles notes, discounts, split items intelligently
+3. **Format flexibility**: Works with any receipt layout without training
+4. **Error correction**: LLM can infer missing/unclear characters from context
+5. **Already using Anthropic**: If using Claude Code, API access is familiar
+
+**Accuracy benchmark (2025-2026):**
+- Claude 3.5 Sonnet: **97%** average on receipts
+- GPT-4o: **98%** on text PDFs, 91% on scanned
+- Traditional OCR (Tesseract): **50-85%** on phone photos
+
+### LLM Vision Implementation Pattern
+
+```typescript
+// convex/actions/parseReceipt.ts
+import { action } from "./_generated/server";
+import { v } from "convex/values";
+import Anthropic from "@anthropic-ai/sdk";
+
+export const parseReceiptImage = action({
+  args: { imageBase64: v.string() },
+  handler: async (ctx, args) => {
+    const anthropic = new Anthropic();
+
+    const response = await anthropic.messages.create({
+      model: "claude-sonnet-4-20250514",
+      max_tokens: 1024,
+      messages: [{
+        role: "user",
+        content: [
+          {
+            type: "image",
+            source: {
+              type: "base64",
+              media_type: "image/jpeg",
+              data: args.imageBase64,
+            },
+          },
+          {
+            type: "text",
+            text: `Extract line items from this receipt. Return JSON:
+{
+  "merchant": "store name",
+  "items": [{ "name": "item", "price": 0.00, "quantity": 1 }],
+  "subtotal": 0.00,
+  "tax": 0.00,
+  "total": 0.00
+}
+Only return valid JSON, no explanation.`,
+          },
+        ],
+      }],
+    });
+
+    return JSON.parse(response.content[0].text);
+  },
+});
+```
+
+### Cost Analysis
+
+For a bill-splitting app with moderate usage:
+
+| Scenario | Images/month | Claude Vision Cost | Mindee Cost |
+|----------|--------------|-------------------|-------------|
+| Light (100 splits) | 100 | ~$1-3 | $10 |
+| Medium (500 splits) | 500 | ~$5-15 | $50 |
+| Heavy (2000 splits) | 2000 | ~$20-60 | $200 |
+
+**Verdict:** LLM vision is cost-effective at this scale and provides better accuracy.
+
+### Don't Hand-Roll (OCR)
+
+| Problem | Don't Build | Use Instead | Why |
+|---------|-------------|-------------|-----|
+| Receipt parsing | Regex/custom parser | LLM structured output | Receipt formats vary wildly |
+| Line item matching | String similarity | LLM context | Notes, discounts confuse matchers |
+| Price extraction | Number regex | LLM | Handles "2 @ $3.99" naturally |
+| Image preprocessing | Canvas manipulation | Let LLM handle it | Modern LLMs are robust |
+
+### OCR Pitfalls
+
+1. **Low-quality photos**: Encourage flash, flat surface, good lighting
+2. **Crumpled receipts**: LLMs handle this better than traditional OCR
+3. **Thermal fade**: Old receipts may be illegible—show graceful error
+4. **Handwritten additions**: LLMs handle, traditional OCR fails
+
+### Architecture Implication
+
+**Key decision:** Use Convex Actions (not mutations) for OCR because:
+- Actions can call external APIs (Claude/OpenAI)
+- Mutations are for database writes only
+- Pattern: Action calls API → returns data → mutation saves items
+
+```
+Camera → Base64 → Convex Action → Claude API → JSON → Mutation → Database
+```
+
+This fits cleanly with Convex architecture and keeps OCR processing server-side.
+</ocr_research>
+
 <open_questions>
 ## Open Questions
 
@@ -419,6 +541,11 @@ export function useSession(code: string) {
    - What we know: Context says "no offline requirements"
    - What's unclear: What happens if someone's phone loses signal mid-claim?
    - Recommendation: Both platforms handle reconnection; trust the platform
+
+4. **OCR error handling**
+   - What we know: LLM vision is 97% accurate
+   - What's unclear: UX for failed/partial extraction
+   - Recommendation: Show extracted items with easy manual edit UI; don't block on perfection
 </open_questions>
 
 <sources>
@@ -435,8 +562,17 @@ export function useSession(code: string) {
 - [Firebase vs Supabase](https://ably.com/compare/firebase-vs-supabase) - Industry comparison
 - [Claude + Supabase Integration](https://www.arsturn.com/blog/supabase-mcp-claude-code-dev-power-up) - MCP workflow
 
+### OCR Research Sources (HIGH confidence)
+- [Receipt OCR Benchmark with LLMs 2026](https://research.aimultiple.com/receipt-ocr/) - Claude 97% accuracy benchmark
+- [Claude vs GPT vs Gemini Invoice Extraction](https://www.koncile.ai/en/ressources/claude-gpt-or-gemini-which-is-the-best-llm-for-invoice-extraction) - LLM comparison
+- [OCR Benchmark 2026](https://research.aimultiple.com/ocr-accuracy/) - Cloud OCR accuracy comparison
+- [Mindee Receipt OCR](https://www.mindee.com/product/receipt-ocr-api) - Specialized API pricing/accuracy
+- [Veryfi Receipt OCR API](https://www.veryfi.com/receipt-ocr-api/) - Enterprise option
+- [AWS Textract vs Azure vs Google](https://www.businesswaretech.com/blog/research-best-ai-services-for-automatic-invoice-processing) - Cloud provider comparison
+
 ### Tertiary (needs validation during implementation)
 - Pricing tiers may change; verify at [Convex Pricing](https://www.convex.dev/pricing) and [Supabase Pricing](https://supabase.com/pricing)
+- LLM API pricing subject to change; verify at [Anthropic Pricing](https://www.anthropic.com/pricing)
 </sources>
 
 <metadata>
@@ -447,6 +583,7 @@ export function useSession(code: string) {
 - Ecosystem: Convex, Supabase, PartyKit, Firebase, Socket.IO
 - Patterns: Reactive queries, WebSocket subscriptions, optimistic updates
 - Pitfalls: Strict mode, closures, loading states
+- OCR: LLM vision vs traditional OCR, receipt-specific solutions
 
 **Confidence breakdown:**
 - Standard stack: HIGH - verified with official docs
@@ -454,8 +591,10 @@ export function useSession(code: string) {
 - Pitfalls: HIGH - documented in GitHub issues and official guides
 - Code examples: HIGH - adapted from official documentation
 - Claude effectiveness: MEDIUM - based on TypeScript familiarity and MCP availability
+- OCR recommendations: HIGH - verified with 2025-2026 benchmarks
 
 **Research date:** 2026-01-14
+**Updated:** 2026-01-14 (added OCR research)
 **Valid until:** 2026-02-14 (30 days - ecosystem relatively stable)
 </metadata>
 
