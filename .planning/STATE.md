@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-01-14)
 Phase: 3.1 of 8 (Inline Item Editing) — Complete
 Plan: 1 of 1 in current phase
 Status: Phase complete
-Last activity: 2026-01-14 — Completed 03.1-01-PLAN.md
+Last activity: 2026-01-14 — Completed 03.1-FIX.md (UAT fix)
 
 Progress: █████████░ 50%
 
@@ -31,7 +31,7 @@ Progress: █████████░ 50%
 | 02-receipt-processing | 3 | 8 min | 3 min |
 | 02.1-receipt-fixes | 2 | 3 min | 1.5 min |
 | 03-session-management | 3 | 3 min | 1 min |
-| 03.1-inline-item-editing | 1 | 2 min | 2 min |
+| 03.1-inline-item-editing | 1 + FIX | 4 min | 2 min |
 
 **Recent Trend:**
 - Last 5 plans: 1 min, 1 min, 1 min, 1 min, 2 min
@@ -60,6 +60,7 @@ Recent decisions affecting current work:
 | 03-03 | Case-insensitive name comparison | Prevent "Alice" and "alice" as duplicates |
 | 03.1-01 | Remove confirm step - items save directly to DB after OCR | Eliminates host bottleneck, enables collaborative editing |
 | 03.1-01 | InlineItem uses mutations directly | No callback props, component calls mutations directly |
+| 03.1-FIX | Detect new items by empty name for auto-edit | Simpler than prop drilling, no API changes |
 
 ### Deferred Issues
 
@@ -83,6 +84,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-14T23:41:33Z
-Stopped at: Completed 03.1-01-PLAN.md (phase complete)
+Last session: 2026-01-14T23:57:00Z
+Stopped at: Completed 03.1-FIX.md (UAT fix)
 Resume file: None
