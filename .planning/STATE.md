@@ -10,28 +10,28 @@ See: .planning/PROJECT.md (updated 2026-01-14)
 ## Current Position
 
 Phase: 2 of 8 (Receipt Processing)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: In progress
-Last activity: 2026-01-14 — Completed 02-01-PLAN.md
+Last activity: 2026-01-14 — Completed 02-02-PLAN.md
 
-Progress: ████░░░░░░ 17%
+Progress: █████░░░░░ 21%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 4
+- Total plans completed: 5
 - Average duration: 5 min
-- Total execution time: 0.32 hours
+- Total execution time: 0.37 hours
 
 **By Phase:**
 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | 01-foundation | 3 | 17 min | 6 min |
-| 02-receipt-processing | 1 | 2 min | 2 min |
+| 02-receipt-processing | 2 | 5 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 15 min, 2 min, 2 min
+- Last 5 plans: 15 min, 2 min, 2 min, 3 min
 - Trend: improving
 
 ## Accumulated Context
@@ -51,6 +51,8 @@ Recent decisions affecting current work:
 | 01-03 | Separate claims table | Support multiple people claiming same item |
 | 02-01 | Native file input for camera | Simpler than react-webcam for basic capture |
 | 02-01 | Separate camera/upload buttons | Clear user intent for each action |
+| 02-02 | claude-sonnet-4-5-20250514 for OCR | Best balance of cost and accuracy |
+| 02-02 | Return parse errors with raw response | Allow UI to handle gracefully, aids debugging |
 
 ### Deferred Issues
 
@@ -67,5 +69,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-14
-Stopped at: Completed 02-01-PLAN.md
+Stopped at: Completed 02-02-PLAN.md
 Resume file: None
