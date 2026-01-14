@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-14)
 ## Current Position
 
 Phase: 2.1 of 8 (Receipt Fixes)
-Plan: 2 of 3 in current phase
-Status: In progress
-Last activity: 2026-01-14 — Completed 02.1-02-PLAN.md
+Plan: 2 of 2 in current phase
+Status: Phase complete
+Last activity: 2026-01-14 — Completed 02.1-01-PLAN.md
 
-Progress: ██████░░░░ 27%
+Progress: ███████░░░ 30%
 
 ## Performance Metrics
 
@@ -29,11 +29,11 @@ Progress: ██████░░░░ 27%
 |-------|-------|-------|----------|
 | 01-foundation | 3 | 17 min | 6 min |
 | 02-receipt-processing | 3 | 8 min | 3 min |
-| 02.1-receipt-fixes | 2 | 2 min | 1 min |
+| 02.1-receipt-fixes | 2 | 3 min | 1.5 min |
 
 **Recent Trend:**
-- Last 5 plans: 2 min, 3 min, 3 min, 1 min, 1 min
-- Trend: improving
+- Last 5 plans: 3 min, 3 min, 1 min, 1 min, 1 min
+- Trend: stable
 
 ## Accumulated Context
 
@@ -68,12 +68,10 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-1 todo remaining for Phase 2.1 (in `.planning/todos/in-progress/`):
-- Format money inputs consistently
-
-Completed this session:
+Phase 2.1 complete. All todos resolved:
 - Receipt upload should replace items, not append (02.1-01)
 - Split quantity items into separate lines (02.1-02)
+- Format money inputs consistently (02.1-01)
 
 ### Blockers/Concerns
 
@@ -81,6 +79,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-14T20:14:58Z
-Stopped at: Completed 02.1-02-PLAN.md
+Last session: 2026-01-14T20:15:36Z
+Stopped at: Completed 02.1-01-PLAN.md (Phase 2.1 complete)
 Resume file: None
