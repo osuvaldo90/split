@@ -9,17 +9,17 @@ See: .planning/PROJECT.md (updated 2026-01-14)
 
 ## Current Position
 
-Phase: 3.1 of 8 (Inline Item Editing) — Not started
-Plan: None yet
-Status: Phase inserted, ready for planning
-Last activity: 2026-01-14 — Inserted Phase 3.1 from todo
+Phase: 3.1 of 8 (Inline Item Editing) — Complete
+Plan: 1 of 1 in current phase
+Status: Phase complete
+Last activity: 2026-01-14 — Completed 03.1-01-PLAN.md
 
-Progress: █████████░ 45%
+Progress: █████████░ 50%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 11
+- Total plans completed: 12
 - Average duration: 3 min
 - Total execution time: 0.6 hours
 
@@ -31,9 +31,10 @@ Progress: █████████░ 45%
 | 02-receipt-processing | 3 | 8 min | 3 min |
 | 02.1-receipt-fixes | 2 | 3 min | 1.5 min |
 | 03-session-management | 3 | 3 min | 1 min |
+| 03.1-inline-item-editing | 1 | 2 min | 2 min |
 
 **Recent Trend:**
-- Last 5 plans: 1 min, 1 min, 1 min, 1 min, 1 min
+- Last 5 plans: 1 min, 1 min, 1 min, 1 min, 2 min
 - Trend: fast
 
 ## Accumulated Context
@@ -57,6 +58,8 @@ Recent decisions affecting current work:
 | 02-02 | Return parse errors with raw response | Allow UI to handle gracefully, aids debugging |
 | 02.1-02 | Extra cent to first item for odd price division | Consistent rounding strategy for split items |
 | 03-03 | Case-insensitive name comparison | Prevent "Alice" and "alice" as duplicates |
+| 03.1-01 | Remove confirm step - items save directly to DB after OCR | Eliminates host bottleneck, enables collaborative editing |
+| 03.1-01 | InlineItem uses mutations directly | No callback props, component calls mutations directly |
 
 ### Deferred Issues
 
@@ -80,6 +83,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-14T22:58:19Z
-Stopped at: Completed 03-FIX-PLAN.md (UAT issue fix)
+Last session: 2026-01-14T23:41:33Z
+Stopped at: Completed 03.1-01-PLAN.md (phase complete)
 Resume file: None
