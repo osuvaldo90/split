@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { Id } from "../../convex/_generated/dataModel";
@@ -25,6 +25,35 @@ export default function ReceiptReview({
   const [subtotal, setSubtotal] = useState<number | null>(initialSubtotal);
   const [tax, setTax] = useState<number | null>(initialTax);
   const [isSaving, setIsSaving] = useState(false);
+
+  // Local state for input fields - allows typing without auto-formatting
+  const [subtotalInput, setSubtotalInput] = useState(
+    initialSubtotal?.toFixed(2) ?? ""
+  );
+  const [taxInput, setTaxInput] = useState(initialTax?.toFixed(2) ?? "");
+
+  // Sync local state when props change externally
+  useEffect(() => {
+    setSubtotalInput(subtotal?.toFixed(2) ?? "");
+  }, [subtotal]);
+
+  useEffect(() => {
+    setTaxInput(tax?.toFixed(2) ?? "");
+  }, [tax]);
+
+  function handleSubtotalBlur() {
+    const cleaned = subtotalInput.replace(/[^0-9.]/g, "");
+    const parsed = cleaned ? parseFloat(cleaned) : null;
+    setSubtotal(parsed);
+    setSubtotalInput(parsed?.toFixed(2) ?? "");
+  }
+
+  function handleTaxBlur() {
+    const cleaned = taxInput.replace(/[^0-9.]/g, "");
+    const parsed = cleaned ? parseFloat(cleaned) : null;
+    setTax(parsed);
+    setTaxInput(parsed?.toFixed(2) ?? "");
+  }
 
   const addBulk = useMutation(api.items.addBulk);
   const updateTotals = useMutation(api.sessions.updateTotals);
@@ -127,11 +156,11 @@ export default function ReceiptReview({
             <input
               type="text"
               inputMode="decimal"
-              value={subtotal?.toFixed(2) ?? ""}
-              onChange={(e) => {
-                const cleaned = e.target.value.replace(/[^0-9.]/g, '');
-                setSubtotal(cleaned ? parseFloat(cleaned) : null);
-              }}
+              value={subtotalInput}
+              onChange={(e) =>
+                setSubtotalInput(e.target.value.replace(/[^0-9.]/g, ""))
+              }
+              onBlur={handleSubtotalBlur}
               onFocus={(e) => e.target.select()}
               placeholder="Auto"
               className="w-24 px-2 py-1 border border-gray-300 rounded text-right focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -146,11 +175,11 @@ export default function ReceiptReview({
             <input
               type="text"
               inputMode="decimal"
-              value={tax?.toFixed(2) ?? ""}
-              onChange={(e) => {
-                const cleaned = e.target.value.replace(/[^0-9.]/g, '');
-                setTax(cleaned ? parseFloat(cleaned) : null);
-              }}
+              value={taxInput}
+              onChange={(e) =>
+                setTaxInput(e.target.value.replace(/[^0-9.]/g, ""))
+              }
+              onBlur={handleTaxBlur}
               onFocus={(e) => e.target.select()}
               placeholder="0.00"
               className="w-24 px-2 py-1 border border-gray-300 rounded text-right focus:outline-none focus:ring-2 focus:ring-blue-500"

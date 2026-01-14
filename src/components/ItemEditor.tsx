@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 interface ItemEditorProps {
   item: { name: string; price: number; quantity: number };
   onChange: (updated: { name: string; price: number; quantity: number }) => void;
@@ -5,6 +7,20 @@ interface ItemEditorProps {
 }
 
 export default function ItemEditor({ item, onChange, onDelete }: ItemEditorProps) {
+  // Local state for price input - allows typing without auto-formatting
+  const [priceInput, setPriceInput] = useState(item.price.toFixed(2));
+
+  // Sync local state when item.price changes externally (e.g., new items from OCR)
+  useEffect(() => {
+    setPriceInput(item.price.toFixed(2));
+  }, [item.price]);
+
+  function handlePriceBlur() {
+    const parsed = parseFloat(priceInput) || 0;
+    onChange({ ...item, price: parsed });
+    setPriceInput(parsed.toFixed(2));
+  }
+
   return (
     <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-3 p-3 bg-gray-50 rounded-lg">
       {/* Name input */}
@@ -24,10 +40,9 @@ export default function ItemEditor({ item, onChange, onDelete }: ItemEditorProps
           <input
             type="text"
             inputMode="decimal"
-            value={item.price.toFixed(2)}
-            onChange={(e) =>
-              onChange({ ...item, price: parseFloat(e.target.value.replace(/[^0-9.]/g, '')) || 0 })
-            }
+            value={priceInput}
+            onChange={(e) => setPriceInput(e.target.value.replace(/[^0-9.]/g, ""))}
+            onBlur={handlePriceBlur}
             onFocus={(e) => e.target.select()}
             className="w-20 sm:w-24 min-h-[44px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
           />
