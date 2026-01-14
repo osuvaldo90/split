@@ -45,9 +45,10 @@ export default function Session() {
       const result = await parseReceipt({ storageId });
 
       if ("error" in result) {
+        const rawPreview = result.raw ? `\n\nRaw response: ${result.raw.slice(0, 500)}` : "";
         setReceiptState({
           step: "error",
-          message: `OCR failed: ${result.error}. Please try again.`,
+          message: `OCR failed: ${result.error}.${rawPreview}`,
         });
         return;
       }
@@ -117,26 +118,15 @@ export default function Session() {
         {/* Idle state: show capture UI */}
         {receiptState.step === "idle" && (
           <div>
-            {session.receiptImageId ? (
-              <div className="space-y-3">
-                <p className="text-sm text-gray-600">Receipt uploaded</p>
-                <button
-                  onClick={() => setReceiptState({ step: "idle" })}
-                  className="text-blue-500 text-sm hover:underline"
-                >
-                  Replace Receipt
-                </button>
-                <ReceiptCapture
-                  sessionId={session._id}
-                  onUpload={handleReceiptUpload}
-                />
-              </div>
-            ) : (
-              <ReceiptCapture
-                sessionId={session._id}
-                onUpload={handleReceiptUpload}
-              />
+            {session.receiptImageId && (
+              <p className="text-sm text-gray-600 mb-3">
+                Receipt uploaded. Upload a new one to replace existing items.
+              </p>
             )}
+            <ReceiptCapture
+              sessionId={session._id}
+              onUpload={handleReceiptUpload}
+            />
           </div>
         )}
 

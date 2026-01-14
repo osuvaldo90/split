@@ -67,7 +67,7 @@ export const remove = mutation({
   },
 });
 
-// Bulk add items (from OCR)
+// Bulk add items (from OCR) - replaces existing items for the session
 export const addBulk = mutation({
   args: {
     sessionId: v.id("sessions"),
@@ -78,6 +78,28 @@ export const addBulk = mutation({
     })),
   },
   handler: async (ctx, args) => {
+    // First, delete all existing items and their claims for this session
+    const existingItems = await ctx.db
+      .query("items")
+      .withIndex("by_session", (q) => q.eq("sessionId", args.sessionId))
+      .collect();
+
+    for (const item of existingItems) {
+      // Delete claims for this item
+      const claims = await ctx.db
+        .query("claims")
+        .withIndex("by_item", (q) => q.eq("itemId", item._id))
+        .collect();
+
+      for (const claim of claims) {
+        await ctx.db.delete(claim._id);
+      }
+
+      // Delete the item
+      await ctx.db.delete(item._id);
+    }
+
+    // Now insert the new items
     const itemIds = [];
     for (const item of args.items) {
       const itemId = await ctx.db.insert("items", {
