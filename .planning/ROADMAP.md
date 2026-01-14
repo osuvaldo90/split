@@ -19,7 +19,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 1: Foundation** - Project setup, build tooling, base architecture
 - [x] **Phase 2: Receipt Processing** - Camera capture, file upload, OCR integration
 - [x] **Phase 2.1: Receipt Fixes** - Bug fixes and improvements before session management (INSERTED)
-- [ ] **Phase 3: Session Management** - Code generation, QR codes, session creation/joining
+- [x] **Phase 3: Session Management** - Code generation, QR codes, session creation/joining
 - [ ] **Phase 4: Real-Time Sync** - WebSocket/real-time infrastructure for live updates
 - [ ] **Phase 5: Item Management** - Claim/unclaim items, edit line items, split handling
 - [ ] **Phase 6: Calculation Engine** - Tax distribution, tip calculation, per-person totals
@@ -77,9 +77,9 @@ Plans:
 **Plans**: TBD
 
 Plans:
-- [ ] 03-01: Session creation and code generation
+- [x] 03-01: Session creation and code generation
 - [x] 03-02: Share code display with copy functionality
-- [ ] 03-03: Join session flow with display name entry
+- [x] 03-03: Join session flow with display name entry
 
 ### Phase 4: Real-Time Sync
 **Goal**: Implement real-time synchronization so all participants see instant updates
@@ -147,7 +147,7 @@ Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 4 → 5 → 6 → 7 �
 | 1. Foundation | 3/3 | Complete | 2026-01-14 |
 | 2. Receipt Processing | 3/3 | Complete | 2026-01-14 |
 | 2.1 Receipt Fixes | 2/2 | Complete | 2026-01-14 |
-| 3. Session Management | 1/3 | In progress | - |
+| 3. Session Management | 3/3 | Complete | 2026-01-14 |
 | 4. Real-Time Sync | 0/3 | Not started | - |
 | 5. Item Management | 0/3 | Not started | - |
 | 6. Calculation Engine | 0/3 | Not started | - |
