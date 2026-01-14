@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-01-14)
 Phase: 1 of 8 (Foundation)
 Plan: 3 of 3 in current phase
 Status: Phase complete
-Last activity: 2026-01-14 — Completed 01-03-PLAN.md
+Last activity: 2026-01-14 — Completed 01-02-PLAN.md (all plans now complete)
 
 Progress: █░░░░░░░░░ 12%
 
@@ -43,6 +43,8 @@ Recent decisions affecting current work:
 | Phase | Decision | Rationale |
 |-------|----------|-----------|
 | 01-01 | TailwindCSS v4 with Vite plugin | v4 uses Vite plugin instead of PostCSS config |
+| 01-02 | max-w-md (448px) container width | Mobile-first design with clean desktop view |
+| 01-02 | TailwindCSS @utility for safe-area | v4 syntax for custom utility classes |
 | 01-03 | Prices in cents | Avoid floating point issues |
 | 01-03 | Denormalized sessionId in claims | Efficient session-scoped queries |
 | 01-03 | Separate claims table | Support multiple people claiming same item |
@@ -62,5 +64,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-14
-Stopped at: Completed 01-03-PLAN.md (Phase 1 complete)
+Stopped at: Completed 01-02-PLAN.md (Phase 1 now fully complete with all 3 plans)
 Resume file: None
