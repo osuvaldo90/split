@@ -13,7 +13,8 @@ interface InlineItemProps {
 }
 
 export default function InlineItem({ item }: InlineItemProps) {
-  const [isEditing, setIsEditing] = useState(false);
+  // New items (empty name) auto-enter edit mode
+  const [isEditing, setIsEditing] = useState(item.name === "");
 
   // Local state for editing
   const [editName, setEditName] = useState(item.name);
