@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-01-14)
 
 **Core value:** Seamless, real-time collaborative bill splitting that works instantly for anyone with a phone and a browser.
-**Current focus:** Phase 2.1 — Receipt Fixes (INSERTED)
+**Current focus:** Phase 3 — Session Management
 
 ## Current Position
 
-Phase: 2.1 of 8 (Receipt Fixes)
-Plan: 2 of 2 in current phase
-Status: Phase complete
-Last activity: 2026-01-14 — Completed 02.1-01-PLAN.md
+Phase: 3 of 8 (Session Management)
+Plan: 0 of 3 in current phase
+Status: Ready to plan
+Last activity: 2026-01-14 — Completed Phase 2.1
 
 Progress: ███████░░░ 30%
 
