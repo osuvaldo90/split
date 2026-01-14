@@ -1,11 +1,9 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useQuery, useAction } from "convex/react";
+import { useQuery, useAction, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { Id } from "../../convex/_generated/dataModel";
 import ReceiptCapture from "../components/ReceiptCapture";
-import ReceiptReview from "../components/ReceiptReview";
-import type { ParsedReceipt } from "../../convex/actions/parseReceipt";
 
 // Share code component with copy functionality
 function ShareCode({ code }: { code: string }) {
@@ -48,11 +46,6 @@ type ReceiptState =
   | { step: "idle" }
   | { step: "uploading" }
   | { step: "processing"; storageId: Id<"_storage"> }
-  | {
-      step: "reviewing";
-      data: Exclude<ParsedReceipt, { error: string }>;
-      storageId: Id<"_storage">;
-    }
   | { step: "error"; message: string };
 
 export default function Session() {
@@ -76,11 +69,14 @@ export default function Session() {
     session ? { sessionId: session._id } : "skip"
   );
 
-  // Parse receipt action
+  // Parse receipt action and mutations for saving items directly
   const parseReceipt = useAction(api.actions.parseReceipt.parseReceipt);
+  const addBulk = useMutation(api.items.addBulk);
+  const updateTotals = useMutation(api.sessions.updateTotals);
 
-  // Handle receipt upload - triggers OCR processing
+  // Handle receipt upload - triggers OCR processing and saves items directly
   async function handleReceiptUpload(storageId: Id<"_storage">) {
+    if (!session) return;
     setReceiptState({ step: "processing", storageId });
 
     try {
@@ -95,11 +91,26 @@ export default function Session() {
         return;
       }
 
-      setReceiptState({
-        step: "reviewing",
-        data: result,
-        storageId,
-      });
+      // Convert prices from dollars to cents and save items directly
+      const itemsInCents = result.items.map((item) => ({
+        name: item.name,
+        price: Math.round(item.price * 100),
+        quantity: item.quantity,
+      }));
+
+      await addBulk({ sessionId: session._id, items: itemsInCents });
+
+      // Update session totals if provided (convert to cents)
+      if (result.subtotal !== null && result.tax !== null) {
+        await updateTotals({
+          sessionId: session._id,
+          subtotal: Math.round(result.subtotal * 100),
+          tax: Math.round(result.tax * 100),
+        });
+      }
+
+      // Reset to idle - items are now visible via real-time query
+      setReceiptState({ step: "idle" });
     } catch (error) {
       setReceiptState({
         step: "error",
@@ -107,16 +118,6 @@ export default function Session() {
           error instanceof Error ? error.message : "Unknown error occurred",
       });
     }
-  }
-
-  // Handle review confirmation
-  function handleReviewConfirm() {
-    setReceiptState({ step: "idle" });
-  }
-
-  // Handle review cancel
-  function handleReviewCancel() {
-    setReceiptState({ step: "idle" });
   }
 
   // Handle retry after error
@@ -216,18 +217,6 @@ export default function Session() {
               Extracting items with AI
             </p>
           </div>
-        )}
-
-        {/* Reviewing state */}
-        {receiptState.step === "reviewing" && (
-          <ReceiptReview
-            initialItems={receiptState.data.items}
-            initialSubtotal={receiptState.data.subtotal}
-            initialTax={receiptState.data.tax}
-            sessionId={session._id}
-            onConfirm={handleReviewConfirm}
-            onCancel={handleReviewCancel}
-          />
         )}
 
         {/* Error state */}
