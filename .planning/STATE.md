@@ -60,8 +60,9 @@ None yet.
 
 ### Pending Todos
 
-1 todo in `.planning/todos/pending/`:
+2 todos in `.planning/todos/pending/`:
 - **Detect auto-gratuity on receipts** (api) — OCR should detect pre-added tips/service charges
+- **Split quantity items into separate lines** (api) — "2 Pilsner $13" → 2x "Pilsner" at $6.50
 
 ### Blockers/Concerns
 
