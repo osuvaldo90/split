@@ -18,6 +18,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Foundation** - Project setup, build tooling, base architecture
 - [x] **Phase 2: Receipt Processing** - Camera capture, file upload, OCR integration
+- [x] **Phase 2.1: Receipt Fixes** - Bug fixes and improvements before session management (INSERTED)
 - [ ] **Phase 3: Session Management** - Code generation, QR codes, session creation/joining
 - [ ] **Phase 4: Real-Time Sync** - WebSocket/real-time infrastructure for live updates
 - [ ] **Phase 5: Item Management** - Claim/unclaim items, edit line items, split handling
@@ -50,9 +51,28 @@ Plans:
 - [x] 02-02: OCR integration and line item extraction
 - [x] 02-03: Receipt parsing and error correction UI
 
+### Phase 2.1: Receipt Fixes (INSERTED)
+**Goal**: Fix bugs and improvements discovered during Phase 2 before moving to session management
+**Depends on**: Phase 2
+**Research**: Unlikely (bug fixes)
+**Plans**: TBD
+
+Fixes included:
+- Receipt upload should replace items, not append
+- Format money inputs consistently ($4.8 → $4.80)
+- Split quantity items into separate lines (2 Pilsner $13 → 2x Pilsner $6.50)
+
+Deferred to later phases:
+- Auto-gratuity detection → Phase 6 (Calculation Engine)
+- Item count input UX → Phase 8 (Polish)
+
+Plans:
+- [x] 02.1-01: Receipt upload replace and money formatting
+- [x] 02.1-02: Quantity item splitting in OCR
+
 ### Phase 3: Session Management
 **Goal**: Generate shareable codes/QR, enable session creation and joining with display names
-**Depends on**: Phase 1
+**Depends on**: Phase 2.1
 **Research**: Unlikely (standard patterns)
 **Plans**: TBD
 
@@ -120,12 +140,13 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8
+Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 4 → 5 → 6 → 7 → 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Foundation | 3/3 | Complete | 2026-01-14 |
 | 2. Receipt Processing | 3/3 | Complete | 2026-01-14 |
+| 2.1 Receipt Fixes | 2/2 | Complete | 2026-01-14 |
 | 3. Session Management | 0/3 | Not started | - |
 | 4. Real-Time Sync | 0/3 | Not started | - |
 | 5. Item Management | 0/3 | Not started | - |

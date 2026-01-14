@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-14)
 
 **Core value:** Seamless, real-time collaborative bill splitting that works instantly for anyone with a phone and a browser.
-**Current focus:** Phase 3 — Session Management
+**Current focus:** Phase 2.1 — Receipt Fixes (INSERTED)
 
 ## Current Position
 
-Phase: 3 of 8 (Session Management)
-Plan: 0 of 3 in current phase
-Status: Ready to plan
-Last activity: 2026-01-14 — Completed Phase 2
+Phase: 2.1 of 8 (Receipt Fixes)
+Plan: 2 of 3 in current phase
+Status: In progress
+Last activity: 2026-01-14 — Completed 02.1-02-PLAN.md
 
-Progress: ██████░░░░ 25%
+Progress: ██████░░░░ 27%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 6
-- Average duration: 5 min
-- Total execution time: 0.4 hours
+- Total plans completed: 8
+- Average duration: 4 min
+- Total execution time: 0.5 hours
 
 **By Phase:**
 
@@ -29,10 +29,11 @@ Progress: ██████░░░░ 25%
 |-------|-------|-------|----------|
 | 01-foundation | 3 | 17 min | 6 min |
 | 02-receipt-processing | 3 | 8 min | 3 min |
+| 02.1-receipt-fixes | 2 | 2 min | 1 min |
 
 **Recent Trend:**
-- Last 5 plans: 2 min, 2 min, 3 min, 3 min
-- Trend: stable
+- Last 5 plans: 2 min, 3 min, 3 min, 1 min, 1 min
+- Trend: improving
 
 ## Accumulated Context
 
@@ -53,19 +54,26 @@ Recent decisions affecting current work:
 | 02-01 | Separate camera/upload buttons | Clear user intent for each action |
 | 02-02 | claude-sonnet-4-5-20250514 for OCR | Best balance of cost and accuracy |
 | 02-02 | Return parse errors with raw response | Allow UI to handle gracefully, aids debugging |
+| 02.1-02 | Extra cent to first item for odd price division | Consistent rounding strategy for split items |
 
 ### Deferred Issues
 
-5 todos deferred to later phase (in `.planning/todos/pending/`):
-- **Detect auto-gratuity on receipts** (api) — OCR should detect pre-added tips/service charges
-- **Split quantity items into separate lines** (api) — "2 Pilsner $13" → 2x "Pilsner" at $6.50
-- **Format money inputs consistently** (ui) — "$4.80" showing as "4.8"
-- **Improve item count input UX** (ui) — count input disappears at 1
-- **Receipt upload should replace items, not append** (ui) — uploading new receipt appends instead of replacing
+2 todos deferred to later phases (in `.planning/todos/pending/`):
+- **Detect auto-gratuity on receipts** (api) → Phase 6 (Calculation Engine)
+- **Improve item count input UX** (ui) → Phase 8 (Polish)
+
+### Roadmap Evolution
+
+- Phase 2.1 inserted after Phase 2: Receipt Fixes (URGENT) — 3 bugs moved from deferred to fix now
 
 ### Pending Todos
 
-None — all deferred.
+1 todo remaining for Phase 2.1 (in `.planning/todos/in-progress/`):
+- Format money inputs consistently
+
+Completed this session:
+- Receipt upload should replace items, not append (02.1-01)
+- Split quantity items into separate lines (02.1-02)
 
 ### Blockers/Concerns
 
@@ -73,6 +81,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-14
-Stopped at: Completed Phase 2
+Last session: 2026-01-14T20:14:58Z
+Stopped at: Completed 02.1-02-PLAN.md
 Resume file: None
