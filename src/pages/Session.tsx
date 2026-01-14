@@ -7,6 +7,42 @@ import ReceiptCapture from "../components/ReceiptCapture";
 import ReceiptReview from "../components/ReceiptReview";
 import type { ParsedReceipt } from "../../convex/actions/parseReceipt";
 
+// Share code component with copy functionality
+function ShareCode({ code }: { code: string }) {
+  const [copied, setCopied] = useState(false);
+
+  async function handleCopy() {
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch (err) {
+      // Fallback for browsers without clipboard API
+      console.error("Failed to copy:", err);
+    }
+  }
+
+  return (
+    <div className="mb-6 p-4 bg-blue-50 rounded-lg">
+      <h2 className="text-lg font-semibold mb-2">Share this bill</h2>
+      <p className="text-sm text-gray-600 mb-3">
+        Give this code to friends to join
+      </p>
+      <div className="flex items-center gap-3">
+        <span className="text-3xl font-mono font-bold tracking-widest text-blue-600">
+          {code}
+        </span>
+        <button
+          onClick={handleCopy}
+          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors text-sm font-medium min-w-[100px]"
+        >
+          {copied ? "Copied!" : "Copy code"}
+        </button>
+      </div>
+    </div>
+  );
+}
+
 // Receipt processing state machine
 type ReceiptState =
   | { step: "idle" }
@@ -110,6 +146,9 @@ export default function Session() {
         <h1 className="text-2xl font-bold">Session: {session.code}</h1>
         <p className="text-gray-600">Hosted by {session.hostName}</p>
       </div>
+
+      {/* Share code section - shown when items exist */}
+      {items && items.length > 0 && <ShareCode code={session.code} />}
 
       {/* Receipt section */}
       <div className="mb-6">
