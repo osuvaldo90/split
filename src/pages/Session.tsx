@@ -70,6 +70,12 @@ export default function Session() {
     session ? { sessionId: session._id } : "skip"
   );
 
+  // Fetch participants for this session
+  const participants = useQuery(
+    api.participants.listBySession,
+    session ? { sessionId: session._id } : "skip"
+  );
+
   // Parse receipt action
   const parseReceipt = useAction(api.actions.parseReceipt.parseReceipt);
 
@@ -149,6 +155,30 @@ export default function Session() {
 
       {/* Share code section - shown when items exist */}
       {items && items.length > 0 && <ShareCode code={session.code} />}
+
+      {/* Participants list */}
+      {participants && participants.length > 0 && (
+        <div className="mb-6">
+          <h2 className="text-lg font-semibold mb-3">
+            Who's here ({participants.length})
+          </h2>
+          <div className="space-y-2">
+            {[...participants]
+              .sort((a, b) => a.joinedAt - b.joinedAt)
+              .map((participant) => (
+                <div
+                  key={participant._id}
+                  className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg"
+                >
+                  <span className="font-medium">{participant.name}</span>
+                  {participant.isHost && (
+                    <span className="text-xs text-gray-500">(host)</span>
+                  )}
+                </div>
+              ))}
+          </div>
+        </div>
+      )}
 
       {/* Receipt section */}
       <div className="mb-6">
