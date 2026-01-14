@@ -8,6 +8,10 @@
  * @module
  */
 
+import type * as claims from "../claims.js";
+import type * as items from "../items.js";
+import type * as participants from "../participants.js";
+import type * as sessions from "../sessions.js";
 import type * as test from "../test.js";
 
 import type {
@@ -17,6 +21,10 @@ import type {
 } from "convex/server";
 
 declare const fullApi: ApiFromModules<{
+  claims: typeof claims;
+  items: typeof items;
+  participants: typeof participants;
+  sessions: typeof sessions;
   test: typeof test;
 }>;
 
