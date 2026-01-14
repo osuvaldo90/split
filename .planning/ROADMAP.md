@@ -20,6 +20,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Receipt Processing** - Camera capture, file upload, OCR integration
 - [x] **Phase 2.1: Receipt Fixes** - Bug fixes and improvements before session management (INSERTED)
 - [x] **Phase 3: Session Management** - Code generation, QR codes, session creation/joining
+- [ ] **Phase 3.1: Inline Item Editing** - Remove confirm step, collaborative item editing (INSERTED)
 - [ ] **Phase 4: Real-Time Sync** - WebSocket/real-time infrastructure for live updates
 - [ ] **Phase 5: Item Management** - Claim/unclaim items, edit line items, split handling
 - [ ] **Phase 6: Calculation Engine** - Tax distribution, tip calculation, per-person totals
@@ -81,9 +82,25 @@ Plans:
 - [x] 03-02: Share code display with copy functionality
 - [x] 03-03: Join session flow with display name entry
 
+### Phase 3.1: Inline Item Editing (INSERTED)
+**Goal**: Remove confirm step and enable collaborative inline item editing for all participants
+**Depends on**: Phase 3
+**Research**: Unlikely (UI refactoring)
+**Plans**: TBD
+
+Changes:
+- Remove separate confirm step after receipt scan
+- Items appear directly in session view after OCR
+- Inline edit button for each item (name, price)
+- "Add Item" button available for ALL users (not just host)
+- Any participant can fix OCR mistakes
+
+Plans:
+- [ ] 03.1-01: TBD (run /gsd:plan-phase 3.1 to break down)
+
 ### Phase 4: Real-Time Sync
 **Goal**: Enhance real-time UX with session persistence, join notifications, and connection status
-**Depends on**: Phase 3
+**Depends on**: Phase 3.1
 **Research**: No (Convex provides real-time sync; this phase adds UX polish)
 **Plans**: 3
 
@@ -139,7 +156,7 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 4 → 5 → 6 → 7 → 8
+Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 6 → 7 → 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -147,6 +164,7 @@ Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 4 → 5 → 6 → 7 �
 | 2. Receipt Processing | 3/3 | Complete | 2026-01-14 |
 | 2.1 Receipt Fixes | 2/2 | Complete | 2026-01-14 |
 | 3. Session Management | 3/3 | Complete | 2026-01-14 |
+| 3.1 Inline Item Editing | 0/? | Not started | - |
 | 4. Real-Time Sync | 0/3 | Not started | - |
 | 5. Item Management | 0/3 | Not started | - |
 | 6. Calculation Engine | 0/3 | Not started | - |

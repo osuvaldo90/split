@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-01-14)
 
 **Core value:** Seamless, real-time collaborative bill splitting that works instantly for anyone with a phone and a browser.
-**Current focus:** Phase 4 — Real-Time Sync
+**Current focus:** Phase 3.1 — Inline Item Editing
 
 ## Current Position
 
-Phase: 3 of 8 (Session Management) — Complete
-Plan: FIX complete (UAT issues resolved)
-Status: Phase complete, ready for Phase 4
-Last activity: 2026-01-14 — Completed 03-FIX-PLAN.md
+Phase: 3.1 of 8 (Inline Item Editing) — Not started
+Plan: None yet
+Status: Phase inserted, ready for planning
+Last activity: 2026-01-14 — Inserted Phase 3.1 from todo
 
 Progress: █████████░ 45%
 
@@ -67,11 +67,12 @@ Recent decisions affecting current work:
 ### Roadmap Evolution
 
 - Phase 2.1 inserted after Phase 2: Receipt Fixes (URGENT) — 3 bugs moved from deferred to fix now
+- Phase 3.1 inserted after Phase 3: Inline Item Editing (URGENT) — remove confirm step, collaborative editing
 
 ### Pending Todos
 
-8 todos in `.planning/todos/pending/`:
-- **User-friendly error messages** (ui) — NEW
+7 todos in `.planning/todos/pending/`:
+- **User-friendly error messages** (ui)
 
 ### Blockers/Concerns
 
