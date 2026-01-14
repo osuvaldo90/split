@@ -23,7 +23,7 @@ export default function ItemEditor({ item, onChange, onDelete }: ItemEditorProps
           <span className="text-gray-500">$</span>
           <input
             type="number"
-            value={item.price}
+            value={item.price.toFixed(2)}
             onChange={(e) =>
               onChange({ ...item, price: parseFloat(e.target.value) || 0 })
             }

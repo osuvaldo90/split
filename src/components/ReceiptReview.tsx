@@ -126,7 +126,7 @@ export default function ReceiptReview({
             <span className="text-gray-500">$</span>
             <input
               type="number"
-              value={subtotal ?? ""}
+              value={subtotal?.toFixed(2) ?? ""}
               onChange={(e) =>
                 setSubtotal(e.target.value ? parseFloat(e.target.value) : null)
               }
@@ -144,7 +144,7 @@ export default function ReceiptReview({
             <span className="text-gray-500">$</span>
             <input
               type="number"
-              value={tax ?? ""}
+              value={tax?.toFixed(2) ?? ""}
               onChange={(e) =>
                 setTax(e.target.value ? parseFloat(e.target.value) : null)
               }
