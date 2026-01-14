@@ -19,9 +19,26 @@ export const join = mutation({
     name: v.string(),
   },
   handler: async (ctx, args) => {
+    const trimmedName = args.name.trim();
+
+    // Check for duplicate names (case-insensitive)
+    const existingParticipants = await ctx.db
+      .query("participants")
+      .withIndex("by_session", (q) => q.eq("sessionId", args.sessionId))
+      .collect();
+
+    const nameLower = trimmedName.toLowerCase();
+    const duplicate = existingParticipants.find(
+      (p) => p.name.toLowerCase() === nameLower
+    );
+
+    if (duplicate) {
+      throw new Error("Name already taken in this session");
+    }
+
     const participantId = await ctx.db.insert("participants", {
       sessionId: args.sessionId,
-      name: args.name.trim(),
+      name: trimmedName,
       isHost: false,
       joinedAt: Date.now(),
     });
