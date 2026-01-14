@@ -60,7 +60,8 @@ None yet.
 
 ### Pending Todos
 
-None yet.
+1 todo in `.planning/todos/pending/`:
+- **Detect auto-gratuity on receipts** (api) — OCR should detect pre-added tips/service charges
 
 ### Blockers/Concerns
 
