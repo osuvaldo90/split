@@ -1,6 +1,7 @@
 ---
 created: 2026-01-14T16:14
-title: Allow user to edit items after confirming
+updated: 2026-01-14T22:35
+title: Remove confirm step, inline item editing for all users
 area: ui
 files:
   - src/pages/Session.tsx
@@ -9,21 +10,22 @@ files:
 
 ## Problem
 
-Currently, once a user confirms items from a receipt scan, they cannot edit them. If someone notices a mistake (wrong price, missing item, typo in name), they're stuck with the incorrect data.
+Current flow has a separate "confirm" step after receipt scan. This adds friction:
+- Users must explicitly confirm before items appear in the session
+- Once confirmed, items can't be easily edited
+- Only the session creator can add/modify items
 
 In a real restaurant scenario:
-- Receipts often get OCR'd incorrectly
-- Users realize mistakes only after seeing the full list
-- Need ability to correct items without re-scanning
+- OCR often gets items wrong
+- Anyone at the table might notice mistakes
+- Need quick inline corrections without modal/confirm flows
 
 ## Solution
 
-Add an "Edit Items" button or mode to the session view that:
-1. Shows the confirmed items in editable form (reuse ItemEditor component)
-2. Allows adding/removing/modifying items
-3. Saves changes back to the database
+Remove the confirm step entirely. After receipt scan:
+1. Items appear directly in the regular session view
+2. Each item has an edit button for inline correction (name, price)
+3. "Add Item" button is always present for ALL users (not just host)
+4. Any participant can fix mistakes they notice
 
-TBD:
-- Where should the edit button live in the UI?
-- Should editing be inline or open a modal/separate view?
-- Who can edit: only session creator or any participant?
+This creates a more collaborative, fluid experience matching how people actually split bills at a restaurant.
