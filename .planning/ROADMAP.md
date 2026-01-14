@@ -82,16 +82,15 @@ Plans:
 - [x] 03-03: Join session flow with display name entry
 
 ### Phase 4: Real-Time Sync
-**Goal**: Implement real-time synchronization so all participants see instant updates
+**Goal**: Enhance real-time UX with session persistence, join notifications, and connection status
 **Depends on**: Phase 3
-**Research**: Likely (real-time architecture)
-**Research topics**: WebSocket vs SSE vs managed services (Supabase Realtime, Pusher, Ably), hosting implications, connection handling
-**Plans**: TBD
+**Research**: No (Convex provides real-time sync; this phase adds UX polish)
+**Plans**: 3
 
 Plans:
-- [ ] 04-01: Real-time infrastructure setup
-- [ ] 04-02: Session state sync implementation
-- [ ] 04-03: Conflict resolution and reconnection handling
+- [ ] 04-01: Participant session persistence (localStorage auto-rejoin)
+- [ ] 04-02: Join notifications and connection status indicator
+- [ ] 04-03: Visual verification of real-time features
 
 ### Phase 5: Item Management
 **Goal**: Enable claiming/unclaiming items with real-time updates, support shared item splitting
