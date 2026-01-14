@@ -7,11 +7,17 @@
 <research_summary>
 ## Summary
 
-Researched the real-time sync ecosystem for building a collaborative bill-splitting app. The key requirement is instant synchronization across multiple users (host + participants) with a simple session-based model, mobile-first, no offline requirements.
+Researched the real-time sync ecosystem and OCR integration options for building a collaborative bill-splitting app. Key requirements: instant synchronization across multiple users (host + participants), mobile-first, receipt scanning with line item extraction.
 
-**Finding:** For this specific use case (ephemeral sessions, simple state, collaborative claiming), **Convex** emerges as the strongest choice due to automatic real-time sync, excellent developer experience, strong Claude/AI tooling familiarity, and a generous free tier. **Supabase** is a close second with broader ecosystem and MCP integration, but requires more manual real-time setup.
+**Real-time sync:** For this use case (ephemeral sessions, simple state, collaborative claiming), **Convex** emerges as the strongest choice due to automatic real-time sync, excellent developer experience, strong Claude/AI tooling familiarity, and a generous free tier. **Supabase** is a close second with broader ecosystem and MCP integration, but requires more manual real-time setup.
 
-**Primary recommendation:** Use Convex for real-time state management + React. The `useQuery` hook provides automatic UI updates when data changes, eliminating manual subscription management. Claude has extensive documentation access and the TypeScript-native approach aligns well with AI-assisted development.
+**OCR/Receipt parsing:** **Claude Vision API** is recommended over traditional OCR. LLM vision achieves 97% accuracy on receipts vs 50-85% for Tesseract.js on phone photos. Single API call returns structured JSON—no parsing pipeline needed. Cost-effective at moderate scale (~$0.01-0.03/receipt).
+
+**Primary recommendations:**
+1. **Convex** for real-time state management + React
+2. **Claude Vision API** for receipt OCR (via Convex Actions)
+
+This stack is TypeScript-native end-to-end, which aligns well with Claude-assisted development.
 </research_summary>
 
 <standard_stack>
