@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect, useMemo } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useQuery, useAction, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { Id } from "../../convex/_generated/dataModel";
@@ -194,11 +194,15 @@ export default function Session() {
   // Session not found
   if (session === null) {
     return (
-      <div className="p-4">
-        <h1 className="text-2xl font-bold text-red-600">Session Not Found</h1>
-        <p className="text-gray-600 mt-2">
-          No session found with code: {code}
+      <div className="p-4 text-center">
+        <h1 className="text-xl font-semibold text-gray-900 mb-2">Bill Not Found</h1>
+        <p className="text-gray-600 mb-4">
+          Code "{code}" doesn't match any active bill.
+          It might have expired or there's a typo.
         </p>
+        <Link to="/" className="text-blue-500 hover:text-blue-600 font-medium">
+          ← Start a new bill
+        </Link>
       </div>
     );
   }
