@@ -205,3 +205,242 @@ describe("duplicate name handling", () => {
     expect(aliceInSession2).toBeDefined();
   });
 });
+
+describe("claim idempotency", () => {
+  it("returns same claim ID when claiming twice (BTEST-19)", async () => {
+    const t = convexTest(schema);
+
+    // Setup: Create session with item and participant
+    const { sessionId, hostParticipantId } = await t.mutation(
+      api.sessions.create,
+      { hostName: "Host" }
+    );
+
+    const itemId = await t.mutation(api.items.add, {
+      sessionId,
+      participantId: hostParticipantId,
+      name: "Pizza",
+      price: 1500,
+    });
+
+    // Action: Claim the same item twice
+    const firstClaimId = await t.mutation(api.claims.claim, {
+      sessionId,
+      itemId,
+      participantId: hostParticipantId,
+    });
+
+    const secondClaimId = await t.mutation(api.claims.claim, {
+      sessionId,
+      itemId,
+      participantId: hostParticipantId,
+    });
+
+    // Verify: Same claim ID returned both times
+    expect(secondClaimId).toEqual(firstClaimId);
+  });
+
+  it("creates only one claim record after double-claim (BTEST-19)", async () => {
+    const t = convexTest(schema);
+
+    // Setup: Create session with item and participant
+    const { sessionId, hostParticipantId } = await t.mutation(
+      api.sessions.create,
+      { hostName: "Host" }
+    );
+
+    const itemId = await t.mutation(api.items.add, {
+      sessionId,
+      participantId: hostParticipantId,
+      name: "Burger",
+      price: 1200,
+    });
+
+    // Action: Claim the same item twice
+    await t.mutation(api.claims.claim, {
+      sessionId,
+      itemId,
+      participantId: hostParticipantId,
+    });
+
+    await t.mutation(api.claims.claim, {
+      sessionId,
+      itemId,
+      participantId: hostParticipantId,
+    });
+
+    // Verify: Only one claim exists in database
+    const allClaims = await t.run(async (ctx) =>
+      ctx.db
+        .query("claims")
+        .withIndex("by_item", (q) => q.eq("itemId", itemId))
+        .collect()
+    );
+
+    expect(allClaims).toHaveLength(1);
+  });
+
+  it("properly creates claim on first call (BTEST-19)", async () => {
+    const t = convexTest(schema);
+
+    // Setup: Create session with item and participant
+    const { sessionId, hostParticipantId } = await t.mutation(
+      api.sessions.create,
+      { hostName: "Host" }
+    );
+
+    const itemId = await t.mutation(api.items.add, {
+      sessionId,
+      participantId: hostParticipantId,
+      name: "Salad",
+      price: 800,
+    });
+
+    // Action: Claim the item
+    const claimId = await t.mutation(api.claims.claim, {
+      sessionId,
+      itemId,
+      participantId: hostParticipantId,
+    });
+
+    // Verify: Claim has correct properties
+    const claim = await t.run(async (ctx) => ctx.db.get(claimId));
+
+    expect(claim).not.toBeNull();
+    expect(claim?.sessionId).toEqual(sessionId);
+    expect(claim?.itemId).toEqual(itemId);
+    expect(claim?.participantId).toEqual(hostParticipantId);
+  });
+});
+
+describe("item removal cascade", () => {
+  it("deletes item when host removes it (BTEST-20)", async () => {
+    const t = convexTest(schema);
+
+    // Setup: Create session with item
+    const { sessionId, hostParticipantId } = await t.mutation(
+      api.sessions.create,
+      { hostName: "Host" }
+    );
+
+    const itemId = await t.mutation(api.items.add, {
+      sessionId,
+      participantId: hostParticipantId,
+      name: "Appetizer",
+      price: 900,
+    });
+
+    // Action: Host removes item
+    await t.mutation(api.items.remove, {
+      itemId,
+      participantId: hostParticipantId,
+    });
+
+    // Verify: Item is deleted
+    const item = await t.run(async (ctx) => ctx.db.get(itemId));
+    expect(item).toBeNull();
+  });
+
+  it("deletes all associated claims when item is removed (BTEST-20)", async () => {
+    const t = convexTest(schema);
+
+    // Setup: Create session with host, item, and 2 participants who claim it
+    const { sessionId, hostParticipantId } = await t.mutation(
+      api.sessions.create,
+      { hostName: "Host" }
+    );
+
+    const guest1Id = await t.mutation(api.participants.join, {
+      sessionId,
+      name: "Guest1",
+    });
+
+    const guest2Id = await t.mutation(api.participants.join, {
+      sessionId,
+      name: "Guest2",
+    });
+
+    const itemId = await t.mutation(api.items.add, {
+      sessionId,
+      participantId: hostParticipantId,
+      name: "Shared Nachos",
+      price: 1500,
+    });
+
+    // Both guests claim the item
+    await t.mutation(api.claims.claim, {
+      sessionId,
+      itemId,
+      participantId: guest1Id,
+    });
+
+    await t.mutation(api.claims.claim, {
+      sessionId,
+      itemId,
+      participantId: guest2Id,
+    });
+
+    // Verify: 2 claims exist before removal
+    const claimsBefore = await t.run(async (ctx) =>
+      ctx.db
+        .query("claims")
+        .withIndex("by_item", (q) => q.eq("itemId", itemId))
+        .collect()
+    );
+    expect(claimsBefore).toHaveLength(2);
+
+    // Action: Host removes item
+    await t.mutation(api.items.remove, {
+      itemId,
+      participantId: hostParticipantId,
+    });
+
+    // Verify: Both item and all claims are deleted
+    const item = await t.run(async (ctx) => ctx.db.get(itemId));
+    expect(item).toBeNull();
+
+    const claimsAfter = await t.run(async (ctx) =>
+      ctx.db
+        .query("claims")
+        .withIndex("by_item", (q) => q.eq("itemId", itemId))
+        .collect()
+    );
+    expect(claimsAfter).toHaveLength(0);
+  });
+
+  it("cascade deletion works even with no claims (BTEST-20)", async () => {
+    const t = convexTest(schema);
+
+    // Setup: Create session with unclaimed item
+    const { sessionId, hostParticipantId } = await t.mutation(
+      api.sessions.create,
+      { hostName: "Host" }
+    );
+
+    const itemId = await t.mutation(api.items.add, {
+      sessionId,
+      participantId: hostParticipantId,
+      name: "Unclaimed Item",
+      price: 500,
+    });
+
+    // Verify: No claims exist
+    const claimsBefore = await t.run(async (ctx) =>
+      ctx.db
+        .query("claims")
+        .withIndex("by_item", (q) => q.eq("itemId", itemId))
+        .collect()
+    );
+    expect(claimsBefore).toHaveLength(0);
+
+    // Action: Host removes item
+    await t.mutation(api.items.remove, {
+      itemId,
+      participantId: hostParticipantId,
+    });
+
+    // Verify: Item is deleted
+    const item = await t.run(async (ctx) => ctx.db.get(itemId));
+    expect(item).toBeNull();
+  });
+});
