@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-01-14)
 ## Current Position
 
 Phase: 5 of 8 (Item Management)
-Plan: 2 of 2 in current phase
-Status: Phase complete
-Last activity: 2026-01-15 — Completed 05-02-PLAN.md
+Plan: FIX complete (2 + FIX in current phase)
+Status: Phase complete, UAT fixes applied
+Last activity: 2026-01-15 — Completed 05-FIX-PLAN.md
 
 Progress: ██████████ 70%
 
@@ -33,7 +33,7 @@ Progress: ██████████ 70%
 | 03-session-management | 3 | 3 min | 1 min |
 | 03.1-inline-item-editing | 1 + FIX | 4 min | 2 min |
 | 04-real-time-sync | 3 | 10 min | 3 min |
-| 05-item-management | 2 | 6 min | 3 min |
+| 05-item-management | 2 + FIX | 8 min | 2.7 min |
 
 **Recent Trend:**
 - Last 5 plans: 2 min, 3 min, 5 min, 4 min, 2 min
@@ -71,6 +71,7 @@ Recent decisions affecting current work:
 | 05-01 | stopPropagation on edit button | Prevent edit tap from triggering claim toggle |
 | 05-02 | Blue left border accent for my claims | Visual hierarchy for claim ownership |
 | 05-02 | Host x buttons on claimer pills | Allow host to fix claim mistakes |
+| 05-FIX | Return hostParticipantId from create mutation | Enables host claiming without separate query |
 
 ### Deferred Issues
 
@@ -99,5 +100,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-15
-Stopped at: Completed 05-02-PLAN.md (Phase 5 complete)
+Stopped at: Completed 05-FIX-PLAN.md (UAT fixes applied)
 Resume file: None
