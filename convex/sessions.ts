@@ -133,10 +133,17 @@ export const updateTax = mutation({
 export const updateTotals = mutation({
   args: {
     sessionId: v.id("sessions"),
+    participantId: v.id("participants"),
     subtotal: v.number(),
     tax: v.number(),
   },
   handler: async (ctx, args) => {
+    // Verify participant exists and belongs to this session
+    const participant = await ctx.db.get(args.participantId);
+    if (!participant || participant.sessionId !== args.sessionId) {
+      throw new Error("Not authorized to update session totals");
+    }
+
     // Validate money amounts
     const validatedSubtotal = validateMoney(args.subtotal, "Subtotal");
     const validatedTax = validateMoney(args.tax, "Tax");
