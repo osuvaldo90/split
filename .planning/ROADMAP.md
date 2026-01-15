@@ -28,6 +28,8 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 7: Summary & Display** - Final totals screen, unclaimed warnings, receipt view
 - [x] **Phase 8: Polish & Optimization** - Mobile UX refinement, edge cases, performance
 - [ ] **Phase 9: UI/UX Improvements** - Receipt upload consolidation, edit layout refinements
+- [ ] **Phase 10: Feature Enhancements** - Session-to-bill rename, auto-gratuity detection, multi-item UX, bill history
+- [ ] **Phase 11: Security Review** - Security audit and hardening
 
 ## Phase Details
 
@@ -191,10 +193,46 @@ Files affected:
 Plans:
 - [ ] 09-01: TBD (run /gsd:plan-phase 9 to break down)
 
+### Phase 10: Feature Enhancements
+**Goal**: Rename sessions to bills, add auto-gratuity detection, improve multi-item UX, and add bill history
+**Depends on**: Phase 9
+**Research**: Unlikely (feature work based on existing patterns)
+**Plans**: TBD
+
+Scope from pending todos:
+- Rename concept of sessions to bills throughout codebase and UI
+- Detect auto-gratuity on receipts (OCR enhancement)
+- Better UX for multiple items in one line item
+- Add session history for previous bills
+
+Files affected:
+- All files with "session" references (rename to "bill")
+- src/lib/ocr.ts (auto-gratuity detection)
+- src/components/InlineItem.tsx (multi-item UX)
+- New: bill history components and storage
+
+Plans:
+- [ ] 10-01: TBD (run /gsd:plan-phase 10 to break down)
+
+### Phase 11: Security Review
+**Goal**: Comprehensive security audit and hardening of the application
+**Depends on**: Phase 10
+**Research**: Likely (security best practices review)
+**Plans**: TBD
+
+Scope from pending todos:
+- Security review of all API endpoints
+- Input validation audit
+- Authentication/authorization review
+- Data exposure analysis
+
+Plans:
+- [ ] 11-01: TBD (run /gsd:plan-phase 11 to break down)
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5.1 → 6 → 7 → 8 → 9
+Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5.1 → 6 → 7 → 8 → 9 → 10 → 11
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -210,3 +248,5 @@ Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5
 | 7. Summary & Display | 1/1 | Complete | 2026-01-15 |
 | 8. Polish & Optimization | 3/3 | Complete | 2026-01-15 |
 | 9. UI/UX Improvements | 0/TBD | Not started | - |
+| 10. Feature Enhancements | 0/TBD | Not started | - |
+| 11. Security Review | 0/TBD | Not started | - |

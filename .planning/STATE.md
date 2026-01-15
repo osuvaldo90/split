@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-01-14)
 
 ## Current Position
 
-Phase: 9 of 9 (UI/UX Improvements)
+Phase: 9 of 11 (UI/UX Improvements)
 Plan: 0 of TBD in current phase
 Status: Not started
 Last activity: 2026-01-15 — Added Phase 9
 
-Progress: ████████████████░░ 89%
+Progress: ██████████████░░░░ 77%
 
 ## Performance Metrics
 
@@ -101,20 +101,21 @@ Recent decisions affecting current work:
 - Phase 3.1 inserted after Phase 3: Inline Item Editing (URGENT) — remove confirm step, collaborative editing
 - Phase 5.1 inserted after Phase 5: Fix New Item Broadcast (URGENT) — hide new items from others until saved
 - Phase 9 added: UI/UX Improvements — receipt upload consolidation, edit layout refinements
+- Phase 10 added: Feature Enhancements — session-to-bill rename, auto-gratuity, multi-item UX, bill history
+- Phase 11 added: Security Review — comprehensive security audit
 
 ### Pending Todos
 
-10 todos in `.planning/todos/pending/`:
-- **Add security review phase** (general)
-- **Add session history for previous bills** (ui)
+5 todos in `.planning/todos/pending/` (5 organized into Phase 10-11):
 - **Allow host to remove users from session** (api)
-- **Better UX for multiple items in one line item** (ui)
 - **Bill ID tap opens native share sheet** (ui)
-- **Detect auto-gratuity on receipts** (api)
 - **First-time user getting started tutorial** (ui)
 - **Handle strange multi-frame scrolling issues** (ui)
-- **Rename concept of sessions to bills** (general)
 - **Use graph algorithm to minimize inter-person transactions** (api)
+
+Organized into phases:
+- Phase 10: Rename sessions to bills, Detect auto-gratuity, Better multi-item UX, Bill history
+- Phase 11: Security review
 
 ### Blockers/Concerns
 
