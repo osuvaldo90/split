@@ -55,14 +55,14 @@ export const create = mutation({
     });
 
     // Create host as first participant
-    await ctx.db.insert("participants", {
+    const hostParticipantId = await ctx.db.insert("participants", {
       sessionId,
       name: args.hostName.trim(),
       isHost: true,
       joinedAt: Date.now(),
     });
 
-    return { sessionId, code };
+    return { sessionId, code, hostParticipantId };
   },
 });
 

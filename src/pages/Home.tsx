@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useMutation } from "convex/react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../convex/_generated/api";
+import { storeParticipant } from "../lib/sessionStorage";
 
 export default function Home() {
   const [hostName, setHostName] = useState("");
@@ -14,7 +15,9 @@ export default function Home() {
 
     setIsCreating(true);
     try {
-      const { code } = await createSession({ hostName: hostName.trim() });
+      const { code, hostParticipantId } = await createSession({ hostName: hostName.trim() });
+      // Store host's participant ID for session persistence (enables claiming items)
+      storeParticipant(code, hostParticipantId);
       navigate(`/session/${code}`);
     } catch (error) {
       console.error("Failed to create session:", error);
