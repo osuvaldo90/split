@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-15)
 ## Current Position
 
 Phase: 16 of 19 (Authorization Tests)
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-01-15 — Phase 15 (Test Infrastructure) complete
+Plan: 01 of 01 complete
+Status: Phase complete
+Last activity: 2026-01-15 — Completed 16-01-PLAN.md
 
-Progress: ██░░░░░░░░ 20% (1/5 phases)
+Progress: ████░░░░░░ 40% (2/5 phases)
 
 ## Milestone Summary
 
@@ -34,6 +34,8 @@ See: [.planning/MILESTONES.md](.planning/MILESTONES.md)
 |-------|----------|-----------|
 | 15-01 | edge-runtime environment for Vitest | Required for Convex function testing to match production runtime |
 | 15-01 | webServer reuseExistingServer | Allows faster iteration when dev server already running |
+| 16-01 | environmentMatchGlobs for convex tests | convex-test requires node environment while calculations use edge-runtime |
+| 16-01 | server.deps.inline for convex-test | Required for import.meta.glob transformation in vitest |
 
 ## Pending Todos
 
@@ -47,7 +49,7 @@ See: [.planning/MILESTONES.md](.planning/MILESTONES.md)
 ## Session Continuity
 
 Last session: 2026-01-15
-Stopped at: Completed 15-01-PLAN.md
+Stopped at: Completed 16-01-PLAN.md
 Resume file: None
 
 ## Documentation
