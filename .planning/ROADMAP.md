@@ -36,8 +36,8 @@ Build a mobile-first real-time bill splitting web app from foundation through po
 | 15. Test Infrastructure          | v1.2      | 1/1            | Complete | 2026-01-15 |
 | 16. Authorization Tests          | v1.2      | 1/1            | Complete | 2026-01-15 |
 | 17. Calculation Tests            | v1.2      | 1/1            | Complete | 2026-01-15 |
-| 18. Mutation Tests               | v1.2      | 0/?            | Not started | - |
+| 18. Mutation Tests               | v1.2      | 1/1            | Complete | 2026-01-15 |
 | 19. E2E Tests                    | v1.2      | 0/?            | Not started | - |
 
 ---
-*Last updated: 2026-01-15 after completing Phase 17 Calculation Tests*
+*Last updated: 2026-01-15 after completing Phase 18 Mutation Tests*
