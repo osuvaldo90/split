@@ -1,5 +1,6 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
+import { validateItemName, validateMoney, validateQuantity } from "./validation";
 
 // List all items in a session
 export const listBySession = query({
@@ -27,11 +28,18 @@ export const add = mutation({
       throw new Error("Session not found");
     }
 
+    // Validate inputs
+    const validatedName = validateItemName(args.name);
+    const validatedPrice = validateMoney(args.price, "Price");
+    const validatedQuantity = args.quantity !== undefined
+      ? validateQuantity(args.quantity)
+      : 1;
+
     const itemId = await ctx.db.insert("items", {
       sessionId: args.sessionId,
-      name: args.name.trim(),
-      price: args.price,
-      quantity: args.quantity ?? 1,
+      name: validatedName,
+      price: validatedPrice,
+      quantity: validatedQuantity,
     });
     return itemId;
   },
@@ -56,10 +64,17 @@ export const update = mutation({
       throw new Error("Session not found");
     }
 
+    // Validate and build updates
     const updates: Record<string, unknown> = {};
-    if (args.name !== undefined) updates.name = args.name.trim();
-    if (args.price !== undefined) updates.price = args.price;
-    if (args.quantity !== undefined) updates.quantity = args.quantity;
+    if (args.name !== undefined) {
+      updates.name = validateItemName(args.name);
+    }
+    if (args.price !== undefined) {
+      updates.price = validateMoney(args.price, "Price");
+    }
+    if (args.quantity !== undefined) {
+      updates.quantity = validateQuantity(args.quantity);
+    }
 
     await ctx.db.patch(args.itemId, updates);
   },
@@ -115,6 +130,11 @@ export const addBulk = mutation({
     })),
   },
   handler: async (ctx, args) => {
+    // Validate array length to prevent DoS
+    if (args.items.length > 500) {
+      throw new Error("Too many items (max 500)");
+    }
+
     // Verify participant is host
     const participant = await ctx.db.get(args.participantId);
     if (!participant || !participant.isHost) {
@@ -125,6 +145,15 @@ export const addBulk = mutation({
     if (participant.sessionId !== args.sessionId) {
       throw new Error("Participant not in this session");
     }
+
+    // Validate all items before making any changes
+    const validatedItems = args.items.map((item) => ({
+      name: validateItemName(item.name),
+      price: validateMoney(item.price, "Price"),
+      quantity: item.quantity !== undefined
+        ? validateQuantity(item.quantity)
+        : 1,
+    }));
 
     // First, delete all existing items and their claims for this session
     const existingItems = await ctx.db
@@ -147,14 +176,14 @@ export const addBulk = mutation({
       await ctx.db.delete(item._id);
     }
 
-    // Now insert the new items
+    // Now insert the validated items
     const itemIds = [];
-    for (const item of args.items) {
+    for (const item of validatedItems) {
       const itemId = await ctx.db.insert("items", {
         sessionId: args.sessionId,
-        name: item.name.trim(),
+        name: item.name,
         price: item.price,
-        quantity: item.quantity ?? 1,
+        quantity: item.quantity,
       });
       itemIds.push(itemId);
     }
