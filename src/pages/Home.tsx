@@ -3,6 +3,7 @@ import { useMutation } from "convex/react";
 import { useNavigate } from "react-router-dom";
 import { api } from "../../convex/_generated/api";
 import { storeParticipant } from "../lib/sessionStorage";
+import { addBillToHistory } from "../lib/billHistory";
 
 export default function Home() {
   const [hostName, setHostName] = useState("");
@@ -18,6 +19,12 @@ export default function Home() {
       const { code, hostParticipantId } = await createSession({ hostName: hostName.trim() });
       // Store host's participant ID for session persistence (enables claiming items)
       storeParticipant(code, hostParticipantId);
+      // Add to bill history for quick access
+      addBillToHistory({
+        code,
+        participantName: hostName.trim(),
+        participantId: hostParticipantId,
+      });
       navigate(`/session/${code}`);
     } catch (error) {
       console.error("Failed to create session:", error);

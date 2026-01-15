@@ -8,6 +8,7 @@ import {
   storeParticipant,
   clearParticipant,
 } from "../lib/sessionStorage";
+import { addBillToHistory } from "../lib/billHistory";
 
 export default function Join() {
   const navigate = useNavigate();
@@ -106,6 +107,12 @@ export default function Join() {
       });
       // Store participant ID for session restoration on future visits
       storeParticipant(session.code, participantId);
+      // Add to bill history for quick access
+      addBillToHistory({
+        code: session.code,
+        participantName: name.trim(),
+        participantId,
+      });
       navigate(`/session/${session.code}`);
     } catch (err) {
       // Parse Convex error messages to extract user-friendly portion
