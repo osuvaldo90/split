@@ -36,6 +36,9 @@ export const get = query({
 export const create = mutation({
   args: { hostName: v.string() },
   handler: async (ctx, args) => {
+    // Validate input
+    const validatedHostName = validateName(args.hostName, "Host name");
+
     // Generate unique code (retry if collision)
     let code = generateCode();
     let attempts = 0;
@@ -51,14 +54,14 @@ export const create = mutation({
 
     const sessionId = await ctx.db.insert("sessions", {
       code,
-      hostName: args.hostName.trim(),
+      hostName: validatedHostName,
       createdAt: Date.now(),
     });
 
     // Create host as first participant
     const hostParticipantId = await ctx.db.insert("participants", {
       sessionId,
-      name: args.hostName.trim(),
+      name: validatedHostName,
       isHost: true,
       joinedAt: Date.now(),
     });
@@ -88,9 +91,17 @@ export const updateTip = mutation({
       throw new Error("Participant not in this session");
     }
 
+    // Validate tip value based on type
+    let validatedTipValue: number;
+    if (args.tipType === "manual") {
+      validatedTipValue = validateMoney(args.tipValue, "Tip amount");
+    } else {
+      validatedTipValue = validateTipPercent(args.tipValue);
+    }
+
     await ctx.db.patch(args.sessionId, {
       tipType: args.tipType,
-      tipValue: args.tipValue,
+      tipValue: validatedTipValue,
     });
   },
 });
@@ -111,7 +122,10 @@ export const updateTax = mutation({
       throw new Error("Participant not in this session");
     }
 
-    await ctx.db.patch(args.sessionId, { tax: args.tax });
+    // Validate tax amount
+    const validatedTax = validateMoney(args.tax, "Tax");
+
+    await ctx.db.patch(args.sessionId, { tax: validatedTax });
   },
 });
 
@@ -123,9 +137,13 @@ export const updateTotals = mutation({
     tax: v.number(),
   },
   handler: async (ctx, args) => {
+    // Validate money amounts
+    const validatedSubtotal = validateMoney(args.subtotal, "Subtotal");
+    const validatedTax = validateMoney(args.tax, "Tax");
+
     await ctx.db.patch(args.sessionId, {
-      subtotal: args.subtotal,
-      tax: args.tax,
+      subtotal: validatedSubtotal,
+      tax: validatedTax,
     });
   },
 });
@@ -146,6 +164,9 @@ export const updateGratuity = mutation({
       throw new Error("Participant not in this session");
     }
 
-    await ctx.db.patch(args.sessionId, { gratuity: args.gratuity });
+    // Validate gratuity amount
+    const validatedGratuity = validateMoney(args.gratuity, "Gratuity");
+
+    await ctx.db.patch(args.sessionId, { gratuity: validatedGratuity });
   },
 });

@@ -6,6 +6,7 @@ import {
   calculateTipShare,
   distributeWithRemainder,
 } from "./calculations";
+import { validateName } from "./validation";
 
 // List all participants in a session
 export const listBySession = query({
@@ -39,7 +40,8 @@ export const join = mutation({
       throw new Error("Session not found. Please check the code and try again.");
     }
 
-    const trimmedName = args.name.trim();
+    // Validate and trim name
+    const validatedName = validateName(args.name, "Name");
 
     // Check for duplicate names (case-insensitive)
     const existingParticipants = await ctx.db
@@ -47,7 +49,7 @@ export const join = mutation({
       .withIndex("by_session", (q) => q.eq("sessionId", args.sessionId))
       .collect();
 
-    const nameLower = trimmedName.toLowerCase();
+    const nameLower = validatedName.toLowerCase();
     const duplicate = existingParticipants.find(
       (p) => p.name.toLowerCase() === nameLower
     );
@@ -58,7 +60,7 @@ export const join = mutation({
 
     const participantId = await ctx.db.insert("participants", {
       sessionId: args.sessionId,
-      name: trimmedName,
+      name: validatedName,
       isHost: false,
       joinedAt: Date.now(),
     });
@@ -99,7 +101,8 @@ export const updateName = mutation({
       throw new Error("Not authorized to update this participant");
     }
 
-    const trimmedName = args.name.trim();
+    // Validate and trim name
+    const validatedName = validateName(args.name, "Name");
 
     // Check for duplicate names (case-insensitive)
     const existingParticipants = await ctx.db
@@ -107,7 +110,7 @@ export const updateName = mutation({
       .withIndex("by_session", (q) => q.eq("sessionId", targetParticipant.sessionId))
       .collect();
 
-    const nameLower = trimmedName.toLowerCase();
+    const nameLower = validatedName.toLowerCase();
     const duplicate = existingParticipants.find(
       (p) => p.name.toLowerCase() === nameLower && p._id !== args.participantId
     );
@@ -117,7 +120,7 @@ export const updateName = mutation({
     }
 
     await ctx.db.patch(args.participantId, {
-      name: trimmedName,
+      name: validatedName,
     });
   },
 });
