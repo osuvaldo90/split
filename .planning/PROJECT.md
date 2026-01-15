@@ -12,28 +12,34 @@ Seamless, real-time collaborative bill splitting that works instantly for anyone
 
 ### Validated
 
-(None yet — ship to validate)
+- ✓ Receipt capture via camera or file upload — v1.0
+- ✓ OCR processing to extract line items (name, price) — v1.0
+- ✓ Generate short alphanumeric code (6 chars) for session sharing — v1.0
+- ✓ Generate QR code linking directly to session — v1.0
+- ✓ Join session by entering code or scanning QR — v1.0
+- ✓ Enter display name when joining (no verification) — v1.0
+- ✓ Real-time sync across all participants on all screens — v1.0
+- ✓ View original receipt image (visible to all) — v1.0
+- ✓ Claim/unclaim items with instant updates — v1.0
+- ✓ Multiple people can claim same item (equal split) — v1.0
+- ✓ Anyone can edit line items to fix OCR errors — v1.0
+- ✓ Host sets tip: percentage on subtotal, percentage on subtotal+tax, or manual amount — v1.0
+- ✓ Tax distributed proportionally based on each person's share — v1.0
+- ✓ Summary screen showing everyone's totals — v1.0
+- ✓ Warning for unclaimed items (non-blocking) — v1.0
+- ✓ Session persists for days — v1.0
+- ✓ Support any group size (optimized for 2-15) — v1.0
+- ✓ Full visibility: everyone sees all claims by all participants — v1.0
+- ✓ Auto-gratuity detection from receipts — v1.0
+- ✓ Bill history on home screen — v1.0
+- ✓ Security hardening (authorization, input validation) — v1.0
 
 ### Active
 
-- [ ] Receipt capture via camera or file upload
-- [ ] OCR processing to extract line items (name, price)
-- [ ] Generate short alphanumeric code (6 chars) for session sharing
-- [ ] Generate QR code linking directly to session
-- [ ] Join session by entering code or scanning QR
-- [ ] Enter display name when joining (no verification)
-- [ ] Real-time sync across all participants on all screens
-- [ ] View original receipt image (visible to all)
-- [ ] Claim/unclaim items with instant updates
-- [ ] Multiple people can claim same item (equal split)
-- [ ] Anyone can edit line items to fix OCR errors
-- [ ] Host sets tip: percentage on subtotal, percentage on subtotal+tax, or manual amount
-- [ ] Tax distributed proportionally based on each person's share
-- [ ] Summary screen showing everyone's totals
-- [ ] Warning for unclaimed items (non-blocking)
-- [ ] Session persists for days
-- [ ] Support any group size (optimized for 2-15)
-- [ ] Full visibility: everyone sees all claims by all participants
+- [ ] Allow host to remove users from session
+- [ ] Bill ID tap opens native share sheet
+- [ ] Bottom tabs with route-based navigation
+- [ ] First-time user getting started tutorial
 
 ### Out of Scope
 
@@ -45,7 +51,9 @@ Seamless, real-time collaborative bill splitting that works instantly for anyone
 
 ## Context
 
-This is a personal tool for splitting bills with friends at restaurants. The primary use case is the common scenario where a group wants to split a bill by items rather than evenly. Currently this is done manually with calculators and confusion.
+Shipped v1.0 with 4,375 LOC TypeScript.
+Tech stack: Vite + React, Convex (real-time backend), TailwindCSS v4, Claude Vision for OCR.
+Built in 2 days using GSD workflow methodology.
 
 Key user journey:
 1. Host scans receipt → sees parsed line items
@@ -69,12 +77,18 @@ Real-time sync is critical because people are sitting together, looking at phone
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Equal split only for shared items | Simplifies v1, avoids complex portion tracking | — Pending |
-| Proportional tax distribution | Fairer than equal split when orders vary in size | — Pending |
-| No user accounts | Reduces friction to zero — anyone can join instantly | — Pending |
-| Days-long persistence | People may need to reference splits later | — Pending |
-| Anyone can edit items | Faster OCR error correction without bottleneck | — Pending |
-| Warning-only for unclaimed items | Flexible for edge cases, host can proceed | — Pending |
+| Equal split only for shared items | Simplifies v1, avoids complex portion tracking | ✓ Good |
+| Proportional tax distribution | Fairer than equal split when orders vary in size | ✓ Good |
+| No user accounts | Reduces friction to zero — anyone can join instantly | ✓ Good |
+| Days-long persistence | People may need to reference splits later | ✓ Good |
+| Anyone can edit items | Faster OCR error correction without bottleneck | ✓ Good |
+| Warning-only for unclaimed items | Flexible for edge cases, host can proceed | ✓ Good |
+| Claude Vision for OCR | Best balance of cost and accuracy vs Tesseract.js | ✓ Good |
+| Convex for real-time | Zero-config WebSockets, built-in file storage | ✓ Good |
+| TailwindCSS v4 | Vite plugin, native CSS custom properties | ✓ Good |
+| localStorage trust model | Acceptable for low-stakes bill splitting use case | ✓ Good |
+| Draft items in local state | Prevents empty items from broadcasting to others | ✓ Good |
+| Prices stored in cents | Avoids floating point rounding issues | ✓ Good |
 
 ---
-*Last updated: 2026-01-14 after initialization*
+*Last updated: 2026-01-15 after v1.0 milestone*
