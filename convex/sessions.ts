@@ -110,3 +110,14 @@ export const updateTotals = mutation({
     });
   },
 });
+
+// Update gratuity (auto-gratuity from receipt)
+export const updateGratuity = mutation({
+  args: {
+    sessionId: v.id("sessions"),
+    gratuity: v.number(), // in cents
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.sessionId, { gratuity: args.gratuity });
+  },
+});
