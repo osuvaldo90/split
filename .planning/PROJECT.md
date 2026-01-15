@@ -36,6 +36,12 @@ Seamless, real-time collaborative bill splitting that works instantly for anyone
 
 ### Active
 
+**v1.1 Access Control:**
+- [ ] Route protection with join prompt — direct `/bill/:id` requires joining before viewing
+- [ ] Participant authorization on mutations — verify caller is joined before allowing changes
+- [ ] Audit host-only checks — confirm tax/tip mutations enforce host restriction
+
+**Backlog:**
 - [ ] Allow host to remove users from session
 - [ ] Bill ID tap opens native share sheet
 - [ ] Bottom tabs with route-based navigation
@@ -90,5 +96,14 @@ Real-time sync is critical because people are sitting together, looking at phone
 | Draft items in local state | Prevents empty items from broadcasting to others | ✓ Good |
 | Prices stored in cents | Avoids floating point rounding issues | ✓ Good |
 
+## Current Milestone: v1.1 Access Control
+
+**Goal:** Secure bill sessions so only joined participants can view and mutate, with verified host-only restrictions for tax/tip.
+
+**Target features:**
+- Route protection with join prompt for direct `/bill/:id` access
+- Participant authorization on all Convex mutations
+- Audit and verify host-only checks on tax/tip settings
+
 ---
-*Last updated: 2026-01-15 after v1.0 milestone*
+*Last updated: 2026-01-15 after v1.1 milestone start*

@@ -5,28 +5,29 @@
 See: .planning/PROJECT.md (updated 2026-01-15)
 
 **Core value:** Seamless, real-time collaborative bill splitting that works instantly for anyone with a phone and a browser.
-**Current focus:** Planning next milestone
+**Current focus:** v1.1 Access Control
 
 ## Current Position
 
-Phase: v1.0 Complete
-Plan: All plans complete
-Status: MILESTONE SHIPPED
-Last activity: 2026-01-15 — v1.0 MVP milestone complete
+Phase: Not started (run /gsd:create-roadmap)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-01-15 — Milestone v1.1 started
 
-Progress: █████████████████████ 100% (13/13 phases complete)
+Progress: ░░░░░░░░░░░░░░░░░░░░░ 0%
 
 ## Milestone Summary
 
-**v1.0 MVP — SHIPPED 2026-01-15**
+**v1.1 Access Control — In Progress**
 
-- 18 phases (including 5 inserted phases)
-- 34 plans executed
-- 4,375 lines of TypeScript
-- 2 days from init to ship
+Target features:
+- Route protection with join prompt
+- Participant authorization on mutations
+- Host-only checks audit
+
+Previous: v1.0 MVP shipped 2026-01-15
 
 See: [.planning/MILESTONES.md](.planning/MILESTONES.md)
-Archive: [.planning/milestones/v1.0-ROADMAP.md](.planning/milestones/v1.0-ROADMAP.md)
 
 ## Pending Todos
 
@@ -40,7 +41,7 @@ Archive: [.planning/milestones/v1.0-ROADMAP.md](.planning/milestones/v1.0-ROADMA
 ## Session Continuity
 
 Last session: 2026-01-15
-Stopped at: v1.0 MVP milestone complete
+Stopped at: v1.1 milestone initialized
 Resume file: None
 
 ## Documentation
