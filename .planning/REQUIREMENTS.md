@@ -42,14 +42,14 @@ Which phases cover which requirements. Updated by create-roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| ACCESS-01 | TBD | Pending |
-| ACCESS-02 | TBD | Pending |
-| ACCESS-03 | TBD | Pending |
+| ACCESS-01 | Phase 14 | Pending |
+| ACCESS-02 | Phase 14 | Pending |
+| ACCESS-03 | Phase 14 | Pending |
 
 **Coverage:**
 - v1.1 requirements: 3 total
-- Mapped to phases: 0
-- Unmapped: 3 ⚠️
+- Mapped to phases: 3 ✓
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-01-15*

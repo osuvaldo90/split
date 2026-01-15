@@ -7,6 +7,7 @@ Build a mobile-first real-time bill splitting web app from foundation through po
 ## Milestones
 
 - ✅ **v1.0 MVP** — Phases 1-13 (shipped 2026-01-15)
+- 🚧 **v1.1 Access Control** — Phase 14 (in progress)
 
 ## Completed Milestones
 
@@ -58,3 +59,28 @@ Build a mobile-first real-time bill splitting web app from foundation through po
 | 11. Security Review              | v1.0      | 1/1            | Complete | 2026-01-15 |
 | 12. Security Hardening           | v1.0      | 4/4            | Complete | 2026-01-15 |
 | 13. Documentation                | v1.0      | 1/1            | Complete | 2026-01-15 |
+
+### 🚧 v1.1 Access Control (In Progress)
+
+**Milestone Goal:** Secure bill sessions so only joined participants can view and mutate, with verified host-only restrictions for tax/tip.
+
+#### Phase 14: Access Control
+**Goal**: Secure bill sessions with proper authorization
+**Depends on**: Phase 13 (builds on security hardening)
+**Requirements**: ACCESS-01, ACCESS-02, ACCESS-03
+**Success Criteria** (what must be TRUE):
+  1. User cannot view bill content at `/bill/:id` without first joining the session
+  2. All item/claim mutations fail for non-participants
+  3. Tax and tip mutations fail for non-hosts
+  4. Existing participants retain full functionality
+**Research**: Unlikely (internal Convex patterns, extends existing auth code)
+**Plans**: TBD
+
+Plans:
+- [ ] 14-01: TBD
+
+## v1.1 Progress
+
+| Phase | Milestone | Plans Complete | Status | Completed |
+|-------|-----------|----------------|--------|-----------|
+| 14. Access Control | v1.1 | 0/TBD | Not started | - |
