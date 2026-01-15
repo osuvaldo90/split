@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-15)
 ## Current Position
 
 Phase: 15 of 19 (Test Infrastructure)
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-01-15 — Roadmap created for v1.2
+Plan: 1 of 1 complete
+Status: Phase complete
+Last activity: 2026-01-15 — Completed 15-01-PLAN.md
 
-Progress: ░░░░░░░░░░ 0% (0/5 phases)
+Progress: ██░░░░░░░░ 20% (1/5 phases)
 
 ## Milestone Summary
 
@@ -28,6 +28,13 @@ Previous: v1.1 Access Control shipped 2026-01-15
 
 See: [.planning/MILESTONES.md](.planning/MILESTONES.md)
 
+## Accumulated Decisions
+
+| Phase | Decision | Rationale |
+|-------|----------|-----------|
+| 15-01 | edge-runtime environment for Vitest | Required for Convex function testing to match production runtime |
+| 15-01 | webServer reuseExistingServer | Allows faster iteration when dev server already running |
+
 ## Pending Todos
 
 5 todos in `.planning/todos/pending/`:
@@ -40,7 +47,7 @@ See: [.planning/MILESTONES.md](.planning/MILESTONES.md)
 ## Session Continuity
 
 Last session: 2026-01-15
-Stopped at: Completed v1.1 milestone
+Stopped at: Completed 15-01-PLAN.md
 Resume file: None
 
 ## Documentation
