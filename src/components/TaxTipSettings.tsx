@@ -125,7 +125,7 @@ export default function TaxTipSettings({
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4">
       {/* Tax Section */}
       <div className="p-4 bg-gray-50 rounded-lg">
         <div className="flex justify-between items-center mb-2">
@@ -253,7 +253,7 @@ export default function TaxTipSettings({
 
         {/* Tip Preview */}
         {groupSubtotal > 0 && (
-          <div className="mt-4 pt-3 border-t border-gray-200">
+          <div className="mt-3 pt-2 border-t border-gray-200">
             <div className="flex justify-between text-sm">
               <span className="text-gray-600">Tip total:</span>
               <span className="font-medium">${(tipPreview / 100).toFixed(2)}</span>
@@ -271,7 +271,7 @@ export default function TaxTipSettings({
               ${((groupSubtotal + currentTax + tipPreview) / 100).toFixed(2)}
             </span>
           </div>
-          <div className="mt-2 text-sm text-gray-600 space-y-1">
+          <div className="mt-1.5 text-sm text-gray-600 space-y-1">
             <div className="flex justify-between">
               <span>Subtotal:</span>
               <span>${(groupSubtotal / 100).toFixed(2)}</span>

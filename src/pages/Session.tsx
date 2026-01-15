@@ -269,7 +269,7 @@ export default function Session() {
           <div>
             {/* Who's Here section */}
             {participants && participants.length > 0 && (
-              <div className="mb-4">
+              <div className="mb-3">
                 <h2 className="text-lg font-semibold mb-2">
                   Who's Here ({participants.length})
                 </h2>
@@ -292,7 +292,7 @@ export default function Session() {
             )}
 
             {/* Receipt section */}
-            <div className="mb-4">
+            <div className="mb-3">
               <h2 className="text-lg font-semibold mb-2">Receipt</h2>
 
               {/* Idle state: show capture UI */}
@@ -320,7 +320,7 @@ export default function Session() {
 
               {/* Uploading state */}
               {receiptState.step === "uploading" && (
-                <div className="text-center py-8">
+                <div className="text-center py-6">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto"></div>
                   <p className="mt-3 text-gray-600">Uploading...</p>
                 </div>
@@ -328,7 +328,7 @@ export default function Session() {
 
               {/* Processing state */}
               {receiptState.step === "processing" && (
-                <div className="text-center py-8">
+                <div className="text-center py-6">
                   <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto"></div>
                   <p className="mt-3 text-gray-600">Analyzing receipt...</p>
                   <p className="text-sm text-gray-500 mt-1">
@@ -339,7 +339,7 @@ export default function Session() {
 
               {/* Error state */}
               {receiptState.step === "error" && (
-                <div className="text-center py-8">
+                <div className="text-center py-6">
                   <div className="text-red-500 mb-3">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -369,7 +369,7 @@ export default function Session() {
             </div>
 
             {/* Items list */}
-            <div className="mb-4">
+            <div className="mb-3">
               <h2 className="text-lg font-semibold mb-2">
                 Items {items && items.length > 0 ? `(${items.length})` : ""}
               </h2>
@@ -411,7 +411,7 @@ export default function Session() {
               <button
                 onClick={() => setDraftItem({ name: "", price: 0, quantity: 1 })}
                 disabled={draftItem !== null}
-                className={`w-full mt-3 py-3 px-4 border-2 border-dashed rounded-lg transition-colors ${
+                className={`w-full mt-2 py-3 px-4 border-2 border-dashed rounded-lg transition-colors ${
                   draftItem !== null
                     ? "border-gray-200 text-gray-400 cursor-not-allowed"
                     : "border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-700"
@@ -422,7 +422,7 @@ export default function Session() {
 
               {/* Items total */}
               {items && items.length > 0 && (
-                <div className="mt-3 pt-3 border-t border-gray-200 flex justify-between items-center">
+                <div className="mt-2 pt-2 border-t border-gray-200 flex justify-between items-center">
                   <span className="font-medium">Items Total</span>
                   <span className="font-semibold">
                     ${(groupSubtotal / 100).toFixed(2)}
