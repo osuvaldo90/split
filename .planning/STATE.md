@@ -5,20 +5,20 @@
 See: .planning/PROJECT.md (updated 2026-01-15)
 
 **Core value:** Seamless, real-time collaborative bill splitting that works instantly for anyone with a phone and a browser.
-**Current focus:** v1.1 Access Control
+**Current focus:** Planning next milestone
 
 ## Current Position
 
-Phase: 14 of 14 (Access Control)
-Plan: 4 of 4 complete
-Status: Phase complete, milestone ready for audit
-Last activity: 2026-01-15 - Phase 14 verified, all requirements satisfied
+Phase: 14 of 14 (all complete)
+Plan: N/A
+Status: Milestone v1.1 shipped, ready for next milestone
+Last activity: 2026-01-15 — v1.1 milestone complete
 
-Progress: █████████████████████ 100% (4/4 plans)
+Progress: All milestones shipped
 
 ## Milestone Summary
 
-**v1.1 Access Control — Complete**
+**v1.1 Access Control — SHIPPED 2026-01-15**
 
 Delivered features:
 - Route protection with join prompt (14-01)
@@ -28,15 +28,6 @@ Delivered features:
 Previous: v1.0 MVP shipped 2026-01-15
 
 See: [.planning/MILESTONES.md](.planning/MILESTONES.md)
-
-## Accumulated Decisions
-
-| Decision | Phase | Rationale |
-|----------|-------|-----------|
-| Host-only pattern: fetch participant, check isHost, verify sessionId | 14-04 | Consistent authorization across all host mutations |
-| Fixed unclaimByHost cross-session vulnerability | 14-04 | Security fix - hosts should only operate in their own session |
-| Route-level gating with JoinGate component | 14-01 | Non-participants see join prompt before bill content |
-| Use justJoinedParticipantId for immediate UI update | 14-01 | No page refresh needed after joining |
 
 ## Pending Todos
 
@@ -50,7 +41,7 @@ See: [.planning/MILESTONES.md](.planning/MILESTONES.md)
 ## Session Continuity
 
 Last session: 2026-01-15
-Stopped at: Completed 14-03-PLAN.md (verified frontend mutation updates)
+Stopped at: Completed v1.1 milestone
 Resume file: None
 
 ## Documentation

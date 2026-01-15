@@ -1,5 +1,31 @@
 # Project Milestones: Split
 
+## v1.1 Access Control (Shipped: 2026-01-15)
+
+**Delivered:** Secured bill sessions with participant authorization and host-only restrictions for tax/tip settings.
+
+**Phases completed:** 14 (4 plans total)
+
+**Key accomplishments:**
+
+- Route protection — Non-participants see join prompt at `/bill/:code` instead of bill content
+- Participant authorization — All mutations verify caller is a joined session participant
+- Host-only enforcement — Tax/tip mutations enforce host-only restriction with consistent pattern
+- Security fix — Fixed cross-session vulnerability in unclaimByHost
+
+**Stats:**
+
+- 22 files changed, 1,587 insertions
+- 4,597 lines of TypeScript (222 net new)
+- 1 phase, 4 plans
+- 1 day (2026-01-15)
+
+**Git range:** `b994a3b` → `76c8fe7`
+
+**What's next:** Pending todos include host user removal, native share sheet, bottom tabs navigation, and first-time tutorial.
+
+---
+
 ## v1.0 MVP (Shipped: 2026-01-15)
 
 **Delivered:** Complete mobile-first real-time bill splitting web app with receipt OCR, collaborative item claiming, and proportional tax/tip distribution.

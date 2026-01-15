@@ -33,13 +33,11 @@ Seamless, real-time collaborative bill splitting that works instantly for anyone
 - ✓ Auto-gratuity detection from receipts — v1.0
 - ✓ Bill history on home screen — v1.0
 - ✓ Security hardening (authorization, input validation) — v1.0
+- ✓ Route protection with join prompt — direct `/bill/:id` requires joining before viewing — v1.1
+- ✓ Participant authorization on mutations — verify caller is joined before allowing changes — v1.1
+- ✓ Host-only enforcement on tax/tip mutations — v1.1
 
 ### Active
-
-**v1.1 Access Control:**
-- [ ] Route protection with join prompt — direct `/bill/:id` requires joining before viewing
-- [ ] Participant authorization on mutations — verify caller is joined before allowing changes
-- [ ] Audit host-only checks — confirm tax/tip mutations enforce host restriction
 
 **Backlog:**
 - [ ] Allow host to remove users from session
@@ -57,9 +55,9 @@ Seamless, real-time collaborative bill splitting that works instantly for anyone
 
 ## Context
 
-Shipped v1.0 with 4,375 LOC TypeScript.
+Shipped v1.1 with 4,597 LOC TypeScript.
 Tech stack: Vite + React, Convex (real-time backend), TailwindCSS v4, Claude Vision for OCR.
-Built in 2 days using GSD workflow methodology.
+Built in 2 days (v1.0) + 1 day (v1.1) using GSD workflow methodology.
 
 Key user journey:
 1. Host scans receipt → sees parsed line items
@@ -70,6 +68,8 @@ Key user journey:
 6. Everyone sees their total
 
 Real-time sync is critical because people are sitting together, looking at phones, and expecting instant feedback when someone claims an item.
+
+Security model: Session participants must join before viewing/mutating. Host-only restrictions on tax/tip settings. All mutations verify caller authorization.
 
 ## Constraints
 
@@ -95,15 +95,9 @@ Real-time sync is critical because people are sitting together, looking at phone
 | localStorage trust model | Acceptable for low-stakes bill splitting use case | ✓ Good |
 | Draft items in local state | Prevents empty items from broadcasting to others | ✓ Good |
 | Prices stored in cents | Avoids floating point rounding issues | ✓ Good |
-
-## Current Milestone: v1.1 Access Control
-
-**Goal:** Secure bill sessions so only joined participants can view and mutate, with verified host-only restrictions for tax/tip.
-
-**Target features:**
-- Route protection with join prompt for direct `/bill/:id` access
-- Participant authorization on all Convex mutations
-- Audit and verify host-only checks on tax/tip settings
+| JoinGate route protection | Non-participants see join prompt, not bill content | ✓ Good |
+| Host-only auth pattern | fetch participant → check isHost → verify sessionId | ✓ Good |
+| Participant verification on mutations | All write mutations verify caller is joined to session | ✓ Good |
 
 ---
-*Last updated: 2026-01-15 after v1.1 milestone start*
+*Last updated: 2026-01-15 after v1.1 milestone*
