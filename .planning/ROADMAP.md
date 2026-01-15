@@ -116,9 +116,8 @@ Plans:
 **Plans**: TBD
 
 Plans:
-- [ ] 05-01: Item claiming and unclaiming
-- [ ] 05-02: Shared item split handling
-- [ ] 05-03: Line item editing by any participant
+- [x] 05-01: Item claiming and unclaiming
+- [ ] 05-02: Visual distinction and host powers
 
 ### Phase 6: Calculation Engine
 **Goal**: Calculate per-person totals with proportional tax distribution and flexible tip options
@@ -166,7 +165,7 @@ Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 6
 | 3. Session Management | 3/3 | Complete | 2026-01-14 |
 | 3.1 Inline Item Editing | 1/1 | Complete | 2026-01-14 |
 | 4. Real-Time Sync | 3/3 | Complete | 2026-01-14 |
-| 5. Item Management | 0/3 | Not started | - |
+| 5. Item Management | 1/2 | In progress | - |
 | 6. Calculation Engine | 0/3 | Not started | - |
 | 7. Summary & Display | 0/3 | Not started | - |
 | 8. Polish & Optimization | 0/3 | Not started | - |

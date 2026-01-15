@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-14)
 
 **Core value:** Seamless, real-time collaborative bill splitting that works instantly for anyone with a phone and a browser.
-**Current focus:** Phase 4 — Real-Time Sync
+**Current focus:** Phase 5 — Item Management
 
 ## Current Position
 
 Phase: 5 of 8 (Item Management)
-Plan: 0 of ? in current phase
-Status: Phase 04 complete, ready for Phase 05
-Last activity: 2026-01-14 — Completed 04-03-PLAN.md (Phase 04 verification)
+Plan: 1 of 2 in current phase
+Status: In progress
+Last activity: 2026-01-15 — Completed 05-01-PLAN.md
 
-Progress: █████████░ 62%
+Progress: █████████░ 65%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 15
+- Total plans completed: 16
 - Average duration: 3 min
-- Total execution time: 0.8 hours
+- Total execution time: 0.85 hours
 
 **By Phase:**
 
@@ -33,9 +33,10 @@ Progress: █████████░ 62%
 | 03-session-management | 3 | 3 min | 1 min |
 | 03.1-inline-item-editing | 1 + FIX | 4 min | 2 min |
 | 04-real-time-sync | 3 | 10 min | 3 min |
+| 05-item-management | 1 | 4 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 1 min, 1 min, 2 min, 3 min, 5 min
+- Last 5 plans: 1 min, 2 min, 3 min, 5 min, 4 min
 - Trend: fast
 
 ## Accumulated Context
@@ -66,6 +67,8 @@ Recent decisions affecting current work:
 | 04-01 | Verify stored participant before redirect | Ensure data freshness and session match |
 | 04-02 | Show join toasts only for post-mount participants | Use joinedAt timestamp vs mountTime comparison |
 | 04-02 | Connection lost threshold: retries > 2 | Distinguish temporary reconnect from lost connection |
+| 05-01 | Blue border for claimed items, faded for unclaimed | Visual distinction for claim status |
+| 05-01 | stopPropagation on edit button | Prevent edit tap from triggering claim toggle |
 
 ### Deferred Issues
 
@@ -93,6 +96,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-14
-Stopped at: Completed Phase 04 (Real-Time Sync)
+Last session: 2026-01-15
+Stopped at: Completed 05-01-PLAN.md
 Resume file: None
