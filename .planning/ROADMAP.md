@@ -22,7 +22,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3: Session Management** - Code generation, QR codes, session creation/joining
 - [x] **Phase 3.1: Inline Item Editing** - Remove confirm step, collaborative item editing (INSERTED)
 - [x] **Phase 4: Real-Time Sync** - WebSocket/real-time infrastructure for live updates
-- [ ] **Phase 5: Item Management** - Claim/unclaim items, edit line items, split handling
+- [x] **Phase 5: Item Management** - Claim/unclaim items, edit line items, split handling
 - [ ] **Phase 6: Calculation Engine** - Tax distribution, tip calculation, per-person totals
 - [ ] **Phase 7: Summary & Display** - Final totals screen, unclaimed warnings, receipt view
 - [ ] **Phase 8: Polish & Optimization** - Mobile UX refinement, edge cases, performance
@@ -117,7 +117,7 @@ Plans:
 
 Plans:
 - [x] 05-01: Item claiming and unclaiming
-- [ ] 05-02: Visual distinction and host powers
+- [x] 05-02: Visual distinction and host powers
 
 ### Phase 6: Calculation Engine
 **Goal**: Calculate per-person totals with proportional tax distribution and flexible tip options
@@ -165,7 +165,7 @@ Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 6
 | 3. Session Management | 3/3 | Complete | 2026-01-14 |
 | 3.1 Inline Item Editing | 1/1 | Complete | 2026-01-14 |
 | 4. Real-Time Sync | 3/3 | Complete | 2026-01-14 |
-| 5. Item Management | 1/2 | In progress | - |
+| 5. Item Management | 2/2 | Complete | 2026-01-15 |
 | 6. Calculation Engine | 0/3 | Not started | - |
 | 7. Summary & Display | 0/3 | Not started | - |
 | 8. Polish & Optimization | 0/3 | Not started | - |
