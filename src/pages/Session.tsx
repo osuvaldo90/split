@@ -6,6 +6,7 @@ import { Id } from "../../convex/_generated/dataModel";
 import ReceiptCapture from "../components/ReceiptCapture";
 import ReceiptImageViewer from "../components/ReceiptImageViewer";
 import ClaimableItem from "../components/ClaimableItem";
+import JoinGate from "../components/JoinGate";
 import JoinToast from "../components/JoinToast";
 import TabNavigation from "../components/TabNavigation";
 import Summary from "../components/Summary";
@@ -30,6 +31,9 @@ export default function Session() {
   const [activeTab, setActiveTab] = useState<Tab>("items");
   const [showReceiptImage, setShowReceiptImage] = useState(false);
 
+  // State to track participant ID after just joining (before localStorage is read again)
+  const [justJoinedParticipantId, setJustJoinedParticipantId] = useState<Id<"participants"> | null>(null);
+
   // Fetch session by code
   const session = useQuery(api.sessions.getByCode, code ? { code } : "skip");
 
@@ -39,11 +43,14 @@ export default function Session() {
     return getStoredParticipant(code);
   }, [code]);
 
+  // Use justJoinedParticipantId if set, otherwise use stored
+  const effectiveStoredParticipantId = justJoinedParticipantId ?? storedParticipantId;
+
   // Fetch current participant data
   const currentParticipant = useQuery(
     api.participants.getById,
-    storedParticipantId
-      ? { participantId: storedParticipantId as Id<"participants"> }
+    effectiveStoredParticipantId
+      ? { participantId: effectiveStoredParticipantId as Id<"participants"> }
       : "skip"
   );
 
@@ -165,6 +172,7 @@ export default function Session() {
       if (result.subtotal !== null && result.tax !== null) {
         await updateTotals({
           sessionId: session._id,
+          participantId: currentParticipantId,
           subtotal: Math.round(result.subtotal * 100),
           tax: Math.round(result.tax * 100),
         });
@@ -220,6 +228,30 @@ export default function Session() {
     );
   }
 
+  // Determine if user needs to join:
+  // - No stored participant ID means they've never joined
+  // - Stored ID exists but currentParticipant is null means it was invalid (stale/wrong session)
+  // - currentParticipant undefined means still loading - don't show gate yet
+  const needsToJoin =
+    effectiveStoredParticipantId === null ||
+    (effectiveStoredParticipantId !== null && currentParticipant === null);
+
+  // Show join gate for non-participants
+  if (needsToJoin) {
+    // Find host name for display
+    const hostParticipant = participants?.find((p) => p.isHost);
+    const hostName = hostParticipant?.name ?? "Host";
+
+    return (
+      <JoinGate
+        session={{ _id: session._id, code: session.code, hostName }}
+        onJoined={(participantId) => {
+          setJustJoinedParticipantId(participantId);
+        }}
+      />
+    );
+  }
+
   // Handle dismissing a join toast
   function handleDismissToast(id: string) {
     setJoinToasts((prev) => prev.filter((t) => t.id !== id));
@@ -238,8 +270,8 @@ export default function Session() {
 
   // Draft item handlers
   async function handleDraftSave(name: string, price: number, quantity: number) {
-    if (!session) return;
-    await addItem({ sessionId: session._id, name, price, quantity });
+    if (!session || !currentParticipantId) return;
+    await addItem({ sessionId: session._id, participantId: currentParticipantId, name, price, quantity });
     setDraftItem(null);
   }
 
