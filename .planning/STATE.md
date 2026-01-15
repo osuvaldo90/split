@@ -102,7 +102,7 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-19 todos in `.planning/todos/pending/`:
+20 todos in `.planning/todos/pending/`:
 - **Add security review phase** (general)
 - **Add session history for previous bills** (ui)
 - **Allow host to remove users from session** (api)
@@ -110,6 +110,7 @@ Recent decisions affecting current work:
 - **Bill ID tap opens native share sheet** (ui)
 - **Combine take photo and upload image buttons into one** (ui)
 - **First-time user getting started tutorial** (ui)
+- **Flash item price or name on update** (ui)
 - **Fix inline item edit mode layout overflow** (ui)
 - **Handle strange multi-frame scrolling issues** (ui)
 - **Use graph algorithm to minimize inter-person transactions** (api)
