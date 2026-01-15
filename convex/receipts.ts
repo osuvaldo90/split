@@ -23,10 +23,21 @@ export const saveReceiptImage = mutation({
   },
 });
 
-// Step 3: Get the serving URL for a stored receipt
+// Step 3: Get the serving URL for a stored receipt (with session verification)
 export const getReceiptUrl = query({
-  args: { storageId: v.id("_storage") },
+  args: {
+    sessionId: v.id("sessions"),
+    storageId: v.id("_storage"),
+  },
   handler: async (ctx, args) => {
+    // Verify the storageId belongs to this session
+    const session = await ctx.db.get(args.sessionId);
+    if (!session) {
+      throw new Error("Session not found");
+    }
+    if (session.receiptImageId !== args.storageId) {
+      throw new Error("Receipt image not found for this session");
+    }
     return await ctx.storage.getUrl(args.storageId);
   },
 });
