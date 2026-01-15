@@ -1,5 +1,5 @@
 ---
-status: complete
+status: diagnosed
 phase: 05-item-management
 source: 05-01-SUMMARY.md, 05-02-SUMMARY.md
 started: 2026-01-15T01:20:00Z
@@ -18,6 +18,7 @@ expected: Tap on an unclaimed item. It becomes claimed by you immediately, your 
 result: issue
 reported: "no. it says 'join to claim item'"
 severity: blocker
+root_cause: Host's participantId not stored in localStorage after session creation. storeParticipant() never called for host.
 
 ### 2. Tap to Unclaim Item
 expected: Tap on an item you've already claimed. Your claim is removed, your name disappears from below the item.
@@ -64,3 +65,4 @@ skipped: 6
 ## Issues for /gsd:plan-fix
 
 - UAT-001: Host shows "Join to claim items" despite being in session (blocker) - Test 1
+  root_cause: Host's participantId not stored in localStorage after session creation. storeParticipant() never called for host.
