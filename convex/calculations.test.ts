@@ -215,3 +215,127 @@ describe("calculateTaxShare (BTEST-11)", () => {
     });
   });
 });
+
+describe("calculateTipShare", () => {
+  describe("percent_subtotal mode (BTEST-12)", () => {
+    it("should calculate 20% tip on subtotal (BTEST-12)", () => {
+      // 20% tip on $50 (5000 cents) subtotal = $10 (1000 cents)
+      // participantSubtotal, participantTax, groupSubtotal, groupTax, tipType, tipValue
+      expect(calculateTipShare(5000, 500, 10000, 1000, "percent_subtotal", 20)).toBe(1000);
+    });
+
+    it("should calculate 15% tip on subtotal (BTEST-12)", () => {
+      // 15% tip on $33.33 (3333 cents) subtotal = 499.95 -> rounds to 500
+      expect(calculateTipShare(3333, 333, 10000, 1000, "percent_subtotal", 15)).toBe(500);
+    });
+
+    it("should return 0 for 0% tip (BTEST-12)", () => {
+      expect(calculateTipShare(5000, 500, 10000, 1000, "percent_subtotal", 0)).toBe(0);
+    });
+
+    it("should return 0 for zero subtotal (BTEST-12)", () => {
+      expect(calculateTipShare(0, 0, 10000, 1000, "percent_subtotal", 20)).toBe(0);
+    });
+
+    it("should handle 18% standard tip (BTEST-12)", () => {
+      // 18% on $25 (2500 cents) = 450 cents
+      expect(calculateTipShare(2500, 250, 5000, 500, "percent_subtotal", 18)).toBe(450);
+    });
+  });
+
+  describe("percent_total mode (BTEST-13)", () => {
+    it("should calculate 20% tip on subtotal + tax (BTEST-13)", () => {
+      // 20% tip on ($50 subtotal + $5 tax) = $11 (1100 cents)
+      // participantSubtotal: 5000, participantTax: 500, total = 5500
+      // 20% of 5500 = 1100
+      expect(calculateTipShare(5000, 500, 10000, 1000, "percent_total", 20)).toBe(1100);
+    });
+
+    it("should include tax in percent_total calculation (BTEST-13)", () => {
+      // 15% tip on ($30 subtotal + $3 tax) = $4.95 -> rounds to 495
+      expect(calculateTipShare(3000, 300, 6000, 600, "percent_total", 15)).toBe(495);
+    });
+
+    it("should return 0 for 0% tip (BTEST-13)", () => {
+      expect(calculateTipShare(5000, 500, 10000, 1000, "percent_total", 0)).toBe(0);
+    });
+
+    it("should return 0 for zero subtotal and zero tax (BTEST-13)", () => {
+      expect(calculateTipShare(0, 0, 10000, 1000, "percent_total", 20)).toBe(0);
+    });
+  });
+
+  describe("manual mode (BTEST-14)", () => {
+    it("should distribute manual tip proportionally by subtotal (BTEST-14)", () => {
+      // $20 (2000 cents) manual tip
+      // Participant has 50% subtotal share (5000/10000)
+      // Gets 50% of tip = 1000 cents
+      expect(calculateTipShare(5000, 500, 10000, 1000, "manual", 2000)).toBe(1000);
+    });
+
+    it("should distribute based on subtotal ratio (BTEST-14)", () => {
+      // $15 (1500 cents) manual tip
+      // Participant has 33.3% subtotal share (3333/10000)
+      // Gets 33.3% of tip = 499.95 -> rounds to 500
+      expect(calculateTipShare(3333, 333, 10000, 1000, "manual", 1500)).toBe(500);
+    });
+
+    it("should return 0 for zero group subtotal (BTEST-14)", () => {
+      // Can't distribute proportionally if no one has subtotal
+      expect(calculateTipShare(0, 0, 0, 0, "manual", 2000)).toBe(0);
+    });
+
+    it("should give full tip to single participant with 100% share (BTEST-14)", () => {
+      // Single participant gets 100% of manual tip
+      expect(calculateTipShare(5000, 500, 5000, 500, "manual", 1500)).toBe(1500);
+    });
+
+    it("should return 0 for zero manual tip amount", () => {
+      expect(calculateTipShare(5000, 500, 10000, 1000, "manual", 0)).toBe(0);
+    });
+  });
+
+  describe("edge cases (BTEST-15)", () => {
+    it("should handle very small tip percentages (BTEST-15)", () => {
+      // 1% tip on $100 subtotal = $1 (100 cents)
+      expect(calculateTipShare(10000, 1000, 20000, 2000, "percent_subtotal", 1)).toBe(100);
+    });
+
+    it("should handle very large tip percentages (BTEST-15)", () => {
+      // 50% tip on $50 subtotal = $25 (2500 cents)
+      expect(calculateTipShare(5000, 500, 10000, 1000, "percent_subtotal", 50)).toBe(2500);
+    });
+  });
+});
+
+describe("calculateParticipantTotal", () => {
+  describe("normal totals", () => {
+    it("should sum subtotal, tax, and tip correctly", () => {
+      // $5 subtotal + $0.50 tax + $1 tip = $6.50 (650 cents)
+      expect(calculateParticipantTotal(500, 50, 100)).toBe(650);
+    });
+
+    it("should handle larger amounts", () => {
+      // $50 + $5 + $10 = $65 (6500 cents)
+      expect(calculateParticipantTotal(5000, 500, 1000)).toBe(6500);
+    });
+  });
+
+  describe("zero values (BTEST-15)", () => {
+    it("should handle zero tax and zero tip", () => {
+      expect(calculateParticipantTotal(500, 0, 0)).toBe(500);
+    });
+
+    it("should handle zero subtotal", () => {
+      expect(calculateParticipantTotal(0, 50, 100)).toBe(150);
+    });
+
+    it("should handle all zeros", () => {
+      expect(calculateParticipantTotal(0, 0, 0)).toBe(0);
+    });
+
+    it("should handle only tip", () => {
+      expect(calculateParticipantTotal(0, 0, 100)).toBe(100);
+    });
+  });
+});
