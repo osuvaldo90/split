@@ -18,12 +18,12 @@ Requirements for test foundation. Each maps to roadmap phases.
 - [x] **BTEST-07**: Authorization unit tests verify hosts can perform host-only actions
 - [x] **BTEST-08**: Authorization unit tests verify participants can claim/unclaim own items
 - [x] **BTEST-09**: Authorization unit tests verify cross-session access is denied
-- [ ] **BTEST-10**: Calculation unit tests verify even split distribution with remainder
-- [ ] **BTEST-11**: Calculation unit tests verify tax distribution proportional to subtotal
-- [ ] **BTEST-12**: Calculation unit tests verify tip calculation (percent on subtotal)
-- [ ] **BTEST-13**: Calculation unit tests verify tip calculation (percent on total)
-- [ ] **BTEST-14**: Calculation unit tests verify manual tip distribution
-- [ ] **BTEST-15**: Calculation unit tests verify edge cases (zero claimants, single claimant)
+- [x] **BTEST-10**: Calculation unit tests verify even split distribution with remainder
+- [x] **BTEST-11**: Calculation unit tests verify tax distribution proportional to subtotal
+- [x] **BTEST-12**: Calculation unit tests verify tip calculation (percent on subtotal)
+- [x] **BTEST-13**: Calculation unit tests verify tip calculation (percent on total)
+- [x] **BTEST-14**: Calculation unit tests verify manual tip distribution
+- [x] **BTEST-15**: Calculation unit tests verify edge cases (zero claimants, single claimant)
 - [ ] **BTEST-16**: Core mutation tests verify session creation generates valid code
 - [ ] **BTEST-17**: Core mutation tests verify joining creates participant correctly
 - [ ] **BTEST-18**: Core mutation tests verify duplicate name rejection
@@ -99,12 +99,12 @@ Which phases cover which requirements. Updated by create-roadmap.
 | BTEST-07 | Phase 16 | Complete |
 | BTEST-08 | Phase 16 | Complete |
 | BTEST-09 | Phase 16 | Complete |
-| BTEST-10 | Phase 17 | Pending |
-| BTEST-11 | Phase 17 | Pending |
-| BTEST-12 | Phase 17 | Pending |
-| BTEST-13 | Phase 17 | Pending |
-| BTEST-14 | Phase 17 | Pending |
-| BTEST-15 | Phase 17 | Pending |
+| BTEST-10 | Phase 17 | Complete |
+| BTEST-11 | Phase 17 | Complete |
+| BTEST-12 | Phase 17 | Complete |
+| BTEST-13 | Phase 17 | Complete |
+| BTEST-14 | Phase 17 | Complete |
+| BTEST-15 | Phase 17 | Complete |
 | BTEST-16 | Phase 18 | Pending |
 | BTEST-17 | Phase 18 | Pending |
 | BTEST-18 | Phase 18 | Pending |
@@ -129,4 +129,4 @@ Which phases cover which requirements. Updated by create-roadmap.
 
 ---
 *Requirements defined: 2026-01-15*
-*Last updated: 2026-01-15 after Phase 16 completion*
+*Last updated: 2026-01-15 after Phase 17 completion*
