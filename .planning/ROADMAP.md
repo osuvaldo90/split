@@ -21,7 +21,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2.1: Receipt Fixes** - Bug fixes and improvements before session management (INSERTED)
 - [x] **Phase 3: Session Management** - Code generation, QR codes, session creation/joining
 - [x] **Phase 3.1: Inline Item Editing** - Remove confirm step, collaborative item editing (INSERTED)
-- [ ] **Phase 4: Real-Time Sync** - WebSocket/real-time infrastructure for live updates
+- [x] **Phase 4: Real-Time Sync** - WebSocket/real-time infrastructure for live updates
 - [ ] **Phase 5: Item Management** - Claim/unclaim items, edit line items, split handling
 - [ ] **Phase 6: Calculation Engine** - Tax distribution, tip calculation, per-person totals
 - [ ] **Phase 7: Summary & Display** - Final totals screen, unclaimed warnings, receipt view
@@ -106,8 +106,8 @@ Plans:
 
 Plans:
 - [x] 04-01: Participant session persistence (localStorage auto-rejoin)
-- [ ] 04-02: Join notifications and connection status indicator
-- [ ] 04-03: Visual verification of real-time features
+- [x] 04-02: Join notifications and connection status indicator
+- [x] 04-03: Visual verification of real-time features
 
 ### Phase 5: Item Management
 **Goal**: Enable claiming/unclaiming items with real-time updates, support shared item splitting
@@ -165,7 +165,7 @@ Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 6
 | 2.1 Receipt Fixes | 2/2 | Complete | 2026-01-14 |
 | 3. Session Management | 3/3 | Complete | 2026-01-14 |
 | 3.1 Inline Item Editing | 1/1 | Complete | 2026-01-14 |
-| 4. Real-Time Sync | 1/3 | In progress | - |
+| 4. Real-Time Sync | 3/3 | Complete | 2026-01-14 |
 | 5. Item Management | 0/3 | Not started | - |
 | 6. Calculation Engine | 0/3 | Not started | - |
 | 7. Summary & Display | 0/3 | Not started | - |
