@@ -103,7 +103,7 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-10 todos in `.planning/todos/pending/`:
+11 todos in `.planning/todos/pending/`:
 - **Add security review phase** (general)
 - **Add session history for previous bills** (ui)
 - **Allow host to remove users from session** (api)
@@ -112,6 +112,7 @@ Recent decisions affecting current work:
 - **Detect auto-gratuity on receipts** (api)
 - **First-time user getting started tutorial** (ui)
 - **Handle strange multi-frame scrolling issues** (ui)
+- **Improve edit UI layout to prevent wrapping** (ui)
 - **Rename concept of sessions to bills** (general)
 - **Use graph algorithm to minimize inter-person transactions** (api)
 
