@@ -3,15 +3,17 @@ import { api } from "../../convex/_generated/api";
 import { Id } from "../../convex/_generated/dataModel";
 
 interface ReceiptImageViewerProps {
+  sessionId: Id<"sessions">;
   storageId: Id<"_storage">;
   onClose: () => void;
 }
 
 export default function ReceiptImageViewer({
+  sessionId,
   storageId,
   onClose,
 }: ReceiptImageViewerProps) {
-  const imageUrl = useQuery(api.receipts.getReceiptUrl, { storageId });
+  const imageUrl = useQuery(api.receipts.getReceiptUrl, { sessionId, storageId });
 
   // Handle click on overlay (close modal)
   function handleOverlayClick(e: React.MouseEvent) {

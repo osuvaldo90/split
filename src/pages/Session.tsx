@@ -470,6 +470,7 @@ export default function Session() {
       {/* Receipt Image Viewer Modal */}
       {session.receiptImageId && showReceiptImage && (
         <ReceiptImageViewer
+          sessionId={session._id}
           storageId={session.receiptImageId}
           onClose={() => setShowReceiptImage(false)}
         />
