@@ -1,15 +1,21 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useMutation } from "convex/react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { api } from "../../convex/_generated/api";
 import { storeParticipant } from "../lib/sessionStorage";
-import { addBillToHistory } from "../lib/billHistory";
+import { addBillToHistory, getBillHistory, BillHistoryEntry } from "../lib/billHistory";
 
 export default function Home() {
   const [hostName, setHostName] = useState("");
   const [isCreating, setIsCreating] = useState(false);
+  const [history, setHistory] = useState<BillHistoryEntry[]>([]);
   const navigate = useNavigate();
   const createSession = useMutation(api.sessions.create);
+
+  // Load bill history on mount
+  useEffect(() => {
+    setHistory(getBillHistory());
+  }, []);
 
   const handleStartSplitting = async () => {
     if (!hostName.trim() || isCreating) return;
@@ -79,6 +85,40 @@ export default function Home() {
             {isCreating ? "Creating..." : "Start splitting"}
           </button>
         </div>
+
+        {/* Bill history section */}
+        {history.length > 0 && (
+          <div className="mt-8 space-y-3">
+            <h2 className="text-sm font-medium text-gray-500 uppercase tracking-wide">
+              Recent Bills
+            </h2>
+            <div className="space-y-2">
+              {history.map((bill) => (
+                <Link
+                  key={bill.code}
+                  to={`/session/${bill.code}`}
+                  className="block p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
+                >
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <div className="font-medium text-gray-900">
+                        {bill.merchantName || `Bill ${bill.code}`}
+                      </div>
+                      <div className="text-sm text-gray-500">
+                        {new Date(bill.createdAt).toLocaleDateString()}
+                      </div>
+                    </div>
+                    {bill.total && (
+                      <div className="text-lg font-semibold text-gray-900">
+                        ${(bill.total / 100).toFixed(2)}
+                      </div>
+                    )}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
