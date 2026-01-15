@@ -12,7 +12,7 @@ export const listBySession = query({
   },
 });
 
-// Add an item (from OCR or manual entry)
+// Add an item (from OCR or manual entry) - any participant can add
 export const add = mutation({
   args: {
     sessionId: v.id("sessions"),
@@ -21,6 +21,12 @@ export const add = mutation({
     quantity: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
+    // Verify session exists
+    const session = await ctx.db.get(args.sessionId);
+    if (!session) {
+      throw new Error("Session not found");
+    }
+
     const itemId = await ctx.db.insert("items", {
       sessionId: args.sessionId,
       name: args.name.trim(),
@@ -31,7 +37,7 @@ export const add = mutation({
   },
 });
 
-// Update an item (fix OCR errors)
+// Update an item (fix OCR errors) - any participant can edit (collaborative editing)
 export const update = mutation({
   args: {
     itemId: v.id("items"),
@@ -40,6 +46,16 @@ export const update = mutation({
     quantity: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
+    // Verify item exists and belongs to a valid session
+    const item = await ctx.db.get(args.itemId);
+    if (!item) {
+      throw new Error("Item not found");
+    }
+    const session = await ctx.db.get(item.sessionId);
+    if (!session) {
+      throw new Error("Session not found");
+    }
+
     const updates: Record<string, unknown> = {};
     if (args.name !== undefined) updates.name = args.name.trim();
     if (args.price !== undefined) updates.price = args.price;
@@ -49,11 +65,31 @@ export const update = mutation({
   },
 });
 
-// Delete an item
+// Delete an item (host only)
 export const remove = mutation({
-  args: { itemId: v.id("items") },
+  args: {
+    itemId: v.id("items"),
+    participantId: v.id("participants"),
+  },
   handler: async (ctx, args) => {
-    // Also delete all claims for this item
+    // Verify participant is host
+    const participant = await ctx.db.get(args.participantId);
+    if (!participant || !participant.isHost) {
+      throw new Error("Only the host can remove items");
+    }
+
+    // Verify item exists
+    const item = await ctx.db.get(args.itemId);
+    if (!item) {
+      throw new Error("Item not found");
+    }
+
+    // Verify participant's session matches item's session
+    if (participant.sessionId !== item.sessionId) {
+      throw new Error("Participant not in this session");
+    }
+
+    // Delete all claims for this item
     const claims = await ctx.db
       .query("claims")
       .withIndex("by_item", (q) => q.eq("itemId", args.itemId))
@@ -67,10 +103,11 @@ export const remove = mutation({
   },
 });
 
-// Bulk add items (from OCR) - replaces existing items for the session
+// Bulk add items (from OCR) - replaces existing items for the session (host only)
 export const addBulk = mutation({
   args: {
     sessionId: v.id("sessions"),
+    participantId: v.id("participants"),
     items: v.array(v.object({
       name: v.string(),
       price: v.number(),
@@ -78,6 +115,17 @@ export const addBulk = mutation({
     })),
   },
   handler: async (ctx, args) => {
+    // Verify participant is host
+    const participant = await ctx.db.get(args.participantId);
+    if (!participant || !participant.isHost) {
+      throw new Error("Only the host can replace all items");
+    }
+
+    // Verify participant's session matches the target session
+    if (participant.sessionId !== args.sessionId) {
+      throw new Error("Participant not in this session");
+    }
+
     // First, delete all existing items and their claims for this session
     const existingItems = await ctx.db
       .query("items")
