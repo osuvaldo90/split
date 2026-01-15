@@ -9,6 +9,7 @@
  */
 
 import type * as actions_parseReceipt from "../actions/parseReceipt.js";
+import type * as calculations from "../calculations.js";
 import type * as claims from "../claims.js";
 import type * as items from "../items.js";
 import type * as participants from "../participants.js";
@@ -24,6 +25,7 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   "actions/parseReceipt": typeof actions_parseReceipt;
+  calculations: typeof calculations;
   claims: typeof claims;
   items: typeof items;
   participants: typeof participants;

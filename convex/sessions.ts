@@ -85,6 +85,17 @@ export const updateTip = mutation({
   },
 });
 
+// Update tax setting
+export const updateTax = mutation({
+  args: {
+    sessionId: v.id("sessions"),
+    tax: v.number(), // in cents
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.sessionId, { tax: args.tax });
+  },
+});
+
 // Update receipt totals (called after OCR)
 export const updateTotals = mutation({
   args: {
