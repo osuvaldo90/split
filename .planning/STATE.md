@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-14)
 ## Current Position
 
 Phase: 12 of 12 (Security Hardening)
-Plan: 0 of ? in current phase
-Status: Not planned yet
-Last activity: 2026-01-15 — Added Phase 12 to roadmap
+Plan: 1 of 4 in current phase
+Status: In progress
+Last activity: 2026-01-15 — Completed 12-04-PLAN.md
 
-Progress: ██████████████████░ 95%
+Progress: ██████████████████░ 97%
 
 ## Performance Metrics
 
@@ -112,6 +112,7 @@ Recent decisions affecting current work:
 | 11-01 | Categorized issues as intentional design vs security gaps | Helps prioritize which to fix |
 | 11-01 | localStorage trust model acceptable for use case | Low-stakes bill splitting doesn't need auth |
 | 11-01 | Prioritized updateName and unclaim fixes as immediate | Highest impact authorization gaps |
+| 12-04 | Require sessionId for receipt URL access | Verify storageId belongs to session to prevent cross-session access |
 
 ### Deferred Issues
 
@@ -149,5 +150,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-15
-Stopped at: Added Phase 12 (Security Hardening)
-Resume file: None - phase not yet planned
+Stopped at: Completed 12-04-PLAN.md
+Resume file: None
