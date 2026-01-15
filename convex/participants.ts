@@ -66,15 +66,58 @@ export const join = mutation({
   },
 });
 
-// Update participant name
+// Update participant name (requires authorization)
 export const updateName = mutation({
   args: {
     participantId: v.id("participants"),
     name: v.string(),
+    callerParticipantId: v.id("participants"),
   },
   handler: async (ctx, args) => {
+    // Get the target participant
+    const targetParticipant = await ctx.db.get(args.participantId);
+    if (!targetParticipant) {
+      throw new Error("Participant not found");
+    }
+
+    // Get the caller's participant record
+    const callerParticipant = await ctx.db.get(args.callerParticipantId);
+    if (!callerParticipant) {
+      throw new Error("Caller participant not found");
+    }
+
+    // Verify caller is in the same session as target
+    if (callerParticipant.sessionId !== targetParticipant.sessionId) {
+      throw new Error("Not authorized to update this participant");
+    }
+
+    // Check authorization: caller is updating self OR caller is host
+    const isUpdatingSelf = args.callerParticipantId === args.participantId;
+    const isHost = callerParticipant.isHost === true;
+
+    if (!isUpdatingSelf && !isHost) {
+      throw new Error("Not authorized to update this participant");
+    }
+
+    const trimmedName = args.name.trim();
+
+    // Check for duplicate names (case-insensitive)
+    const existingParticipants = await ctx.db
+      .query("participants")
+      .withIndex("by_session", (q) => q.eq("sessionId", targetParticipant.sessionId))
+      .collect();
+
+    const nameLower = trimmedName.toLowerCase();
+    const duplicate = existingParticipants.find(
+      (p) => p.name.toLowerCase() === nameLower && p._id !== args.participantId
+    );
+
+    if (duplicate) {
+      throw new Error("That name is already taken");
+    }
+
     await ctx.db.patch(args.participantId, {
-      name: args.name.trim(),
+      name: trimmedName,
     });
   },
 });
