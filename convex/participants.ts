@@ -4,7 +4,6 @@ import { Id } from "./_generated/dataModel";
 import {
   calculateItemShare,
   calculateTipShare,
-  calculateParticipantTotal,
   distributeWithRemainder,
 } from "./calculations";
 
@@ -172,8 +171,9 @@ export const getTotals = query({
       groupSubtotal += item.price;
     }
 
-    // 4. Get tax and tip settings from session
+    // 4. Get tax, gratuity, and tip settings from session
     const totalTax = session.tax ?? 0;
+    const totalGratuity = session.gratuity ?? 0;
     const tipType = session.tipType ?? "percent_subtotal";
     const tipValue = session.tipValue ?? 0;
 
@@ -182,6 +182,9 @@ export const getTotals = query({
       (p) => participantData.get(p._id)?.subtotal ?? 0
     );
     const taxShares = distributeWithRemainder(totalTax, participantSubtotals);
+
+    // 5b. Calculate gratuity for each participant (proportional like tax)
+    const gratuityShares = distributeWithRemainder(totalGratuity, participantSubtotals);
 
     // 6. Calculate tip based on type
     // For percent types, calculate individually; for manual, distribute with remainder
@@ -215,6 +218,7 @@ export const getTotals = query({
         claimedItems: [],
       };
       const tax = taxShares[originalIndex];
+      const gratuity = gratuityShares[originalIndex];
       const tip = tipShares[originalIndex];
 
       return {
@@ -223,8 +227,9 @@ export const getTotals = query({
         isHost: participant.isHost,
         subtotal: data.subtotal,
         tax,
+        gratuity,
         tip,
-        total: calculateParticipantTotal(data.subtotal, tax, tip),
+        total: data.subtotal + tax + gratuity + tip, // subtotal + tax + gratuity + tip
         claimedItems: data.claimedItems,
       };
     });
@@ -237,6 +242,7 @@ export const getTotals = query({
       unclaimedItems,
       groupSubtotal,
       totalTax,
+      totalGratuity,
       tipType,
       tipValue,
     };

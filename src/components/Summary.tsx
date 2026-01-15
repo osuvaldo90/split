@@ -120,10 +120,16 @@ export default function Summary({ sessionId, currentParticipantId }: SummaryProp
                 </div>
 
                 {/* Breakdown Row */}
-                <div className="mt-2 flex gap-3 text-sm text-gray-600">
+                <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-sm text-gray-600">
                   <span>Items ${(participant.subtotal / 100).toFixed(2)}</span>
                   <span className="text-gray-300">|</span>
                   <span>Tax ${(participant.tax / 100).toFixed(2)}</span>
+                  {participant.gratuity > 0 && (
+                    <>
+                      <span className="text-gray-300">|</span>
+                      <span>Grat ${(participant.gratuity / 100).toFixed(2)}</span>
+                    </>
+                  )}
                   <span className="text-gray-300">|</span>
                   <span>Tip ${(participant.tip / 100).toFixed(2)}</span>
                 </div>
