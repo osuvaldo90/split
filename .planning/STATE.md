@@ -97,11 +97,12 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-13 todos in `.planning/todos/pending/`:
+14 todos in `.planning/todos/pending/`:
 - **Add session history for previous bills** (ui)
 - **Allow host to remove users from session** (api)
 - **Animate item updates with flash/fade** (ui)
 - **Fix inline item edit mode layout overflow** (ui)
+- **Handle strange multi-frame scrolling issues** (ui)
 - **Use graph algorithm to minimize inter-person transactions** (api)
 - **User-friendly error messages** (ui)
 
