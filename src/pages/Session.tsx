@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery, useAction, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { Id } from "../../convex/_generated/dataModel";
 import ReceiptCapture from "../components/ReceiptCapture";
 import InlineItem from "../components/InlineItem";
+import JoinToast from "../components/JoinToast";
 
 // Share code component with copy functionality
 function ShareCode({ code }: { code: string }) {
@@ -75,6 +76,39 @@ export default function Session() {
   const addBulk = useMutation(api.items.addBulk);
   const updateTotals = useMutation(api.sessions.updateTotals);
   const addItem = useMutation(api.items.add);
+
+  // Track join notifications
+  const [joinToasts, setJoinToasts] = useState<Array<{ id: string; name: string }>>([]);
+  const mountTimeRef = useRef(Date.now());
+  const previousParticipantIdsRef = useRef<Set<string>>(new Set());
+
+  // Detect new participants who joined after page load
+  useEffect(() => {
+    if (!participants) return;
+
+    const currentIds = new Set(participants.map((p) => p._id));
+    const prevIds = previousParticipantIdsRef.current;
+
+    // Find new participants (not in previous set and joined after mount)
+    const newParticipants = participants.filter(
+      (p) =>
+        !prevIds.has(p._id) &&
+        prevIds.size > 0 && // Skip initial load
+        p.joinedAt > mountTimeRef.current
+    );
+
+    // Queue toasts for new participants
+    if (newParticipants.length > 0) {
+      const newToasts = newParticipants.map((p) => ({
+        id: p._id,
+        name: p.name,
+      }));
+      setJoinToasts((prev) => [...prev, ...newToasts]);
+    }
+
+    // Update ref for next comparison
+    previousParticipantIdsRef.current = currentIds;
+  }, [participants]);
 
   // Handle receipt upload - triggers OCR processing and saves items directly
   async function handleReceiptUpload(storageId: Id<"_storage">) {
@@ -148,8 +182,22 @@ export default function Session() {
     );
   }
 
+  // Handle dismissing a join toast
+  function handleDismissToast(id: string) {
+    setJoinToasts((prev) => prev.filter((t) => t.id !== id));
+  }
+
   return (
     <div className="p-4 max-w-md mx-auto">
+      {/* Join notifications */}
+      {joinToasts.slice(0, 1).map((toast) => (
+        <JoinToast
+          key={toast.id}
+          name={toast.name}
+          onDismiss={() => handleDismissToast(toast.id)}
+        />
+      ))}
+
       {/* Session header */}
       <div className="mb-6">
         <h1 className="text-2xl font-bold">Session: {session.code}</h1>
