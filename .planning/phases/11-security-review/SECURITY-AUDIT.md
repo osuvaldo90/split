@@ -360,3 +360,304 @@ The application uses Convex validators for type safety but lacks business logic 
 
 React's JSX escaping provides XSS protection for rendered values, which is a significant security benefit.
 
+---
+
+## Data Exposure
+
+This section reviews all Convex queries for data exposure issues.
+
+### sessions.ts Queries
+
+| Query | Data Returned | Access Control | Risk | Notes |
+|-------|---------------|----------------|------|-------|
+| `getByCode` | Full session object | None - public lookup | LOW | Returns session for any valid code |
+| `get` | Full session object | None - requires sessionId | LOW | Requires knowing the ID |
+
+**Findings:**
+- `getByCode` allows anyone to look up a session by 6-char code
+- Returns all session data including `receiptImageId`, `hostName`, financial settings
+- **Enumeration risk:** Code space is 32^6 (~1 billion) - practical to enumerate?
+  - At 1000 queries/second, full enumeration takes ~32 years
+  - Random discovery of active sessions is unlikely
+  - **However:** No rate limiting means a determined attacker could find some sessions
+
+**Code generation analysis:**
+```typescript
+// sessions.ts - generateCode()
+const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // 32 chars
+// 32^6 = 1,073,741,824 combinations
+```
+
+**Recommendation:**
+- Consider rate limiting on `getByCode` (Convex doesn't have built-in rate limiting)
+- Current entropy is adequate for casual use but not against targeted attacks
+- Alternative: Use longer codes (8 chars = 32^8 = 1 trillion combinations)
+
+---
+
+### participants.ts Queries
+
+| Query | Data Returned | Access Control | Risk | Notes |
+|-------|---------------|----------------|------|-------|
+| `listBySession` | All participants in session | None - requires sessionId | LOW | Returns names and host status |
+| `getById` | Single participant | None - requires participantId | LOW | Used for session restoration |
+| `getTotals` | Per-participant financial breakdown | None - requires sessionId | MEDIUM | Exposes detailed financial info |
+
+**Findings:**
+
+**`listBySession`:**
+- Returns all participants with names, isHost flag, joinedAt timestamp
+- Anyone with sessionId can see who's in the session
+- No PII beyond names (no emails, phone numbers)
+
+**`getById`:**
+- Returns single participant data
+- Used to verify localStorage participant still exists
+- Participant IDs are UUIDs - not guessable
+
+**`getTotals` - Detailed analysis:**
+```typescript
+// Returns for each participant:
+return {
+  participantId: participant._id,
+  name: participant.name,
+  isHost: participant.isHost,
+  subtotal: data.subtotal,      // What they owe for items
+  tax: tax,                     // Their tax share
+  gratuity: gratuityShares[i],  // Their gratuity share
+  tip: tipShares[i],            // Their tip share
+  total: ...,                   // Grand total they owe
+  claimedItems: data.claimedItems, // Items they claimed with prices
+};
+```
+
+**Exposure concern:**
+- Any user with sessionId can see what everyone owes
+- This is likely INTENTIONAL for bill splitting transparency
+- However, exposes financial details to non-participants who discover the code
+
+**Recommendation:**
+- Current design is appropriate for collaborative bill splitting
+- Consider adding "private mode" option where only host sees totals
+- Document that session codes should not be shared publicly
+
+---
+
+### items.ts Queries
+
+| Query | Data Returned | Access Control | Risk | Notes |
+|-------|---------------|----------------|------|-------|
+| `listBySession` | All items in session | None - requires sessionId | LOW | Public within session |
+
+**Findings:**
+- Returns all items with names, prices, quantities
+- No access control - intentional for collaborative editing
+- Items don't contain sensitive data beyond receipt contents
+
+**Recommendation:**
+- No changes needed - items are meant to be visible to all participants
+
+---
+
+### claims.ts Queries
+
+| Query | Data Returned | Access Control | Risk | Notes |
+|-------|---------------|----------------|------|-------|
+| `listBySession` | All claims in session | None - requires sessionId | LOW | Public within session |
+| `getByItem` | Claims for specific item | None - requires itemId | LOW | Shows who claimed what |
+| `getByParticipant` | Claims by participant | None - requires participantId | LOW | Shows what someone claimed |
+
+**Findings:**
+- All claim queries expose who claimed what items
+- This is core functionality for bill splitting
+- **Cross-reference risk:** `getByParticipant` with known participantId could reveal claims
+  - Requires knowing the participantId (UUID, not guessable)
+  - Low practical risk
+
+**Recommendation:**
+- No changes needed - claim visibility is core feature
+
+---
+
+### receipts.ts Queries
+
+| Query | Data Returned | Access Control | Risk | Notes |
+|-------|---------------|----------------|------|-------|
+| `getReceiptUrl` | Convex storage URL | None - requires storageId | MEDIUM | Returns serving URL for any storageId |
+
+**Findings:**
+
+**Critical issue with `getReceiptUrl`:**
+```typescript
+export const getReceiptUrl = query({
+  args: { storageId: v.id("_storage") },
+  handler: async (ctx, args) => {
+    return await ctx.storage.getUrl(args.storageId);
+  },
+});
+```
+
+**Problems:**
+1. Takes any storageId - no verification it belongs to caller's session
+2. Storage IDs are not secret but are meant to be scoped to sessions
+3. If an attacker guesses/obtains a storageId, they can view ANY receipt image
+4. Receipt images may contain sensitive info (merchant names, credit card last 4, etc.)
+
+**Storage ID format:**
+- Convex storage IDs are deterministic but not easily guessable
+- Format: `kg2...` (base62-ish encoding)
+- Sequential enumeration is not practical
+
+**Practical risk assessment:**
+- LOW probability: Attacker would need to obtain valid storageId
+- MEDIUM impact: Receipt images could contain PII
+- Combined: MEDIUM risk
+
+**Recommendation:**
+- Add sessionId parameter to `getReceiptUrl` and verify storageId matches session's `receiptImageId`
+- Example fix:
+```typescript
+export const getReceiptUrl = query({
+  args: {
+    sessionId: v.id("sessions"),
+    storageId: v.id("_storage"),
+  },
+  handler: async (ctx, args) => {
+    const session = await ctx.db.get(args.sessionId);
+    if (!session || session.receiptImageId !== args.storageId) {
+      throw new Error("Receipt not found");
+    }
+    return await ctx.storage.getUrl(args.storageId);
+  },
+});
+```
+
+---
+
+### Session Code Enumeration Analysis
+
+**Detailed enumeration risk assessment:**
+
+| Factor | Value | Impact |
+|--------|-------|--------|
+| Code space | 32^6 = ~1B | Large but finite |
+| Active sessions at any time | ~10-1000? | Very small fraction |
+| Code lifetime | Hours to days | Codes expire naturally |
+| Rate limiting | None | Unlimited queries possible |
+
+**Attack scenario:**
+1. Attacker queries random codes continuously
+2. With 1B possibilities and 1000 active sessions: 1 in 1M chance per query
+3. At 100 queries/second: ~3 hours to find one session statistically
+4. **Mitigation:** Sessions expire, so window of opportunity is limited
+
+**Recommendation:**
+- Add rate limiting on `getByCode` (e.g., 10 queries/minute per IP)
+- Consider extending code length for high-value use cases
+- Current design is acceptable for casual social bill splitting
+
+---
+
+### localStorage Trust Model
+
+**Frontend data storage analysis:**
+
+The app stores in localStorage:
+- `split_participant_{code}`: participantId for auto-rejoin
+- `split_last_name`: User's name for pre-fill
+- `split_bill_history`: Array of recent bills
+
+**Security implications:**
+- participantId is used to identify the user without authentication
+- Any user can forge localStorage to claim any participantId
+- Frontend checks participantId validity but can't verify ownership
+
+**Attack scenario:**
+```javascript
+// Attacker could set localStorage to impersonate another user
+localStorage.setItem('split_participant_ABC123', 'victimParticipantId');
+// Then navigate to /bill/ABC123 and act as that user
+```
+
+**Mitigation:**
+- participantIds are UUIDs - attacker would need to know victim's ID
+- IDs are only exposed in browser DevTools for that user
+- Cross-user ID theft requires physical device access or XSS (React prevents)
+
+**Recommendation:**
+- Current model is acceptable for low-stakes bill splitting
+- For higher security: Add session token issued on join, verified on mutations
+- Document that the app trusts localStorage (no auth system)
+
+---
+
+### Summary: Data Exposure Issues
+
+| Priority | Issue | Affected Queries |
+|----------|-------|-----------------|
+| MEDIUM | Receipt images accessible via any storageId | `receipts.getReceiptUrl` |
+| LOW | Session enumeration theoretically possible | `sessions.getByCode` |
+| LOW | Financial details visible to all session members | `participants.getTotals` |
+| LOW | localStorage participantId can be spoofed | Frontend storage |
+
+**Overall Data Exposure Assessment:**
+The application follows a "trust within session" model:
+- Anyone with the 6-char code can access full session data
+- Session codes provide the access control boundary
+- No authentication means anyone with the code is trusted
+
+This is a deliberate design choice for frictionless bill splitting, but users should understand:
+1. Don't share session codes publicly
+2. Session data is visible to anyone who joins
+3. Receipt images may contain sensitive information
+
+The most actionable fix is adding sessionId verification to `getReceiptUrl` to prevent cross-session image access.
+
+---
+
+## Executive Summary
+
+### Risk Overview
+
+| Category | HIGH | MEDIUM | LOW |
+|----------|------|--------|-----|
+| Authorization | 2 | 4 | 2 |
+| Input Validation | 0 | 4 | 2 |
+| Data Exposure | 0 | 1 | 3 |
+| **Total** | **2** | **9** | **7** |
+
+### High Priority Issues
+
+1. **`participants.updateName`** - Any user can change another user's name
+2. **`claims.unclaim`** - Any user can remove another user's claims
+
+### Medium Priority Issues (Top 5)
+
+1. Session settings (tax/tip) modifiable by non-host
+2. Items deletable/modifiable by any user
+3. No input length limits on names
+4. No numeric bounds on financial values
+5. Receipt images accessible without session verification
+
+### Design Decisions vs Security Gaps
+
+Some findings may be **intentional design choices** for collaborative bill splitting:
+- Any participant can add/edit items (collaborative editing)
+- Any participant can claim items for others (helping each other)
+- Financial totals visible to all (transparency)
+
+The audit identified issues where the **API allows more than the UI intends**:
+- UI restricts tax/tip to host; API allows anyone
+- UI restricts unclaiming to own items; API allows unclaiming others'
+
+### Recommended Action Priority
+
+1. **Immediate:** Fix `updateName` and `unclaim` authorization
+2. **Short-term:** Add input validation bounds
+3. **Medium-term:** Add sessionId verification to `getReceiptUrl`
+4. **Consider:** Rate limiting on `getByCode`
+
+---
+
+*Audit completed: 2026-01-15*
+*Auditor: Claude (Security Review Phase)*
