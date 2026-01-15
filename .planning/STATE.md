@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-01-14)
 ## Current Position
 
 Phase: 12 of 12 (Security Hardening)
-Plan: 2 of 4 in current phase
+Plan: 2 of 4 complete
 Status: In progress
-Last activity: 2026-01-15 — Completed 12-03-PLAN.md
+Last activity: 2026-01-15 — Completed 12-02-PLAN.md (host-only restrictions)
 
 Progress: ██████████████████░ 97%
 
@@ -41,9 +41,10 @@ Progress: ██████████████████░ 97%
 | 09-ui-ux-improvements | 1 + FIX | 5 min | 2.5 min |
 | 10.2-join-bill-ui-simplification | 1 | 2 min | 2 min |
 | 11-security-review | 1 | 3 min | 3 min |
+| 12-security-hardening | 2 | 6 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 3 min, 3 min, 2 min, 2 min, 3 min
+- Last 5 plans: 2 min, 2 min, 3 min, 2 min, 4 min
 - Trend: steady
 
 ## Accumulated Context
@@ -116,6 +117,9 @@ Recent decisions affecting current work:
 | 12-03 | Money max $100k, quantity max 999 | Practical bounds preventing DoS |
 | 12-03 | Centralized validation in validation.ts | Reusable helpers for all mutations |
 | 12-04 | Require sessionId for receipt URL access | Verify storageId belongs to session to prevent cross-session access |
+| 12-02 | Keep updateTotals open for all participants | Any participant can upload receipt per design |
+| 12-02 | Keep items.add/update open for all | Collaborative editing is intentional design |
+| 12-02 | Host verification pattern | Query participant, check isHost, verify sessionId match |
 
 ### Deferred Issues
 
@@ -153,5 +157,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-15
-Stopped at: Completed 12-03-PLAN.md
+Stopped at: Completed 12-02-PLAN.md
 Resume file: None
