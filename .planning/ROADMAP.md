@@ -105,7 +105,7 @@ Plans:
 **Plans**: 3
 
 Plans:
-- [ ] 04-01: Participant session persistence (localStorage auto-rejoin)
+- [x] 04-01: Participant session persistence (localStorage auto-rejoin)
 - [ ] 04-02: Join notifications and connection status indicator
 - [ ] 04-03: Visual verification of real-time features
 
@@ -165,7 +165,7 @@ Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 6
 | 2.1 Receipt Fixes | 2/2 | Complete | 2026-01-14 |
 | 3. Session Management | 3/3 | Complete | 2026-01-14 |
 | 3.1 Inline Item Editing | 1/1 | Complete | 2026-01-14 |
-| 4. Real-Time Sync | 0/3 | Not started | - |
+| 4. Real-Time Sync | 1/3 | In progress | - |
 | 5. Item Management | 0/3 | Not started | - |
 | 6. Calculation Engine | 0/3 | Not started | - |
 | 7. Summary & Display | 0/3 | Not started | - |
