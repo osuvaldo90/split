@@ -104,19 +104,21 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-20 todos in `.planning/todos/pending/`:
+14 todos in `.planning/todos/pending/`:
 - **Add security review phase** (general)
 - **Add session history for previous bills** (ui)
 - **Allow host to remove users from session** (api)
-- **Animate item updates with flash/fade** (ui)
 - **Bill ID tap opens native share sheet** (ui)
 - **Combine take photo and upload image buttons into one** (ui)
+- **Detect auto-gratuity on receipts** (api)
 - **First-time user getting started tutorial** (ui)
-- **Flash item price or name on update** (ui)
-- **Fix inline item edit mode layout overflow** (ui)
 - **Handle strange multi-frame scrolling issues** (ui)
+- **Improve item count input UX** (ui)
+- **Make edit form prettier with better layout** (ui)
+- **Persist participant session across visits** (api)
+- **Redo Session UI with better information architecture** (ui)
+- **Rename concept of sessions to bills** (general)
 - **Use graph algorithm to minimize inter-person transactions** (api)
-- **User-friendly error messages** (ui)
 
 ### Blockers/Concerns
 
