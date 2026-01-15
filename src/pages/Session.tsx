@@ -73,6 +73,7 @@ export default function Session() {
   const parseReceipt = useAction(api.actions.parseReceipt.parseReceipt);
   const addBulk = useMutation(api.items.addBulk);
   const updateTotals = useMutation(api.sessions.updateTotals);
+  const updateGratuity = useMutation(api.sessions.updateGratuity);
   const addItem = useMutation(api.items.add);
 
   // Draft item state - local only until saved
@@ -163,6 +164,14 @@ export default function Session() {
           sessionId: session._id,
           subtotal: Math.round(result.subtotal * 100),
           tax: Math.round(result.tax * 100),
+        });
+      }
+
+      // Update gratuity if detected from receipt (convert to cents)
+      if (result.gratuity !== null && result.gratuity > 0) {
+        await updateGratuity({
+          sessionId: session._id,
+          gratuity: Math.round(result.gratuity * 100),
         });
       }
 
