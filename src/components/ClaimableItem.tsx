@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { Id } from "../../convex/_generated/dataModel";
@@ -55,12 +55,29 @@ export default function ClaimableItem({
   );
   const [editQuantity, setEditQuantity] = useState(item.quantity);
 
+  // Flash animation state for item updates
+  const [isFlashing, setIsFlashing] = useState(false);
+  const prevItemRef = useRef({ name: item.name, price: item.price });
+
   // Sync local state when item changes externally
   useEffect(() => {
     setEditName(item.name);
     setEditPriceInput((item.price / 100).toFixed(2));
     setEditQuantity(item.quantity);
   }, [item.name, item.price, item.quantity]);
+
+  // Trigger flash animation when item name or price changes
+  useEffect(() => {
+    if (
+      prevItemRef.current.name !== item.name ||
+      prevItemRef.current.price !== item.price
+    ) {
+      setIsFlashing(true);
+      const timer = setTimeout(() => setIsFlashing(false), 500);
+      prevItemRef.current = { name: item.name, price: item.price };
+      return () => clearTimeout(timer);
+    }
+  }, [item.name, item.price]);
 
   // Mutations
   const updateItem = useMutation(api.items.update);
@@ -243,7 +260,7 @@ export default function ClaimableItem({
   return (
     <div
       onClick={canClaim ? handleTap : undefined}
-      className={`p-3 rounded-lg transition-colors ${
+      className={`p-3 rounded-lg transition-all duration-300 ${
         canClaim ? "cursor-pointer active:bg-gray-100" : ""
       } ${
         hasClaimed
@@ -251,7 +268,7 @@ export default function ClaimableItem({
           : isUnclaimed
             ? "bg-gray-50 border border-dashed border-gray-300 opacity-70"
             : "bg-gray-50 border border-gray-200"
-      }`}
+      } ${isFlashing ? "ring-2 ring-blue-400 ring-opacity-75" : ""}`}
     >
       <div className="flex justify-between items-center">
         <div>
