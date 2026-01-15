@@ -26,7 +26,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 5.1: Fix New Item Broadcast** - Hide new items from others until saved (INSERTED)
 - [x] **Phase 6: Calculation Engine** - Tax distribution, tip calculation, per-person totals
 - [x] **Phase 7: Summary & Display** - Final totals screen, unclaimed warnings, receipt view
-- [ ] **Phase 8: Polish & Optimization** - Mobile UX refinement, edge cases, performance
+- [x] **Phase 8: Polish & Optimization** - Mobile UX refinement, edge cases, performance
 
 ## Phase Details
 
@@ -169,7 +169,7 @@ Plans:
 Plans:
 - [x] 08-01: Mobile UX polish and responsiveness
 - [x] 08-02: Edge case handling and error states
-- [ ] 08-03: Performance optimization
+- [x] 08-03: Performance optimization
 
 ## Progress
 
@@ -188,4 +188,4 @@ Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5
 | 5.1 Fix New Item Broadcast | 1/1 | Complete | 2026-01-15 |
 | 6. Calculation Engine | 3/3 | Complete | 2026-01-14 |
 | 7. Summary & Display | 1/1 | Complete | 2026-01-15 |
-| 8. Polish & Optimization | 2/3 | In progress | - |
+| 8. Polish & Optimization | 3/3 | Complete | 2026-01-15 |
