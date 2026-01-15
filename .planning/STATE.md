@@ -75,7 +75,8 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-10 todos in `.planning/todos/pending/`:
+11 todos in `.planning/todos/pending/`:
+- **Allow host to remove users from session** (api)
 - **Investigate concurrent add item race condition** (ui)
 - **Animate item updates with flash/fade** (ui)
 - **Fix inline item edit mode layout overflow** (ui)
