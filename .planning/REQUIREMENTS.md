@@ -9,15 +9,15 @@ Requirements for test foundation. Each maps to roadmap phases.
 
 ### Backend Testing
 
-- [ ] **BTEST-01**: Authorization unit tests verify non-participants cannot add items
-- [ ] **BTEST-02**: Authorization unit tests verify non-participants cannot claim items
-- [ ] **BTEST-03**: Authorization unit tests verify non-hosts cannot update tip settings
-- [ ] **BTEST-04**: Authorization unit tests verify non-hosts cannot update tax settings
-- [ ] **BTEST-05**: Authorization unit tests verify non-hosts cannot remove items
-- [ ] **BTEST-06**: Authorization unit tests verify non-hosts cannot use addBulk
-- [ ] **BTEST-07**: Authorization unit tests verify hosts can perform host-only actions
-- [ ] **BTEST-08**: Authorization unit tests verify participants can claim/unclaim own items
-- [ ] **BTEST-09**: Authorization unit tests verify cross-session access is denied
+- [x] **BTEST-01**: Authorization unit tests verify non-participants cannot add items
+- [x] **BTEST-02**: Authorization unit tests verify non-participants cannot claim items
+- [x] **BTEST-03**: Authorization unit tests verify non-hosts cannot update tip settings
+- [x] **BTEST-04**: Authorization unit tests verify non-hosts cannot update tax settings
+- [x] **BTEST-05**: Authorization unit tests verify non-hosts cannot remove items
+- [x] **BTEST-06**: Authorization unit tests verify non-hosts cannot use addBulk
+- [x] **BTEST-07**: Authorization unit tests verify hosts can perform host-only actions
+- [x] **BTEST-08**: Authorization unit tests verify participants can claim/unclaim own items
+- [x] **BTEST-09**: Authorization unit tests verify cross-session access is denied
 - [ ] **BTEST-10**: Calculation unit tests verify even split distribution with remainder
 - [ ] **BTEST-11**: Calculation unit tests verify tax distribution proportional to subtotal
 - [ ] **BTEST-12**: Calculation unit tests verify tip calculation (percent on subtotal)
@@ -90,15 +90,15 @@ Which phases cover which requirements. Updated by create-roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| BTEST-01 | Phase 16 | Pending |
-| BTEST-02 | Phase 16 | Pending |
-| BTEST-03 | Phase 16 | Pending |
-| BTEST-04 | Phase 16 | Pending |
-| BTEST-05 | Phase 16 | Pending |
-| BTEST-06 | Phase 16 | Pending |
-| BTEST-07 | Phase 16 | Pending |
-| BTEST-08 | Phase 16 | Pending |
-| BTEST-09 | Phase 16 | Pending |
+| BTEST-01 | Phase 16 | Complete |
+| BTEST-02 | Phase 16 | Complete |
+| BTEST-03 | Phase 16 | Complete |
+| BTEST-04 | Phase 16 | Complete |
+| BTEST-05 | Phase 16 | Complete |
+| BTEST-06 | Phase 16 | Complete |
+| BTEST-07 | Phase 16 | Complete |
+| BTEST-08 | Phase 16 | Complete |
+| BTEST-09 | Phase 16 | Complete |
 | BTEST-10 | Phase 17 | Pending |
 | BTEST-11 | Phase 17 | Pending |
 | BTEST-12 | Phase 17 | Pending |
@@ -129,4 +129,4 @@ Which phases cover which requirements. Updated by create-roadmap.
 
 ---
 *Requirements defined: 2026-01-15*
-*Last updated: 2026-01-15 after roadmap creation*
+*Last updated: 2026-01-15 after Phase 16 completion*
