@@ -33,6 +33,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 10.2: Join Bill UI Simplification** - Single name field with auto-fill (INSERTED)
 - [x] **Phase 11: Security Review** - Security audit and hardening
 - [x] **Phase 12: Security Hardening** - Fix authorization and input validation issues
+- [ ] **Phase 13: Documentation** - Add documentation to the project
 
 ## Phase Details
 
@@ -339,10 +340,30 @@ Plans:
 - [x] 12-03: Input validation bounds (names, money, quantities)
 - [x] 12-04: Receipt URL session verification
 
+### Phase 13: Documentation
+
+**Goal**: Add developer documentation (README + architecture docs) for quick onboarding
+**Depends on**: Phase 12
+**Research**: Unlikely (documentation work)
+**Plans**: 1
+
+Scope:
+- README.md at root with quick start guide and environment setup
+- docs/architecture.md with key patterns and design decisions
+- Focus on helping contributors understand the "why" behind the code
+
+Files:
+- README.md (new)
+- docs/architecture.md (new)
+
+Plans:
+
+- [ ] 13-01: Developer documentation (README + architecture)
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5.1 → 6 → 7 → 8 → 9 → 10 → 10.1 → 10.2 → 11 → 12
+Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5.1 → 6 → 7 → 8 → 9 → 10 → 10.1 → 10.2 → 11 → 12 → 13
 
 | Phase                            | Plans Complete | Status      | Completed  |
 | -------------------------------- | -------------- | ----------- | ---------- |
@@ -363,3 +384,4 @@ Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5
 | 10.2 Join Bill UI Simplification | 1/1            | Complete    | 2026-01-15 |
 | 11. Security Review              | 1/1            | Complete    | 2026-01-15 |
 | 12. Security Hardening           | 4/4            | Complete    | 2026-01-15 |
+| 13. Documentation                | 0/1            | Planned     | -          |
