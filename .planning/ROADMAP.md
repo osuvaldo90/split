@@ -23,6 +23,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 3.1: Inline Item Editing** - Remove confirm step, collaborative item editing (INSERTED)
 - [x] **Phase 4: Real-Time Sync** - WebSocket/real-time infrastructure for live updates
 - [x] **Phase 5: Item Management** - Claim/unclaim items, edit line items, split handling
+- [ ] **Phase 5.1: Fix New Item Broadcast** - Hide new items from others until saved (INSERTED)
 - [ ] **Phase 6: Calculation Engine** - Tax distribution, tip calculation, per-person totals
 - [ ] **Phase 7: Summary & Display** - Final totals screen, unclaimed warnings, receipt view
 - [ ] **Phase 8: Polish & Optimization** - Mobile UX refinement, edge cases, performance
@@ -119,9 +120,29 @@ Plans:
 - [x] 05-01: Item claiming and unclaiming
 - [x] 05-02: Visual distinction and host powers
 
+### Phase 5.1: Fix New Item Broadcast (INSERTED)
+**Goal**: Hide new items from other users until saved with actual content
+**Depends on**: Phase 5
+**Research**: Unlikely (bug fix)
+**Plans**: TBD
+
+Problem:
+- User A clicks "Add Item" → empty editable item appears
+- Before User A saves, other users see the empty item in their view
+- Confuses other users who see an empty item they didn't create
+
+Solution approaches:
+1. Don't create in DB until save (local-only draft)
+2. Add "draft" status filtered from other users' views
+3. Use optimistic UI for creator, delay mutation until save
+4. Add creatorId check to only show unsaved items to creator
+
+Plans:
+- [ ] 05.1-01: Fix new item broadcast
+
 ### Phase 6: Calculation Engine
 **Goal**: Calculate per-person totals with proportional tax distribution and flexible tip options
-**Depends on**: Phase 5
+**Depends on**: Phase 5.1
 **Research**: Unlikely (internal logic)
 **Plans**: TBD
 
@@ -155,7 +176,7 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 6 → 7 → 8
+Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5.1 → 6 → 7 → 8
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -166,6 +187,7 @@ Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 6
 | 3.1 Inline Item Editing | 1/1 | Complete | 2026-01-14 |
 | 4. Real-Time Sync | 3/3 | Complete | 2026-01-14 |
 | 5. Item Management | 2/2 | Complete | 2026-01-15 |
+| 5.1 Fix New Item Broadcast | 0/1 | Not started | - |
 | 6. Calculation Engine | 0/3 | Not started | - |
 | 7. Summary & Display | 0/3 | Not started | - |
 | 8. Polish & Optimization | 0/3 | Not started | - |

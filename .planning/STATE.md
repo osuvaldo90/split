@@ -83,13 +83,13 @@ Recent decisions affecting current work:
 
 - Phase 2.1 inserted after Phase 2: Receipt Fixes (URGENT) — 3 bugs moved from deferred to fix now
 - Phase 3.1 inserted after Phase 3: Inline Item Editing (URGENT) — remove confirm step, collaborative editing
+- Phase 5.1 inserted after Phase 5: Fix New Item Broadcast (URGENT) — hide new items from others until saved
 
 ### Pending Todos
 
-13 todos in `.planning/todos/pending/`:
+12 todos in `.planning/todos/pending/`:
 - **Add session history for previous bills** (ui)
 - **Allow host to remove users from session** (api)
-- **Fix new item broadcast to other users before save** (ui)
 - **Animate item updates with flash/fade** (ui)
 - **Fix inline item edit mode layout overflow** (ui)
 - **User-friendly error messages** (ui)
