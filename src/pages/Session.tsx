@@ -156,7 +156,10 @@ export default function Session() {
         quantity: item.quantity,
       }));
 
-      await addBulk({ sessionId: session._id, items: itemsInCents });
+      if (!currentParticipantId) {
+        throw new Error("Must be joined to upload receipt");
+      }
+      await addBulk({ sessionId: session._id, items: itemsInCents, participantId: currentParticipantId });
 
       // Update session totals if provided (convert to cents)
       if (result.subtotal !== null && result.tax !== null) {
@@ -168,10 +171,11 @@ export default function Session() {
       }
 
       // Update gratuity if detected from receipt (convert to cents)
-      if (result.gratuity !== null && result.gratuity > 0) {
+      if (result.gratuity !== null && result.gratuity > 0 && currentParticipantId) {
         await updateGratuity({
           sessionId: session._id,
           gratuity: Math.round(result.gratuity * 100),
+          participantId: currentParticipantId,
         });
       }
 
@@ -448,6 +452,7 @@ export default function Session() {
             session={session}
             isHost={isHost}
             groupSubtotal={groupSubtotal}
+            participantId={currentParticipantId}
           />
         )}
 

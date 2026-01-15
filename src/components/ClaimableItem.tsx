@@ -102,6 +102,7 @@ export default function ClaimableItem({
       unclaimItem({
         itemId: item._id,
         participantId: currentParticipantId,
+        callerParticipantId: currentParticipantId,
       });
     } else {
       claimItem({
@@ -159,8 +160,9 @@ export default function ClaimableItem({
     if (isDraft && onDraftCancel) {
       // For drafts, delete is the same as cancel - just remove local state
       onDraftCancel();
-    } else {
-      await removeItem({ itemId: item._id });
+    } else if (currentParticipantId) {
+      // Only host can delete items (enforced by backend), but UI shows delete to all editors
+      await removeItem({ itemId: item._id, participantId: currentParticipantId });
     }
   }
 

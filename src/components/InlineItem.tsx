@@ -10,9 +10,10 @@ interface InlineItemProps {
     price: number;
     quantity: number;
   };
+  participantId: Id<"participants"> | null;
 }
 
-export default function InlineItem({ item }: InlineItemProps) {
+export default function InlineItem({ item, participantId }: InlineItemProps) {
   // New items (empty name) auto-enter edit mode
   const [isEditing, setIsEditing] = useState(item.name === "");
 
@@ -58,7 +59,8 @@ export default function InlineItem({ item }: InlineItemProps) {
   }
 
   async function handleDelete() {
-    await removeItem({ itemId: item._id });
+    if (!participantId) return;
+    await removeItem({ itemId: item._id, participantId });
   }
 
   // View mode

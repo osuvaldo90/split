@@ -9,6 +9,7 @@ interface ReceiptReviewProps {
   initialSubtotal: number | null;
   initialTax: number | null;
   sessionId: Id<"sessions">;
+  participantId: Id<"participants">;
   onConfirm: () => void;
   onCancel: () => void;
 }
@@ -18,6 +19,7 @@ export default function ReceiptReview({
   initialSubtotal,
   initialTax,
   sessionId,
+  participantId,
   onConfirm,
   onCancel,
 }: ReceiptReviewProps) {
@@ -98,8 +100,8 @@ export default function ReceiptReview({
         quantity: item.quantity,
       }));
 
-      // Save items to database
-      await addBulk({ sessionId, items: itemsInCents });
+      // Save items to database (host only)
+      await addBulk({ sessionId, participantId, items: itemsInCents });
 
       // Update session totals if provided (convert to cents)
       if (subtotal !== null && tax !== null) {

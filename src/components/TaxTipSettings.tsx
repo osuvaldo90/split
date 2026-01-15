@@ -16,12 +16,14 @@ interface TaxTipSettingsProps {
   session: Session;
   isHost: boolean;
   groupSubtotal: number; // in cents
+  participantId: Id<"participants"> | null;
 }
 
 export default function TaxTipSettings({
   session,
   isHost,
   groupSubtotal,
+  participantId,
 }: TaxTipSettingsProps) {
   // Local state for editing
   const [taxInput, setTaxInput] = useState(
@@ -86,20 +88,23 @@ export default function TaxTipSettings({
 
   // Handle tax change (on blur)
   async function handleTaxBlur() {
+    if (!participantId) return;
     const taxInCents = Math.round(parseFloat(taxInput) * 100) || 0;
-    await updateTax({ sessionId: session._id, tax: taxInCents });
+    await updateTax({ sessionId: session._id, tax: taxInCents, participantId });
   }
 
   // Handle gratuity change (on blur)
   async function handleGratuityBlur() {
+    if (!participantId) return;
     const gratuityInCents = Math.round(parseFloat(gratuityInput) * 100) || 0;
-    await updateGratuity({ sessionId: session._id, gratuity: gratuityInCents });
+    await updateGratuity({ sessionId: session._id, gratuity: gratuityInCents, participantId });
   }
 
   // Handle tip type change
   async function handleTipTypeChange(
     newType: "percent_subtotal" | "percent_total" | "manual"
   ) {
+    if (!participantId) return;
     const oldType = tipType;
     setTipType(newType);
 
@@ -114,6 +119,7 @@ export default function TaxTipSettings({
         sessionId: session._id,
         tipType: newType,
         tipValue: 0,
+        participantId,
       });
     } else {
       // Preserve value when switching between percent_subtotal and percent_total
@@ -122,12 +128,14 @@ export default function TaxTipSettings({
         sessionId: session._id,
         tipType: newType,
         tipValue: currentValue,
+        participantId,
       });
     }
   }
 
   // Handle tip value change (on blur)
   async function handleTipBlur() {
+    if (!participantId) return;
     const tipValue =
       tipType === "manual"
         ? Math.round(parseFloat(tipInput) * 100) || 0
@@ -136,6 +144,7 @@ export default function TaxTipSettings({
       sessionId: session._id,
       tipType,
       tipValue,
+      participantId,
     });
   }
 
