@@ -34,6 +34,12 @@ export const join = mutation({
     name: v.string(),
   },
   handler: async (ctx, args) => {
+    // Verify session exists
+    const session = await ctx.db.get(args.sessionId);
+    if (!session) {
+      throw new Error("Session not found. Please check the code and try again.");
+    }
+
     const trimmedName = args.name.trim();
 
     // Check for duplicate names (case-insensitive)
@@ -48,7 +54,7 @@ export const join = mutation({
     );
 
     if (duplicate) {
-      throw new Error("Name already taken in this session");
+      throw new Error("That name is already taken. Please choose a different name.");
     }
 
     const participantId = await ctx.db.insert("participants", {
