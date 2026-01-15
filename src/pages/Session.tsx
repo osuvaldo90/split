@@ -4,6 +4,7 @@ import { useQuery, useAction, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { Id } from "../../convex/_generated/dataModel";
 import ReceiptCapture from "../components/ReceiptCapture";
+import ReceiptImageViewer from "../components/ReceiptImageViewer";
 import ClaimableItem from "../components/ClaimableItem";
 import JoinToast from "../components/JoinToast";
 import TabNavigation from "../components/TabNavigation";
@@ -62,6 +63,7 @@ export default function Session() {
     step: "idle",
   });
   const [activeTab, setActiveTab] = useState<Tab>("items");
+  const [showReceiptImage, setShowReceiptImage] = useState(false);
 
   // Fetch session by code
   const session = useQuery(api.sessions.getByCode, code ? { code } : "skip");
@@ -314,9 +316,17 @@ export default function Session() {
                 {receiptState.step === "idle" && (
                   <div>
                     {session.receiptImageId && (
-                      <p className="text-sm text-gray-600 mb-3">
-                        Receipt uploaded. Upload a new one to replace existing items.
-                      </p>
+                      <div className="mb-3">
+                        <p className="text-sm text-gray-600">
+                          Receipt uploaded. Upload a new one to replace existing items.
+                        </p>
+                        <button
+                          onClick={() => setShowReceiptImage(true)}
+                          className="text-sm text-blue-500 underline hover:text-blue-600"
+                        >
+                          View original receipt
+                        </button>
+                      </div>
                     )}
                     <ReceiptCapture
                       sessionId={session._id}
@@ -465,6 +475,14 @@ export default function Session() {
         onTabChange={setActiveTab}
         unclaimedCount={unclaimedCount}
       />
+
+      {/* Receipt Image Viewer Modal */}
+      {session.receiptImageId && showReceiptImage && (
+        <ReceiptImageViewer
+          storageId={session.receiptImageId}
+          onClose={() => setShowReceiptImage(false)}
+        />
+      )}
     </div>
   );
 }
