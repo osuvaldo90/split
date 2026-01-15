@@ -18,3 +18,7 @@ dist
 # Logs
 *.log
 .vercel
+
+# Test artifacts
+playwright-report/
+test-results/
