@@ -25,7 +25,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 5: Item Management** - Claim/unclaim items, edit line items, split handling
 - [x] **Phase 5.1: Fix New Item Broadcast** - Hide new items from others until saved (INSERTED)
 - [x] **Phase 6: Calculation Engine** - Tax distribution, tip calculation, per-person totals
-- [ ] **Phase 7: Summary & Display** - Final totals screen, unclaimed warnings, receipt view
+- [x] **Phase 7: Summary & Display** - Final totals screen, unclaimed warnings, receipt view
 - [ ] **Phase 8: Polish & Optimization** - Mobile UX refinement, edge cases, performance
 
 ## Phase Details
@@ -155,12 +155,10 @@ Plans:
 **Goal**: Show final totals screen, original receipt image, and unclaimed item warnings
 **Depends on**: Phase 6
 **Research**: Unlikely (internal UI)
-**Plans**: TBD
+**Plans**: 1
 
 Plans:
-- [ ] 07-01: Summary screen with all participant totals
-- [ ] 07-02: Original receipt image display
-- [ ] 07-03: Unclaimed item warnings (non-blocking)
+- [x] 07-01: Receipt image viewer modal
 
 ### Phase 8: Polish & Optimization
 **Goal**: Refine mobile UX, handle edge cases, optimize performance for restaurant use
@@ -189,5 +187,5 @@ Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5
 | 5. Item Management | 2/2 | Complete | 2026-01-15 |
 | 5.1 Fix New Item Broadcast | 1/1 | Complete | 2026-01-15 |
 | 6. Calculation Engine | 3/3 | Complete | 2026-01-14 |
-| 7. Summary & Display | 0/3 | Not started | - |
+| 7. Summary & Display | 1/1 | Complete | 2026-01-15 |
 | 8. Polish & Optimization | 0/3 | Not started | - |

@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-01-14)
 
 **Core value:** Seamless, real-time collaborative bill splitting that works instantly for anyone with a phone and a browser.
-**Current focus:** Phase 7 — Summary Display
+**Current focus:** Phase 8 — Polish & Optimization
 
 ## Current Position
 
-Phase: 7 of 8 (Summary Display)
-Plan: 1 of 1 in current phase (COMPLETE)
-Status: Phase complete
-Last activity: 2026-01-15 — Completed 07-01-PLAN.md
+Phase: 8 of 8 (Polish & Optimization)
+Plan: 0 of 3 (planning)
+Status: Ready to plan
+Last activity: 2026-01-15 — Phase 7 complete, tracking files updated
 
-Progress: █████████████ 88%
+Progress: █████████████████ 95%
 
 ## Performance Metrics
 
@@ -114,5 +114,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-15
-Stopped at: Completed 07-01-PLAN.md (Phase 7 complete)
+Stopped at: Phase 7 complete, ready for Phase 8 planning
 Resume file: None
