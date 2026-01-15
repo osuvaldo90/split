@@ -86,7 +86,7 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-12 todos in `.planning/todos/pending/`:
+13 todos in `.planning/todos/pending/`:
 - **Add session history for previous bills** (ui)
 - **Allow host to remove users from session** (api)
 - **Fix new item broadcast to other users before save** (ui)
