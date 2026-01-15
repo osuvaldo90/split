@@ -23,3 +23,7 @@ TBD - needs design review to determine:
 - What's currently prominent vs what should be
 - How to restructure the visual hierarchy
 - Mobile-first layout that puts claiming front and center
+
+### Additional Ideas
+
+- **Distinguish current user in participant list** - Show the current user's name differently (e.g., bold, "(you)" suffix, or different color) so they can quickly identify themselves in the list
