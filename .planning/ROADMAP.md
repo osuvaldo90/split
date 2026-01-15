@@ -30,6 +30,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 9: UI/UX Improvements** - Receipt upload consolidation, edit layout refinements
 - [x] **Phase 10: Feature Enhancements** - Session-to-bill rename, auto-gratuity detection, bill history
 - [x] **Phase 10.1: Bug Fixes and UX** - Tax calculation fix, combine join bill into home (INSERTED)
+- [ ] **Phase 10.2: Join Bill UI Simplification** - Single name field with auto-fill (INSERTED)
 - [ ] **Phase 11: Security Review** - Security audit and hardening
 
 ## Phase Details
@@ -236,6 +237,21 @@ Plans:
 - [x] 10.1-01: Fix tax distribution to use bill subtotal
 - [x] 10.1-02: Combine join bill into home page
 
+### Phase 10.2: Join Bill UI Simplification (INSERTED)
+**Goal**: Unify home page form with single name field, optional code, and smart button adaptation
+**Depends on**: Phase 10.1
+**Research**: Unlikely (UI refinement)
+**Plans**: 1
+
+Changes:
+- Unified form: single name field + optional code field
+- Name pre-filled from localStorage (last used name)
+- Smart button: "Start Bill" when no code, "Join Bill" when valid code entered
+- Inline error handling for invalid codes
+
+Plans:
+- [ ] 10.2-01: Unified form with smart button adaptation
+
 ### Phase 11: Security Review
 **Goal**: Comprehensive security audit and hardening of the application
 **Depends on**: Phase 10
@@ -254,7 +270,7 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5.1 → 6 → 7 → 8 → 9 → 10 → 10.1 → 11
+Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5.1 → 6 → 7 → 8 → 9 → 10 → 10.1 → 10.2 → 11
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -272,4 +288,5 @@ Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5
 | 9. UI/UX Improvements | 1/1 | Complete | 2026-01-15 |
 | 10. Feature Enhancements | 3/3 | Complete | 2026-01-15 |
 | 10.1 Bug Fixes and UX | 2/2 | Complete | 2026-01-15 |
+| 10.2 Join Bill UI Simplification | 0/TBD | Not started | - |
 | 11. Security Review | 0/TBD | Not started | - |
