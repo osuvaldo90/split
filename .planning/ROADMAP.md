@@ -24,7 +24,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 4: Real-Time Sync** - WebSocket/real-time infrastructure for live updates
 - [x] **Phase 5: Item Management** - Claim/unclaim items, edit line items, split handling
 - [x] **Phase 5.1: Fix New Item Broadcast** - Hide new items from others until saved (INSERTED)
-- [ ] **Phase 6: Calculation Engine** (In progress) - Tax distribution, tip calculation, per-person totals
+- [x] **Phase 6: Calculation Engine** - Tax distribution, tip calculation, per-person totals
 - [ ] **Phase 7: Summary & Display** - Final totals screen, unclaimed warnings, receipt view
 - [ ] **Phase 8: Polish & Optimization** - Mobile UX refinement, edge cases, performance
 
@@ -149,7 +149,7 @@ Plans:
 Plans:
 - [x] 06-01: Proportional tax distribution logic
 - [x] 06-02: Tip calculation (% subtotal, % subtotal+tax, manual)
-- [ ] 06-03: Per-person total aggregation
+- [x] 06-03: Per-person total aggregation
 
 ### Phase 7: Summary & Display
 **Goal**: Show final totals screen, original receipt image, and unclaimed item warnings
@@ -188,6 +188,6 @@ Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5
 | 4. Real-Time Sync | 3/3 | Complete | 2026-01-14 |
 | 5. Item Management | 2/2 | Complete | 2026-01-15 |
 | 5.1 Fix New Item Broadcast | 1/1 | Complete | 2026-01-15 |
-| 6. Calculation Engine | 2/3 | In progress | - |
+| 6. Calculation Engine | 3/3 | Complete | 2026-01-14 |
 | 7. Summary & Display | 0/3 | Not started | - |
 | 8. Polish & Optimization | 0/3 | Not started | - |
