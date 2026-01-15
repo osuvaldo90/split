@@ -4,7 +4,7 @@ import { useQuery, useAction, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { Id } from "../../convex/_generated/dataModel";
 import ReceiptCapture from "../components/ReceiptCapture";
-import InlineItem from "../components/InlineItem";
+import ClaimableItem from "../components/ClaimableItem";
 import JoinToast from "../components/JoinToast";
 import { getStoredParticipant } from "../lib/sessionStorage";
 
@@ -78,10 +78,6 @@ export default function Session() {
   const currentParticipantId = currentParticipant?._id ?? null;
   const isHost = currentParticipant?.isHost ?? false;
 
-  // Debug: verify current participant is loaded (will be used by ClaimableItem in Task 3)
-  // eslint-disable-next-line no-console
-  console.log("currentParticipant:", { currentParticipantId, isHost, name: currentParticipant?.name });
-
   // Fetch items for this session
   const items = useQuery(
     api.items.listBySession,
@@ -91,6 +87,12 @@ export default function Session() {
   // Fetch participants for this session
   const participants = useQuery(
     api.participants.listBySession,
+    session ? { sessionId: session._id } : "skip"
+  );
+
+  // Fetch claims for this session
+  const claims = useQuery(
+    api.claims.listBySession,
     session ? { sessionId: session._id } : "skip"
   );
 
@@ -330,7 +332,14 @@ export default function Session() {
         </h2>
         <div className="space-y-2">
           {items?.map((item) => (
-            <InlineItem key={item._id} item={item} />
+            <ClaimableItem
+              key={item._id}
+              item={item}
+              claims={(claims ?? []).filter((c) => c.itemId === item._id)}
+              participants={participants ?? []}
+              currentParticipantId={currentParticipantId}
+              isHost={isHost}
+            />
           ))}
         </div>
 
