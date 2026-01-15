@@ -30,7 +30,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 9: UI/UX Improvements** - Receipt upload consolidation, edit layout refinements
 - [x] **Phase 10: Feature Enhancements** - Session-to-bill rename, auto-gratuity detection, bill history
 - [x] **Phase 10.1: Bug Fixes and UX** - Tax calculation fix, combine join bill into home (INSERTED)
-- [ ] **Phase 10.2: Join Bill UI Simplification** - Single name field with auto-fill (INSERTED)
+- [x] **Phase 10.2: Join Bill UI Simplification** - Single name field with auto-fill (INSERTED)
 - [ ] **Phase 11: Security Review** - Security audit and hardening
 
 ## Phase Details
@@ -250,7 +250,7 @@ Changes:
 - Inline error handling for invalid codes
 
 Plans:
-- [ ] 10.2-01: Unified form with smart button adaptation
+- [x] 10.2-01: Unified form with smart button adaptation
 
 ### Phase 11: Security Review
 **Goal**: Comprehensive security audit and hardening of the application
@@ -288,5 +288,5 @@ Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5
 | 9. UI/UX Improvements | 1/1 | Complete | 2026-01-15 |
 | 10. Feature Enhancements | 3/3 | Complete | 2026-01-15 |
 | 10.1 Bug Fixes and UX | 2/2 | Complete | 2026-01-15 |
-| 10.2 Join Bill UI Simplification | 0/TBD | Not started | - |
+| 10.2 Join Bill UI Simplification | 1/1 | Complete | 2026-01-15 |
 | 11. Security Review | 0/TBD | Not started | - |
