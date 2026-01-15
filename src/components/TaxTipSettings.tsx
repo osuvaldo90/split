@@ -85,15 +85,30 @@ export default function TaxTipSettings({
   async function handleTipTypeChange(
     newType: "percent_subtotal" | "percent_total" | "manual"
   ) {
+    const oldType = tipType;
     setTipType(newType);
-    // Clear tip value when switching types
-    setTipInput("");
-    // Save with cleared value
-    await updateTip({
-      sessionId: session._id,
-      tipType: newType,
-      tipValue: 0,
-    });
+
+    // Only reset value when switching between manual and percent types (different units)
+    const switchingToManual = newType === "manual" && oldType !== "manual";
+    const switchingFromManual = newType !== "manual" && oldType === "manual";
+
+    if (switchingToManual || switchingFromManual) {
+      // Clear tip value when switching between $ and % (different units)
+      setTipInput("");
+      await updateTip({
+        sessionId: session._id,
+        tipType: newType,
+        tipValue: 0,
+      });
+    } else {
+      // Preserve value when switching between percent_subtotal and percent_total
+      const currentValue = parseFloat(tipInput) || 0;
+      await updateTip({
+        sessionId: session._id,
+        tipType: newType,
+        tipValue: currentValue,
+      });
+    }
   }
 
   // Handle tip value change (on blur)
