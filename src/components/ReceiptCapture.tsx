@@ -15,7 +15,6 @@ export default function ReceiptCapture({
   disabled = false,
 }: ReceiptCaptureProps) {
   const [isUploading, setIsUploading] = useState(false);
-  const cameraInputRef = useRef<HTMLInputElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const generateUploadUrl = useMutation(api.receipts.generateUploadUrl);
@@ -49,16 +48,8 @@ export default function ReceiptCapture({
       console.error("Receipt upload failed:", error);
     } finally {
       setIsUploading(false);
-      // Reset file inputs after upload (success or failure)
-      if (cameraInputRef.current) cameraInputRef.current.value = "";
+      // Reset file input after upload (success or failure)
       if (fileInputRef.current) fileInputRef.current.value = "";
-    }
-  }
-
-  function handleCameraChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0];
-    if (file) {
-      handleFileSelect(file);
     }
   }
 
@@ -72,19 +63,8 @@ export default function ReceiptCapture({
   const isDisabled = disabled || isUploading;
 
   return (
-    <div className="flex flex-col gap-3">
-      {/* Camera capture input (hidden) */}
-      <input
-        ref={cameraInputRef}
-        type="file"
-        accept="image/*"
-        capture="environment"
-        onChange={handleCameraChange}
-        className="hidden"
-        disabled={isDisabled}
-      />
-
-      {/* File upload input (hidden) */}
+    <div>
+      {/* Single file input - on mobile, OS automatically offers camera capture as an option */}
       <input
         ref={fileInputRef}
         type="file"
@@ -94,22 +74,13 @@ export default function ReceiptCapture({
         disabled={isDisabled}
       />
 
-      {/* Take Photo button */}
-      <button
-        onClick={() => cameraInputRef.current?.click()}
-        disabled={isDisabled}
-        className="w-full bg-blue-500 text-white font-medium py-3 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-600 transition-colors"
-      >
-        {isUploading ? "Uploading..." : "Take Photo"}
-      </button>
-
-      {/* Upload Image button */}
+      {/* Single "Add Receipt" button */}
       <button
         onClick={() => fileInputRef.current?.click()}
         disabled={isDisabled}
-        className="w-full bg-gray-100 text-gray-700 font-medium py-3 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-gray-200 transition-colors border border-gray-300"
+        className="w-full bg-blue-500 text-white font-medium py-3 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-600 transition-colors"
       >
-        {isUploading ? "Uploading..." : "Upload Image"}
+        {isUploading ? "Uploading..." : "Add Receipt"}
       </button>
     </div>
   );
