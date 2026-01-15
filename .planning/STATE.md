@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-15)
 ## Current Position
 
 Phase: 17 of 19 (Calculation Tests)
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-01-15 — Phase 16 (Authorization Tests) complete
+Plan: 1 of 1 complete
+Status: Phase complete
+Last activity: 2026-01-15 — Completed 17-01-PLAN.md (calculation tests)
 
-Progress: ████░░░░░░ 40% (2/5 phases)
+Progress: ██████░░░░ 60% (3/5 phases)
 
 ## Milestone Summary
 
@@ -36,6 +36,7 @@ See: [.planning/MILESTONES.md](.planning/MILESTONES.md)
 | 15-01 | webServer reuseExistingServer | Allows faster iteration when dev server already running |
 | 16-01 | environmentMatchGlobs for convex tests | convex-test requires node environment while calculations use edge-runtime |
 | 16-01 | server.deps.inline for convex-test | Required for import.meta.glob transformation in vitest |
+| 17-01 | Pure function tests in edge-runtime | No convex-test needed for calculations.ts functions |
 
 ## Pending Todos
 
@@ -49,7 +50,7 @@ See: [.planning/MILESTONES.md](.planning/MILESTONES.md)
 ## Session Continuity
 
 Last session: 2026-01-15
-Stopped at: Phase 16 complete, ready for Phase 17
+Stopped at: Completed 17-01-PLAN.md, Phase 17 complete
 Resume file: None
 
 ## Documentation
