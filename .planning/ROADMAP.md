@@ -28,7 +28,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 7: Summary & Display** - Final totals screen, unclaimed warnings, receipt view
 - [x] **Phase 8: Polish & Optimization** - Mobile UX refinement, edge cases, performance
 - [x] **Phase 9: UI/UX Improvements** - Receipt upload consolidation, edit layout refinements
-- [ ] **Phase 10: Feature Enhancements** - Session-to-bill rename, auto-gratuity detection, multi-item UX, bill history
+- [x] **Phase 10: Feature Enhancements** - Session-to-bill rename, auto-gratuity detection, bill history
 - [ ] **Phase 11: Security Review** - Security audit and hardening
 
 ## Phase Details
@@ -212,9 +212,9 @@ Files affected:
 - New: bill history components and storage
 
 Plans:
-- [ ] 10-01: Session-to-bill terminology rename
+- [x] 10-01: Auto-gratuity detection
 - [x] 10-02: Bill history on home screen
-- [x] 10-03: Multi-item per line item UX
+- [x] 10-03: Session-to-bill terminology rename
 
 ### Phase 11: Security Review
 **Goal**: Comprehensive security audit and hardening of the application
@@ -250,5 +250,5 @@ Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5
 | 7. Summary & Display | 1/1 | Complete | 2026-01-15 |
 | 8. Polish & Optimization | 3/3 | Complete | 2026-01-15 |
 | 9. UI/UX Improvements | 1/1 | Complete | 2026-01-15 |
-| 10. Feature Enhancements | 2/3 | In progress | - |
+| 10. Feature Enhancements | 3/3 | Complete | 2026-01-15 |
 | 11. Security Review | 0/TBD | Not started | - |
