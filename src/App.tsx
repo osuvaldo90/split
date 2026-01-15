@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Session from "./pages/Session";
-import Join from "./pages/Join";
 
 function App() {
   return (
@@ -11,7 +10,6 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="bill/:code" element={<Session />} />
-          <Route path="join" element={<Join />} />
         </Route>
       </Routes>
     </BrowserRouter>
