@@ -92,9 +92,8 @@ Recent decisions affecting current work:
 
 ### Deferred Issues
 
-2 todos deferred to later phases (in `.planning/todos/pending/`):
+1 todo deferred to later phases (in `.planning/todos/pending/`):
 - **Detect auto-gratuity on receipts** (api) → Phase 6 (Calculation Engine)
-- **Improve item count input UX** (ui) → Phase 8 (Polish)
 
 ### Roadmap Evolution
 
@@ -104,7 +103,7 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-14 todos in `.planning/todos/pending/`:
+10 todos in `.planning/todos/pending/`:
 - **Add security review phase** (general)
 - **Add session history for previous bills** (ui)
 - **Allow host to remove users from session** (api)
@@ -113,10 +112,6 @@ Recent decisions affecting current work:
 - **Detect auto-gratuity on receipts** (api)
 - **First-time user getting started tutorial** (ui)
 - **Handle strange multi-frame scrolling issues** (ui)
-- **Improve item count input UX** (ui)
-- **Make edit form prettier with better layout** (ui)
-- **Persist participant session across visits** (api)
-- **Redo Session UI with better information architecture** (ui)
 - **Rename concept of sessions to bills** (general)
 - **Use graph algorithm to minimize inter-person transactions** (api)
 
