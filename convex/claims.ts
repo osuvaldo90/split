@@ -42,6 +42,12 @@ export const claim = mutation({
     participantId: v.id("participants"),
   },
   handler: async (ctx, args) => {
+    // Verify participant exists and belongs to this session
+    const participant = await ctx.db.get(args.participantId);
+    if (!participant || participant.sessionId !== args.sessionId) {
+      throw new Error("Not authorized to claim items in this session");
+    }
+
     // Check if already claimed by this participant
     const existing = await ctx.db
       .query("claims")
@@ -107,6 +113,15 @@ export const unclaimByHost = mutation({
     const host = await ctx.db.get(args.hostParticipantId);
     if (!host || !host.isHost) {
       throw new Error("Only host can unclaim for others");
+    }
+
+    // Verify item exists and host's session matches item's session
+    const item = await ctx.db.get(args.itemId);
+    if (!item) {
+      throw new Error("Item not found");
+    }
+    if (host.sessionId !== item.sessionId) {
+      throw new Error("Host not in this session");
     }
 
     // Find and delete the claim
