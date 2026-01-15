@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-01-14)
 
 **Core value:** Seamless, real-time collaborative bill splitting that works instantly for anyone with a phone and a browser.
-**Current focus:** Phase 10.1 — Bug Fixes and UX
+**Current focus:** Phase 10.2 — Join Bill UI Simplification
 
 ## Current Position
 
-Phase: 10.1 of 12 (Bug Fixes and UX)
-Plan: 2 of 2 in current phase
-Status: Phase complete
-Last activity: 2026-01-15 — Completed 10.1-02-PLAN.md
+Phase: 10.2 of 12 (Join Bill UI Simplification)
+Plan: 0 of 1 planned
+Status: Ready to execute
+Last activity: 2026-01-15 — Planned 10.2-01-PLAN.md
 
 Progress: █████████████████░ 93%
 
@@ -117,6 +117,7 @@ None - auto-gratuity detection implemented in Phase 10-01.
 - Phase 9 added: UI/UX Improvements — receipt upload consolidation, edit layout refinements
 - Phase 10 added: Feature Enhancements — session-to-bill rename, auto-gratuity, multi-item UX, bill history
 - Phase 10.1 inserted after Phase 10: Bug Fixes and UX (URGENT) — tax calculation fix, combine join bill into home
+- Phase 10.2 inserted after Phase 10.1: Join Bill UI Simplification (URGENT) — single name field with auto-fill
 - Phase 11 added: Security Review — comprehensive security audit
 
 ### Pending Todos
@@ -139,5 +140,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-15
-Stopped at: Completed 10.1-02-PLAN.md (combine join bill into home) - Phase 10.1 complete
-Resume file: None
+Stopped at: Planned 10.2-01-PLAN.md (unified form with smart button)
+Resume file: .planning/phases/10.2-join-bill-ui-simplification/10.2-01-PLAN.md
