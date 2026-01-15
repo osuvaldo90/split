@@ -32,7 +32,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 10.1: Bug Fixes and UX** - Tax calculation fix, combine join bill into home (INSERTED)
 - [x] **Phase 10.2: Join Bill UI Simplification** - Single name field with auto-fill (INSERTED)
 - [x] **Phase 11: Security Review** - Security audit and hardening
-- [ ] **Phase 12: Security Hardening** - Fix authorization and input validation issues
+- [x] **Phase 12: Security Hardening** - Fix authorization and input validation issues
 
 ## Phase Details
 
@@ -334,8 +334,8 @@ Scope from security audit (SECURITY-AUDIT.md):
 
 Plans:
 
-- [ ] 12-01: HIGH priority authorization fixes (updateName, unclaim)
-- [ ] 12-02: Host-only restrictions (settings, destructive item ops)
+- [x] 12-01: HIGH priority authorization fixes (updateName, unclaim)
+- [x] 12-02: Host-only restrictions (settings, destructive item ops)
 - [x] 12-03: Input validation bounds (names, money, quantities)
 - [x] 12-04: Receipt URL session verification
 
@@ -362,4 +362,4 @@ Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5
 | 10.1 Bug Fixes and UX            | 2/2            | Complete    | 2026-01-15 |
 | 10.2 Join Bill UI Simplification | 1/1            | Complete    | 2026-01-15 |
 | 11. Security Review              | 1/1            | Complete    | 2026-01-15 |
-| 12. Security Hardening           | 2/4            | In progress | -          |
+| 12. Security Hardening           | 4/4            | Complete    | 2026-01-15 |
