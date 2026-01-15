@@ -10,18 +10,18 @@ See: .planning/PROJECT.md (updated 2026-01-14)
 ## Current Position
 
 Phase: 4 of 8 (Real-Time Sync)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: In progress
-Last activity: 2026-01-15 — Completed 04-01-PLAN.md
+Last activity: 2026-01-15 — Completed 04-02-PLAN.md
 
-Progress: █████████░ 54%
+Progress: █████████░ 58%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 13
+- Total plans completed: 14
 - Average duration: 3 min
-- Total execution time: 0.7 hours
+- Total execution time: 0.8 hours
 
 **By Phase:**
 
@@ -32,10 +32,10 @@ Progress: █████████░ 54%
 | 02.1-receipt-fixes | 2 | 3 min | 1.5 min |
 | 03-session-management | 3 | 3 min | 1 min |
 | 03.1-inline-item-editing | 1 + FIX | 4 min | 2 min |
-| 04-real-time-sync | 1 | 3 min | 3 min |
+| 04-real-time-sync | 2 | 8 min | 4 min |
 
 **Recent Trend:**
-- Last 5 plans: 1 min, 1 min, 1 min, 2 min, 3 min
+- Last 5 plans: 1 min, 1 min, 2 min, 3 min, 5 min
 - Trend: fast
 
 ## Accumulated Context
@@ -64,6 +64,8 @@ Recent decisions affecting current work:
 | 03.1-FIX | Detect new items by empty name for auto-edit | Simpler than prop drilling, no API changes |
 | 04-01 | Store only participantId in localStorage | Minimal footprint, verify via query |
 | 04-01 | Verify stored participant before redirect | Ensure data freshness and session match |
+| 04-02 | Show join toasts only for post-mount participants | Use joinedAt timestamp vs mountTime comparison |
+| 04-02 | Connection lost threshold: retries > 2 | Distinguish temporary reconnect from lost connection |
 
 ### Deferred Issues
 
@@ -91,6 +93,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-15T00:32:17Z
-Stopped at: Completed 04-01-PLAN.md
+Last session: 2026-01-15
+Stopped at: Completed 04-02-PLAN.md
 Resume file: None
