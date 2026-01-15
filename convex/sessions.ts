@@ -1,5 +1,6 @@
 import { query, mutation } from "./_generated/server";
 import { v } from "convex/values";
+import { validateName, validateMoney, validateTipPercent } from "./validation";
 
 // Generate a random 6-character alphanumeric code
 function generateCode(): string {
@@ -66,10 +67,11 @@ export const create = mutation({
   },
 });
 
-// Update tip settings
+// Update tip settings (host only)
 export const updateTip = mutation({
   args: {
     sessionId: v.id("sessions"),
+    participantId: v.id("participants"),
     tipType: v.union(
       v.literal("percent_subtotal"),
       v.literal("percent_total"),
@@ -78,6 +80,14 @@ export const updateTip = mutation({
     tipValue: v.number(),
   },
   handler: async (ctx, args) => {
+    const participant = await ctx.db.get(args.participantId);
+    if (!participant || !participant.isHost) {
+      throw new Error("Only the host can modify bill settings");
+    }
+    if (participant.sessionId !== args.sessionId) {
+      throw new Error("Participant not in this session");
+    }
+
     await ctx.db.patch(args.sessionId, {
       tipType: args.tipType,
       tipValue: args.tipValue,
@@ -85,13 +95,22 @@ export const updateTip = mutation({
   },
 });
 
-// Update tax setting
+// Update tax setting (host only)
 export const updateTax = mutation({
   args: {
     sessionId: v.id("sessions"),
+    participantId: v.id("participants"),
     tax: v.number(), // in cents
   },
   handler: async (ctx, args) => {
+    const participant = await ctx.db.get(args.participantId);
+    if (!participant || !participant.isHost) {
+      throw new Error("Only the host can modify bill settings");
+    }
+    if (participant.sessionId !== args.sessionId) {
+      throw new Error("Participant not in this session");
+    }
+
     await ctx.db.patch(args.sessionId, { tax: args.tax });
   },
 });
@@ -111,13 +130,22 @@ export const updateTotals = mutation({
   },
 });
 
-// Update gratuity (auto-gratuity from receipt)
+// Update gratuity (auto-gratuity from receipt) - host only
 export const updateGratuity = mutation({
   args: {
     sessionId: v.id("sessions"),
+    participantId: v.id("participants"),
     gratuity: v.number(), // in cents
   },
   handler: async (ctx, args) => {
+    const participant = await ctx.db.get(args.participantId);
+    if (!participant || !participant.isHost) {
+      throw new Error("Only the host can modify bill settings");
+    }
+    if (participant.sessionId !== args.sessionId) {
+      throw new Error("Participant not in this session");
+    }
+
     await ctx.db.patch(args.sessionId, { gratuity: args.gratuity });
   },
 });
