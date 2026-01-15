@@ -21,6 +21,11 @@ interface ClaimableItemProps {
   }>;
   currentParticipantId: Id<"participants"> | null;
   isHost: boolean;
+  // Draft mode props - item is local only, not in DB yet
+  isDraft?: boolean;
+  onDraftSave?: (name: string, price: number, quantity: number) => void;
+  onDraftCancel?: () => void;
+  onDraftChange?: (name: string, price: number, quantity: number) => void;
 }
 
 export default function ClaimableItem({
@@ -29,14 +34,19 @@ export default function ClaimableItem({
   participants,
   currentParticipantId,
   isHost,
+  isDraft = false,
+  onDraftSave,
+  onDraftCancel,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onDraftChange: _onDraftChange,
 }: ClaimableItemProps) {
   // Check if current user has claimed this item
   const hasClaimed = currentParticipantId
     ? claims.some((c) => c.participantId === currentParticipantId)
     : false;
 
-  // Edit mode state (new items with empty name auto-enter edit mode)
-  const [isEditing, setIsEditing] = useState(item.name === "");
+  // Edit mode state (drafts always start in edit mode, new items with empty name auto-enter edit mode)
+  const [isEditing, setIsEditing] = useState(isDraft || item.name === "");
 
   // Local state for editing
   const [editName, setEditName] = useState(item.name);
@@ -67,9 +77,9 @@ export default function ClaimableItem({
     })
     .sort();
 
-  // Handle tap to toggle claim
+  // Handle tap to toggle claim (disabled for drafts)
   function handleTap() {
-    if (!currentParticipantId || isEditing) return;
+    if (!currentParticipantId || isEditing || isDraft) return;
 
     if (hasClaimed) {
       unclaimItem({
@@ -101,28 +111,40 @@ export default function ClaimableItem({
   }
 
   function handleCancel() {
-    // Reset to original values
-    setEditName(item.name);
-    setEditPriceInput((item.price / 100).toFixed(2));
-    setEditQuantity(item.quantity);
-    setIsEditing(false);
+    if (isDraft && onDraftCancel) {
+      onDraftCancel();
+    } else {
+      // Reset to original values
+      setEditName(item.name);
+      setEditPriceInput((item.price / 100).toFixed(2));
+      setEditQuantity(item.quantity);
+      setIsEditing(false);
+    }
   }
 
   async function handleSave() {
     const priceInCents = Math.round(parseFloat(editPriceInput) * 100) || 0;
 
-    await updateItem({
-      itemId: item._id,
-      name: editName,
-      price: priceInCents,
-      quantity: editQuantity,
-    });
-
-    setIsEditing(false);
+    if (isDraft && onDraftSave) {
+      onDraftSave(editName, priceInCents, editQuantity);
+    } else {
+      await updateItem({
+        itemId: item._id,
+        name: editName,
+        price: priceInCents,
+        quantity: editQuantity,
+      });
+      setIsEditing(false);
+    }
   }
 
   async function handleDelete() {
-    await removeItem({ itemId: item._id });
+    if (isDraft && onDraftCancel) {
+      // For drafts, delete is the same as cancel - just remove local state
+      onDraftCancel();
+    } else {
+      await removeItem({ itemId: item._id });
+    }
   }
 
   // Edit mode

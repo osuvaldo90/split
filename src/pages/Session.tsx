@@ -102,6 +102,13 @@ export default function Session() {
   const updateTotals = useMutation(api.sessions.updateTotals);
   const addItem = useMutation(api.items.add);
 
+  // Draft item state - local only until saved
+  const [draftItem, setDraftItem] = useState<{
+    name: string;
+    price: number;
+    quantity: number;
+  } | null>(null);
+
   // Track join notifications
   const [joinToasts, setJoinToasts] = useState<Array<{ id: string; name: string }>>([]);
   const mountTimeRef = useRef(Date.now());
@@ -210,6 +217,21 @@ export default function Session() {
   // Handle dismissing a join toast
   function handleDismissToast(id: string) {
     setJoinToasts((prev) => prev.filter((t) => t.id !== id));
+  }
+
+  // Draft item handlers
+  async function handleDraftSave(name: string, price: number, quantity: number) {
+    if (!session) return;
+    await addItem({ sessionId: session._id, name, price, quantity });
+    setDraftItem(null);
+  }
+
+  function handleDraftCancel() {
+    setDraftItem(null);
+  }
+
+  function handleDraftChange(name: string, price: number, quantity: number) {
+    setDraftItem({ name, price, quantity });
   }
 
   return (
@@ -343,10 +365,36 @@ export default function Session() {
           ))}
         </div>
 
+        {/* Draft item - local only until saved */}
+        {draftItem && (
+          <ClaimableItem
+            item={{
+              _id: "" as Id<"items">,
+              sessionId: session._id,
+              name: draftItem.name,
+              price: draftItem.price,
+              quantity: draftItem.quantity,
+            }}
+            claims={[]}
+            participants={participants ?? []}
+            currentParticipantId={currentParticipantId}
+            isHost={isHost}
+            isDraft={true}
+            onDraftSave={handleDraftSave}
+            onDraftCancel={handleDraftCancel}
+            onDraftChange={handleDraftChange}
+          />
+        )}
+
         {/* Add item button - available to all participants */}
         <button
-          onClick={() => addItem({ sessionId: session._id, name: "", price: 0, quantity: 1 })}
-          className="w-full mt-3 py-3 px-4 border-2 border-dashed border-gray-300 rounded-lg text-gray-600 hover:border-gray-400 hover:text-gray-700 transition-colors"
+          onClick={() => setDraftItem({ name: "", price: 0, quantity: 1 })}
+          disabled={draftItem !== null}
+          className={`w-full mt-3 py-3 px-4 border-2 border-dashed rounded-lg transition-colors ${
+            draftItem !== null
+              ? "border-gray-200 text-gray-400 cursor-not-allowed"
+              : "border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-700"
+          }`}
         >
           + Add Item
         </button>
