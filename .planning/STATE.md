@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-01-14)
 
 **Core value:** Seamless, real-time collaborative bill splitting that works instantly for anyone with a phone and a browser.
-**Current focus:** Phase 10 — Feature Enhancements
+**Current focus:** Phase 10.1 — Bug Fixes and UX
 
 ## Current Position
 
-Phase: 10 of 11 (Feature Enhancements)
-Plan: 3 of 3 in current phase (10-01, 10-02, 10-03 complete)
-Status: Phase complete
-Last activity: 2026-01-15 — Completed 10-01-PLAN.md (auto-gratuity detection)
+Phase: 10.1 of 12 (Bug Fixes and UX)
+Plan: 0 of 2 in current phase
+Status: Planned, ready for execution
+Last activity: 2026-01-15 — Planned Phase 10.1 (2 plans in 1 wave)
 
 Progress: █████████████████░ 91%
 
@@ -112,20 +112,20 @@ None - auto-gratuity detection implemented in Phase 10-01.
 - Phase 5.1 inserted after Phase 5: Fix New Item Broadcast (URGENT) — hide new items from others until saved
 - Phase 9 added: UI/UX Improvements — receipt upload consolidation, edit layout refinements
 - Phase 10 added: Feature Enhancements — session-to-bill rename, auto-gratuity, multi-item UX, bill history
+- Phase 10.1 inserted after Phase 10: Bug Fixes and UX (URGENT) — tax calculation fix, combine join bill into home
 - Phase 11 added: Security Review — comprehensive security audit
 
 ### Pending Todos
 
-6 todos in `.planning/todos/pending/`:
+5 todos in `.planning/todos/pending/` (2 moved to Phase 10.1):
 - **Allow host to remove users from session** (api)
 - **Bill ID tap opens native share sheet** (ui)
-- **Combine join bill into the home page** (ui)
 - **First-time user getting started tutorial** (ui)
 - **Handle strange multi-frame scrolling issues** (ui)
 - **Use graph algorithm to minimize inter-person transactions** (api)
 
 Organized into phases:
-- Phase 10: Rename sessions to bills, Detect auto-gratuity, Better multi-item UX, Bill history
+- Phase 10.1: Tax calculation fix, Combine join bill into home
 - Phase 11: Security review
 
 ### Blockers/Concerns
