@@ -16,6 +16,7 @@ import type * as participants from "../participants.js";
 import type * as receipts from "../receipts.js";
 import type * as sessions from "../sessions.js";
 import type * as test from "../test.js";
+import type * as validation from "../validation.js";
 
 import type {
   ApiFromModules,
@@ -32,6 +33,7 @@ declare const fullApi: ApiFromModules<{
   receipts: typeof receipts;
   sessions: typeof sessions;
   test: typeof test;
+  validation: typeof validation;
 }>;
 
 /**
