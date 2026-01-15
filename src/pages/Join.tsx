@@ -68,7 +68,7 @@ export default function Join() {
       storedParticipant.sessionId === session._id
     ) {
       // Participant exists and belongs to this session - auto-redirect
-      navigate(`/session/${code}`);
+      navigate(`/bill/${code}`);
     } else {
       // Participant doesn't exist or belongs to different session - clear storage
       clearParticipant(code);
@@ -113,7 +113,7 @@ export default function Join() {
         participantName: name.trim(),
         participantId,
       });
-      navigate(`/session/${session.code}`);
+      navigate(`/bill/${session.code}`);
     } catch (err) {
       // Parse Convex error messages to extract user-friendly portion
       // Convex errors have format: "[CONVEX M(...)] [Request ID: ...] Server Error Uncaught Error: {message}"

@@ -31,7 +31,7 @@ export default function Home() {
         participantName: hostName.trim(),
         participantId: hostParticipantId,
       });
-      navigate(`/session/${code}`);
+      navigate(`/bill/${code}`);
     } catch (error) {
       console.error("Failed to create session:", error);
       setIsCreating(false);
@@ -96,7 +96,7 @@ export default function Home() {
               {history.map((bill) => (
                 <Link
                   key={bill.code}
-                  to={`/session/${bill.code}`}
+                  to={`/bill/${bill.code}`}
                   className="block p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
                 >
                   <div className="flex justify-between items-center">
