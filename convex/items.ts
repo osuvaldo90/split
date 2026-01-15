@@ -17,11 +17,18 @@ export const listBySession = query({
 export const add = mutation({
   args: {
     sessionId: v.id("sessions"),
+    participantId: v.id("participants"),
     name: v.string(),
     price: v.number(), // In cents
     quantity: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
+    // Verify participant exists and belongs to this session
+    const participant = await ctx.db.get(args.participantId);
+    if (!participant || participant.sessionId !== args.sessionId) {
+      throw new Error("Not authorized to add items to this session");
+    }
+
     // Verify session exists
     const session = await ctx.db.get(args.sessionId);
     if (!session) {
@@ -49,6 +56,7 @@ export const add = mutation({
 export const update = mutation({
   args: {
     itemId: v.id("items"),
+    participantId: v.id("participants"),
     name: v.optional(v.string()),
     price: v.optional(v.number()),
     quantity: v.optional(v.number()),
@@ -62,6 +70,12 @@ export const update = mutation({
     const session = await ctx.db.get(item.sessionId);
     if (!session) {
       throw new Error("Session not found");
+    }
+
+    // Verify participant exists and belongs to item's session
+    const participant = await ctx.db.get(args.participantId);
+    if (!participant || participant.sessionId !== item.sessionId) {
+      throw new Error("Not authorized to edit items in this session");
     }
 
     // Validate and build updates
