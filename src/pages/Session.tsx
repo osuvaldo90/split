@@ -6,6 +6,9 @@ import { Id } from "../../convex/_generated/dataModel";
 import ReceiptCapture from "../components/ReceiptCapture";
 import ClaimableItem from "../components/ClaimableItem";
 import JoinToast from "../components/JoinToast";
+import TabNavigation from "../components/TabNavigation";
+import Summary from "../components/Summary";
+import TaxTipSettings from "../components/TaxTipSettings";
 import { getStoredParticipant } from "../lib/sessionStorage";
 
 // Share code component with copy functionality
@@ -24,7 +27,7 @@ function ShareCode({ code }: { code: string }) {
   }
 
   return (
-    <div className="mb-6 p-4 bg-blue-50 rounded-lg">
+    <div className="mb-4 p-4 bg-blue-50 rounded-lg">
       <h2 className="text-lg font-semibold mb-2">Share this bill</h2>
       <p className="text-sm text-gray-600 mb-3">
         Give this code to friends to join
@@ -51,11 +54,14 @@ type ReceiptState =
   | { step: "processing"; storageId: Id<"_storage"> }
   | { step: "error"; message: string };
 
+type Tab = "items" | "taxtip" | "summary";
+
 export default function Session() {
   const { code } = useParams<{ code: string }>();
   const [receiptState, setReceiptState] = useState<ReceiptState>({
     step: "idle",
   });
+  const [activeTab, setActiveTab] = useState<Tab>("items");
 
   // Fetch session by code
   const session = useQuery(api.sessions.getByCode, code ? { code } : "skip");
@@ -113,6 +119,19 @@ export default function Session() {
   const [joinToasts, setJoinToasts] = useState<Array<{ id: string; name: string }>>([]);
   const mountTimeRef = useRef(Date.now());
   const previousParticipantIdsRef = useRef<Set<string>>(new Set());
+
+  // Calculate unclaimed count for tab badge
+  const unclaimedCount = useMemo(() => {
+    if (!items || !claims) return 0;
+    const claimedItemIds = new Set(claims.map((c) => c.itemId));
+    return items.filter((item) => !claimedItemIds.has(item._id)).length;
+  }, [items, claims]);
+
+  // Calculate group subtotal for TaxTipSettings
+  const groupSubtotal = useMemo(() => {
+    if (!items) return 0;
+    return items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  }, [items]);
 
   // Detect new participants who joined after page load
   useEffect(() => {
@@ -235,7 +254,7 @@ export default function Session() {
   }
 
   return (
-    <div className="p-4 max-w-md mx-auto">
+    <div className="flex flex-col h-screen max-w-md mx-auto">
       {/* Join notifications */}
       {joinToasts.slice(0, 1).map((toast) => (
         <JoinToast
@@ -245,194 +264,207 @@ export default function Session() {
         />
       ))}
 
-      {/* Session header */}
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold">Session: {session.code}</h1>
-        <p className="text-gray-600">Hosted by {session.hostName}</p>
-      </div>
-
-      {/* Share code section - shown when items exist */}
-      {items && items.length > 0 && <ShareCode code={session.code} />}
-
-      {/* Participants list */}
-      {participants && participants.length > 0 && (
-        <div className="mb-6">
-          <h2 className="text-lg font-semibold mb-3">
-            Who's here ({participants.length})
-          </h2>
-          <div className="space-y-2">
-            {[...participants]
-              .sort((a, b) => a.joinedAt - b.joinedAt)
-              .map((participant) => (
-                <div
-                  key={participant._id}
-                  className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg"
-                >
-                  <span className="font-medium">{participant.name}</span>
-                  {participant.isHost && (
-                    <span className="text-xs text-gray-500">(host)</span>
-                  )}
-                </div>
-              ))}
-          </div>
+      {/* Fixed Header */}
+      <div className="shrink-0 p-4 bg-white border-b border-gray-200">
+        {/* Session header */}
+        <div className="mb-4">
+          <h1 className="text-2xl font-bold">Session: {session.code}</h1>
+          <p className="text-gray-600">Hosted by {session.hostName}</p>
         </div>
-      )}
 
-      {/* Receipt section */}
-      <div className="mb-6">
-        <h2 className="text-lg font-semibold mb-3">Receipt</h2>
+        {/* Share code section - shown when items exist */}
+        {items && items.length > 0 && <ShareCode code={session.code} />}
 
-        {/* Idle state: show capture UI */}
-        {receiptState.step === "idle" && (
+        {/* Participants list */}
+        {participants && participants.length > 0 && (
           <div>
-            {session.receiptImageId && (
-              <p className="text-sm text-gray-600 mb-3">
-                Receipt uploaded. Upload a new one to replace existing items.
-              </p>
-            )}
-            <ReceiptCapture
-              sessionId={session._id}
-              onUpload={handleReceiptUpload}
-            />
-          </div>
-        )}
-
-        {/* Uploading state */}
-        {receiptState.step === "uploading" && (
-          <div className="text-center py-8">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto"></div>
-            <p className="mt-3 text-gray-600">Uploading...</p>
-          </div>
-        )}
-
-        {/* Processing state */}
-        {receiptState.step === "processing" && (
-          <div className="text-center py-8">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto"></div>
-            <p className="mt-3 text-gray-600">Analyzing receipt...</p>
-            <p className="text-sm text-gray-500 mt-1">
-              Extracting items with AI
-            </p>
-          </div>
-        )}
-
-        {/* Error state */}
-        {receiptState.step === "error" && (
-          <div className="text-center py-8">
-            <div className="text-red-500 mb-3">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-12 w-12 mx-auto"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
+            <h2 className="text-lg font-semibold mb-2">
+              Who's here ({participants.length})
+            </h2>
+            <div className="flex flex-wrap gap-2">
+              {[...participants]
+                .sort((a, b) => a.joinedAt - b.joinedAt)
+                .map((participant) => (
+                  <div
+                    key={participant._id}
+                    className="flex items-center gap-1 px-3 py-1 bg-gray-100 rounded-full text-sm"
+                  >
+                    <span className="font-medium">{participant.name}</span>
+                    {participant.isHost && (
+                      <span className="text-xs text-gray-500">(host)</span>
+                    )}
+                  </div>
+                ))}
             </div>
-            <p className="text-red-600 font-medium">Something went wrong</p>
-            <p className="text-sm text-gray-600 mt-1">{receiptState.message}</p>
-            <button
-              onClick={handleRetry}
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
-            >
-              Try Again
-            </button>
           </div>
         )}
       </div>
 
-      {/* Items list */}
-      <div className="mb-6">
-        <h2 className="text-lg font-semibold mb-3">
-          Items {items && items.length > 0 ? `(${items.length})` : ""}
-        </h2>
-        <div className="space-y-2">
-          {items?.map((item) => (
-            <ClaimableItem
-              key={item._id}
-              item={item}
-              claims={(claims ?? []).filter((c) => c.itemId === item._id)}
-              participants={participants ?? []}
-              currentParticipantId={currentParticipantId}
+      {/* Scrollable Tab Content */}
+      <div className="flex-1 overflow-y-auto pb-20">
+        <div className="p-4">
+          {/* Items Tab */}
+          {activeTab === "items" && (
+            <div>
+              {/* Receipt section */}
+              <div className="mb-6">
+                <h2 className="text-lg font-semibold mb-3">Receipt</h2>
+
+                {/* Idle state: show capture UI */}
+                {receiptState.step === "idle" && (
+                  <div>
+                    {session.receiptImageId && (
+                      <p className="text-sm text-gray-600 mb-3">
+                        Receipt uploaded. Upload a new one to replace existing items.
+                      </p>
+                    )}
+                    <ReceiptCapture
+                      sessionId={session._id}
+                      onUpload={handleReceiptUpload}
+                    />
+                  </div>
+                )}
+
+                {/* Uploading state */}
+                {receiptState.step === "uploading" && (
+                  <div className="text-center py-8">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto"></div>
+                    <p className="mt-3 text-gray-600">Uploading...</p>
+                  </div>
+                )}
+
+                {/* Processing state */}
+                {receiptState.step === "processing" && (
+                  <div className="text-center py-8">
+                    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto"></div>
+                    <p className="mt-3 text-gray-600">Analyzing receipt...</p>
+                    <p className="text-sm text-gray-500 mt-1">
+                      Extracting items with AI
+                    </p>
+                  </div>
+                )}
+
+                {/* Error state */}
+                {receiptState.step === "error" && (
+                  <div className="text-center py-8">
+                    <div className="text-red-500 mb-3">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-12 w-12 mx-auto"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
+                      </svg>
+                    </div>
+                    <p className="text-red-600 font-medium">Something went wrong</p>
+                    <p className="text-sm text-gray-600 mt-1">{receiptState.message}</p>
+                    <button
+                      onClick={handleRetry}
+                      className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                    >
+                      Try Again
+                    </button>
+                  </div>
+                )}
+              </div>
+
+              {/* Items list */}
+              <div className="mb-6">
+                <h2 className="text-lg font-semibold mb-3">
+                  Items {items && items.length > 0 ? `(${items.length})` : ""}
+                </h2>
+                <div className="space-y-2">
+                  {items?.map((item) => (
+                    <ClaimableItem
+                      key={item._id}
+                      item={item}
+                      claims={(claims ?? []).filter((c) => c.itemId === item._id)}
+                      participants={participants ?? []}
+                      currentParticipantId={currentParticipantId}
+                      isHost={isHost}
+                    />
+                  ))}
+                </div>
+
+                {/* Draft item - local only until saved */}
+                {draftItem && (
+                  <ClaimableItem
+                    item={{
+                      _id: "" as Id<"items">,
+                      sessionId: session._id,
+                      name: draftItem.name,
+                      price: draftItem.price,
+                      quantity: draftItem.quantity,
+                    }}
+                    claims={[]}
+                    participants={participants ?? []}
+                    currentParticipantId={currentParticipantId}
+                    isHost={isHost}
+                    isDraft={true}
+                    onDraftSave={handleDraftSave}
+                    onDraftCancel={handleDraftCancel}
+                    onDraftChange={handleDraftChange}
+                  />
+                )}
+
+                {/* Add item button - available to all participants */}
+                <button
+                  onClick={() => setDraftItem({ name: "", price: 0, quantity: 1 })}
+                  disabled={draftItem !== null}
+                  className={`w-full mt-3 py-3 px-4 border-2 border-dashed rounded-lg transition-colors ${
+                    draftItem !== null
+                      ? "border-gray-200 text-gray-400 cursor-not-allowed"
+                      : "border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-700"
+                  }`}
+                >
+                  + Add Item
+                </button>
+
+                {/* Items total */}
+                {items && items.length > 0 && (
+                  <div className="mt-3 pt-3 border-t border-gray-200 flex justify-between items-center">
+                    <span className="font-medium">Items Total</span>
+                    <span className="font-semibold">
+                      ${(groupSubtotal / 100).toFixed(2)}
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Tax & Tip Tab */}
+          {activeTab === "taxtip" && (
+            <TaxTipSettings
+              session={session}
               isHost={isHost}
+              groupSubtotal={groupSubtotal}
             />
-          ))}
+          )}
+
+          {/* Summary Tab */}
+          {activeTab === "summary" && (
+            <Summary
+              sessionId={session._id}
+              currentParticipantId={currentParticipantId}
+            />
+          )}
         </div>
-
-        {/* Draft item - local only until saved */}
-        {draftItem && (
-          <ClaimableItem
-            item={{
-              _id: "" as Id<"items">,
-              sessionId: session._id,
-              name: draftItem.name,
-              price: draftItem.price,
-              quantity: draftItem.quantity,
-            }}
-            claims={[]}
-            participants={participants ?? []}
-            currentParticipantId={currentParticipantId}
-            isHost={isHost}
-            isDraft={true}
-            onDraftSave={handleDraftSave}
-            onDraftCancel={handleDraftCancel}
-            onDraftChange={handleDraftChange}
-          />
-        )}
-
-        {/* Add item button - available to all participants */}
-        <button
-          onClick={() => setDraftItem({ name: "", price: 0, quantity: 1 })}
-          disabled={draftItem !== null}
-          className={`w-full mt-3 py-3 px-4 border-2 border-dashed rounded-lg transition-colors ${
-            draftItem !== null
-              ? "border-gray-200 text-gray-400 cursor-not-allowed"
-              : "border-gray-300 text-gray-600 hover:border-gray-400 hover:text-gray-700"
-          }`}
-        >
-          + Add Item
-        </button>
-
-        {/* Items total */}
-        {items && items.length > 0 && (
-          <div className="mt-3 pt-3 border-t border-gray-200 flex justify-between items-center">
-            <span className="font-medium">Items Total</span>
-            <span className="font-semibold">
-              $
-              {(
-                items.reduce(
-                  (sum, item) => sum + item.price * item.quantity,
-                  0
-                ) / 100
-              ).toFixed(2)}
-            </span>
-          </div>
-        )}
       </div>
 
-      {/* Session totals if available */}
-      {(session.subtotal !== undefined || session.tax !== undefined) && (
-        <div className="p-4 bg-gray-50 rounded-lg space-y-2">
-          {session.subtotal !== undefined && (
-            <div className="flex justify-between">
-              <span className="text-gray-600">Subtotal</span>
-              <span>${(session.subtotal / 100).toFixed(2)}</span>
-            </div>
-          )}
-          {session.tax !== undefined && (
-            <div className="flex justify-between">
-              <span className="text-gray-600">Tax</span>
-              <span>${(session.tax / 100).toFixed(2)}</span>
-            </div>
-          )}
-        </div>
-      )}
+      {/* Fixed Bottom Tab Navigation */}
+      <TabNavigation
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+        unclaimedCount={unclaimedCount}
+      />
     </div>
   );
 }
