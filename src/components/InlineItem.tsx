@@ -105,44 +105,44 @@ export default function InlineItem({ item }: InlineItemProps) {
       />
 
       {/* Row 2: Price + Quantity (if qty > 1) + Delete */}
-      <div className="flex items-center gap-2">
-        {/* Price input with $ prefix */}
-        <div className="flex items-center gap-1 min-w-0">
-          <span className="text-gray-500">$</span>
-          <input
-            type="text"
-            inputMode="decimal"
-            value={editPriceInput}
-            onChange={(e) => setEditPriceInput(e.target.value.replace(/[^0-9.]/g, ""))}
-            onFocus={(e) => e.target.select()}
-            onBlur={(e) => {
-              const value = parseFloat(e.target.value);
-              if (!isNaN(value)) {
-                setEditPriceInput(value.toFixed(2));
-              }
-            }}
-            className="w-24 min-h-[44px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
-        </div>
-
-        {/* Quantity input - only shown if quantity > 1 */}
-        {editQuantity > 1 && (
-          <div className="flex items-center gap-1 min-w-0">
-            <span className="text-gray-500 text-sm">x</span>
+      <div className="flex items-center justify-between">
+        {/* Left group: Price and optional Quantity */}
+        <div className="flex items-center gap-3">
+          {/* Price input with $ prefix - grouped in a styled container */}
+          <div className="flex items-center border border-gray-300 rounded-md focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent">
+            <span className="pl-3 text-gray-500">$</span>
             <input
-              type="number"
-              value={editQuantity}
-              onChange={(e) => setEditQuantity(parseInt(e.target.value, 10) || 1)}
-              min="1"
-              className="w-14 min-h-[44px] px-2 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              type="text"
+              inputMode="decimal"
+              value={editPriceInput}
+              onChange={(e) => setEditPriceInput(e.target.value.replace(/[^0-9.]/g, ""))}
+              onFocus={(e) => e.target.select()}
+              onBlur={(e) => {
+                const value = parseFloat(e.target.value);
+                if (!isNaN(value)) {
+                  setEditPriceInput(value.toFixed(2));
+                }
+              }}
+              className="w-20 min-h-[44px] px-2 py-2 border-0 focus:outline-none focus:ring-0 bg-transparent"
             />
           </div>
-        )}
 
-        {/* Spacer to push delete button to right */}
-        <div className="flex-1" />
+          {/* Quantity input - only shown if quantity > 1 */}
+          {editQuantity > 1 && (
+            <div className="flex items-center border border-gray-300 rounded-md focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent">
+              <span className="pl-2 text-gray-500 text-sm">x</span>
+              <input
+                type="number"
+                value={editQuantity}
+                onChange={(e) => setEditQuantity(parseInt(e.target.value, 10) || 1)}
+                min="1"
+                className="w-10 min-h-[44px] px-1 py-2 border-0 focus:outline-none focus:ring-0 bg-transparent"
+              />
+            </div>
+          )}
+        </div>
 
-        {/* Delete button */}
+        {/* Delete button - right aligned via justify-between */}
         <button
           onClick={handleDelete}
           className="min-h-[44px] min-w-[44px] px-3 py-2 text-red-600 hover:bg-red-50 rounded-md transition-colors flex items-center justify-center"
