@@ -186,7 +186,7 @@ export default function Session() {
   if (session === undefined) {
     return (
       <div className="p-4">
-        <p className="text-gray-500">Loading session...</p>
+        <p className="text-gray-500">Loading bill...</p>
       </div>
     );
   }
