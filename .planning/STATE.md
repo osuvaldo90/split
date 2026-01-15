@@ -30,11 +30,12 @@ Archive: [.planning/milestones/v1.0-ROADMAP.md](.planning/milestones/v1.0-ROADMA
 
 ## Pending Todos
 
-4 todos in `.planning/todos/pending/`:
+5 todos in `.planning/todos/pending/`:
 - **Allow host to remove users from session** (api)
 - **Bill ID tap opens native share sheet** (ui)
 - **Bottom tabs with route-based navigation** (ui)
 - **First-time user getting started tutorial** (ui)
+- **Handle oversized receipt images** (api)
 
 ## Session Continuity
 
