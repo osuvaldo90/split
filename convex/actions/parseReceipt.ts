@@ -14,12 +14,16 @@ Return ONLY valid JSON in this exact format:
   ],
   "subtotal": 45.97,
   "tax": 3.68,
+  "gratuity": null,
   "total": 49.65
 }
 Rules:
 - Prices must be numbers (not strings), in dollars (not cents)
 - If a field is unclear or missing, use null
 - Do NOT include any explanation, ONLY the JSON object
+- gratuity: auto-gratuity or service charge if present on receipt, otherwise null
+  - Look for: "Gratuity", "Service Charge", "Auto Gratuity", "18% Gratuity", "Service Fee", "Tip Included"
+  - This is different from optional tip - it's a mandatory charge already on the receipt
 
 IMPORTANT - Split quantity items for bill splitting:
 - If an item has quantity > 1, split it into SEPARATE items with quantity: 1 each
@@ -39,6 +43,7 @@ export type ParsedReceipt =
       items: Array<{ name: string; price: number; quantity: number }>;
       subtotal: number | null;
       tax: number | null;
+      gratuity: number | null;
       total: number | null;
     }
   | {
