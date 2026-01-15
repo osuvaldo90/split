@@ -444,3 +444,388 @@ describe("item removal cascade", () => {
     expect(item).toBeNull();
   });
 });
+
+describe("input validation", () => {
+  describe("name validation (BTEST-21)", () => {
+    it("rejects empty host name in sessions.create", async () => {
+      const t = convexTest(schema);
+
+      await expect(
+        t.mutation(api.sessions.create, { hostName: "" })
+      ).rejects.toThrow("cannot be empty");
+    });
+
+    it("rejects whitespace-only host name in sessions.create", async () => {
+      const t = convexTest(schema);
+
+      await expect(
+        t.mutation(api.sessions.create, { hostName: "   " })
+      ).rejects.toThrow("cannot be empty");
+    });
+
+    it("rejects name over 100 chars in sessions.create", async () => {
+      const t = convexTest(schema);
+
+      const longName = "A".repeat(101);
+
+      await expect(
+        t.mutation(api.sessions.create, { hostName: longName })
+      ).rejects.toThrow("cannot exceed 100 characters");
+    });
+
+    it("accepts name exactly 100 chars in sessions.create", async () => {
+      const t = convexTest(schema);
+
+      const maxName = "B".repeat(100);
+
+      const result = await t.mutation(api.sessions.create, {
+        hostName: maxName,
+      });
+
+      expect(result.sessionId).toBeDefined();
+    });
+
+    it("rejects empty name in participants.join", async () => {
+      const t = convexTest(schema);
+
+      const { sessionId } = await t.mutation(api.sessions.create, {
+        hostName: "Host",
+      });
+
+      await expect(
+        t.mutation(api.participants.join, {
+          sessionId,
+          name: "",
+        })
+      ).rejects.toThrow("cannot be empty");
+    });
+
+    it("rejects whitespace-only name in participants.join", async () => {
+      const t = convexTest(schema);
+
+      const { sessionId } = await t.mutation(api.sessions.create, {
+        hostName: "Host",
+      });
+
+      await expect(
+        t.mutation(api.participants.join, {
+          sessionId,
+          name: "   ",
+        })
+      ).rejects.toThrow("cannot be empty");
+    });
+
+    it("rejects name over 100 chars in participants.join", async () => {
+      const t = convexTest(schema);
+
+      const { sessionId } = await t.mutation(api.sessions.create, {
+        hostName: "Host",
+      });
+
+      const longName = "C".repeat(101);
+
+      await expect(
+        t.mutation(api.participants.join, {
+          sessionId,
+          name: longName,
+        })
+      ).rejects.toThrow("cannot exceed 100 characters");
+    });
+  });
+
+  describe("money validation (BTEST-22)", () => {
+    it("rejects negative price in items.add", async () => {
+      const t = convexTest(schema);
+
+      const { sessionId, hostParticipantId } = await t.mutation(
+        api.sessions.create,
+        { hostName: "Host" }
+      );
+
+      await expect(
+        t.mutation(api.items.add, {
+          sessionId,
+          participantId: hostParticipantId,
+          name: "Item",
+          price: -100,
+        })
+      ).rejects.toThrow("cannot be negative");
+    });
+
+    it("rejects non-integer cents in items.add", async () => {
+      const t = convexTest(schema);
+
+      const { sessionId, hostParticipantId } = await t.mutation(
+        api.sessions.create,
+        { hostName: "Host" }
+      );
+
+      await expect(
+        t.mutation(api.items.add, {
+          sessionId,
+          participantId: hostParticipantId,
+          name: "Item",
+          price: 10.5,
+        })
+      ).rejects.toThrow("must be a whole number");
+    });
+
+    it("rejects Infinity in items.add", async () => {
+      const t = convexTest(schema);
+
+      const { sessionId, hostParticipantId } = await t.mutation(
+        api.sessions.create,
+        { hostName: "Host" }
+      );
+
+      await expect(
+        t.mutation(api.items.add, {
+          sessionId,
+          participantId: hostParticipantId,
+          name: "Item",
+          price: Infinity,
+        })
+      ).rejects.toThrow("must be a valid number");
+    });
+
+    it("rejects NaN in items.add", async () => {
+      const t = convexTest(schema);
+
+      const { sessionId, hostParticipantId } = await t.mutation(
+        api.sessions.create,
+        { hostName: "Host" }
+      );
+
+      await expect(
+        t.mutation(api.items.add, {
+          sessionId,
+          participantId: hostParticipantId,
+          name: "Item",
+          price: NaN,
+        })
+      ).rejects.toThrow("must be a valid number");
+    });
+
+    it("rejects price over MAX_MONEY_CENTS ($100,000) in items.add", async () => {
+      const t = convexTest(schema);
+
+      const { sessionId, hostParticipantId } = await t.mutation(
+        api.sessions.create,
+        { hostName: "Host" }
+      );
+
+      // MAX_MONEY_CENTS = 10,000,000 (= $100,000.00)
+      await expect(
+        t.mutation(api.items.add, {
+          sessionId,
+          participantId: hostParticipantId,
+          name: "Item",
+          price: 10_000_001, // $100,000.01
+        })
+      ).rejects.toThrow("cannot exceed $100,000");
+    });
+
+    it("accepts valid price at boundary in items.add", async () => {
+      const t = convexTest(schema);
+
+      const { sessionId, hostParticipantId } = await t.mutation(
+        api.sessions.create,
+        { hostName: "Host" }
+      );
+
+      // Exactly $100,000.00
+      const itemId = await t.mutation(api.items.add, {
+        sessionId,
+        participantId: hostParticipantId,
+        name: "Expensive Item",
+        price: 10_000_000,
+      });
+
+      expect(itemId).toBeDefined();
+    });
+
+    it("rejects negative tax in sessions.updateTax", async () => {
+      const t = convexTest(schema);
+
+      const { sessionId, hostParticipantId } = await t.mutation(
+        api.sessions.create,
+        { hostName: "Host" }
+      );
+
+      await expect(
+        t.mutation(api.sessions.updateTax, {
+          sessionId,
+          participantId: hostParticipantId,
+          tax: -50,
+        })
+      ).rejects.toThrow("cannot be negative");
+    });
+
+    it("rejects non-integer tax in sessions.updateTax", async () => {
+      const t = convexTest(schema);
+
+      const { sessionId, hostParticipantId } = await t.mutation(
+        api.sessions.create,
+        { hostName: "Host" }
+      );
+
+      await expect(
+        t.mutation(api.sessions.updateTax, {
+          sessionId,
+          participantId: hostParticipantId,
+          tax: 8.5,
+        })
+      ).rejects.toThrow("must be a whole number");
+    });
+  });
+
+  describe("tip percent validation (BTEST-23)", () => {
+    it("rejects negative percent in sessions.updateTip", async () => {
+      const t = convexTest(schema);
+
+      const { sessionId, hostParticipantId } = await t.mutation(
+        api.sessions.create,
+        { hostName: "Host" }
+      );
+
+      await expect(
+        t.mutation(api.sessions.updateTip, {
+          sessionId,
+          participantId: hostParticipantId,
+          tipType: "percent_subtotal",
+          tipValue: -5,
+        })
+      ).rejects.toThrow("cannot be negative");
+    });
+
+    it("rejects percent over 100 in sessions.updateTip", async () => {
+      const t = convexTest(schema);
+
+      const { sessionId, hostParticipantId } = await t.mutation(
+        api.sessions.create,
+        { hostName: "Host" }
+      );
+
+      await expect(
+        t.mutation(api.sessions.updateTip, {
+          sessionId,
+          participantId: hostParticipantId,
+          tipType: "percent_subtotal",
+          tipValue: 150,
+        })
+      ).rejects.toThrow("cannot exceed 100%");
+    });
+
+    it("rejects Infinity in sessions.updateTip", async () => {
+      const t = convexTest(schema);
+
+      const { sessionId, hostParticipantId } = await t.mutation(
+        api.sessions.create,
+        { hostName: "Host" }
+      );
+
+      await expect(
+        t.mutation(api.sessions.updateTip, {
+          sessionId,
+          participantId: hostParticipantId,
+          tipType: "percent_subtotal",
+          tipValue: Infinity,
+        })
+      ).rejects.toThrow("must be a valid number");
+    });
+
+    it("rejects NaN in sessions.updateTip", async () => {
+      const t = convexTest(schema);
+
+      const { sessionId, hostParticipantId } = await t.mutation(
+        api.sessions.create,
+        { hostName: "Host" }
+      );
+
+      await expect(
+        t.mutation(api.sessions.updateTip, {
+          sessionId,
+          participantId: hostParticipantId,
+          tipType: "percent_subtotal",
+          tipValue: NaN,
+        })
+      ).rejects.toThrow("must be a valid number");
+    });
+
+    it("accepts 0% tip in sessions.updateTip", async () => {
+      const t = convexTest(schema);
+
+      const { sessionId, hostParticipantId } = await t.mutation(
+        api.sessions.create,
+        { hostName: "Host" }
+      );
+
+      await t.mutation(api.sessions.updateTip, {
+        sessionId,
+        participantId: hostParticipantId,
+        tipType: "percent_subtotal",
+        tipValue: 0,
+      });
+
+      const session = await t.run(async (ctx) => ctx.db.get(sessionId));
+      expect(session?.tipValue).toBe(0);
+    });
+
+    it("accepts 15% tip in sessions.updateTip", async () => {
+      const t = convexTest(schema);
+
+      const { sessionId, hostParticipantId } = await t.mutation(
+        api.sessions.create,
+        { hostName: "Host" }
+      );
+
+      await t.mutation(api.sessions.updateTip, {
+        sessionId,
+        participantId: hostParticipantId,
+        tipType: "percent_subtotal",
+        tipValue: 15,
+      });
+
+      const session = await t.run(async (ctx) => ctx.db.get(sessionId));
+      expect(session?.tipValue).toBe(15);
+    });
+
+    it("accepts 20% tip in sessions.updateTip", async () => {
+      const t = convexTest(schema);
+
+      const { sessionId, hostParticipantId } = await t.mutation(
+        api.sessions.create,
+        { hostName: "Host" }
+      );
+
+      await t.mutation(api.sessions.updateTip, {
+        sessionId,
+        participantId: hostParticipantId,
+        tipType: "percent_total",
+        tipValue: 20,
+      });
+
+      const session = await t.run(async (ctx) => ctx.db.get(sessionId));
+      expect(session?.tipValue).toBe(20);
+    });
+
+    it("accepts 100% tip in sessions.updateTip", async () => {
+      const t = convexTest(schema);
+
+      const { sessionId, hostParticipantId } = await t.mutation(
+        api.sessions.create,
+        { hostName: "Host" }
+      );
+
+      await t.mutation(api.sessions.updateTip, {
+        sessionId,
+        participantId: hostParticipantId,
+        tipType: "percent_subtotal",
+        tipValue: 100,
+      });
+
+      const session = await t.run(async (ctx) => ctx.db.get(sessionId));
+      expect(session?.tipValue).toBe(100);
+    });
+  });
+});
