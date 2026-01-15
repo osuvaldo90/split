@@ -167,8 +167,8 @@ Plans:
 **Plans**: TBD
 
 Plans:
-- [ ] 08-01: Mobile UX polish and responsiveness
-- [ ] 08-02: Edge case handling and error states
+- [x] 08-01: Mobile UX polish and responsiveness
+- [x] 08-02: Edge case handling and error states
 - [ ] 08-03: Performance optimization
 
 ## Progress
@@ -188,4 +188,4 @@ Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5
 | 5.1 Fix New Item Broadcast | 1/1 | Complete | 2026-01-15 |
 | 6. Calculation Engine | 3/3 | Complete | 2026-01-14 |
 | 7. Summary & Display | 1/1 | Complete | 2026-01-15 |
-| 8. Polish & Optimization | 0/3 | Not started | - |
+| 8. Polish & Optimization | 2/3 | In progress | - |
