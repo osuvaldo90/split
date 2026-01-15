@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-15)
 ## Current Position
 
 Phase: 14 of 14 (Access Control)
-Plan: 2 of 4 complete
+Plan: 4 of 4 complete
 Status: In progress
-Last activity: 2026-01-15 - Completed 14-02-PLAN.md (mutation authorization)
+Last activity: 2026-01-15 - Completed 14-04-PLAN.md (host-only audit)
 
-Progress: █████░░░░░░░░░░░░░░░░ 25% (1/4 plans)
+Progress: █████████████████████ 100% (4/4 plans)
 
 ## Milestone Summary
 
@@ -29,6 +29,13 @@ Previous: v1.0 MVP shipped 2026-01-15
 
 See: [.planning/MILESTONES.md](.planning/MILESTONES.md)
 
+## Accumulated Decisions
+
+| Decision | Phase | Rationale |
+|----------|-------|-----------|
+| Host-only pattern: fetch participant, check isHost, verify sessionId | 14-04 | Consistent authorization across all host mutations |
+| Fixed unclaimByHost cross-session vulnerability | 14-04 | Security fix - hosts should only operate in their own session |
+
 ## Pending Todos
 
 5 todos in `.planning/todos/pending/`:
@@ -41,7 +48,7 @@ See: [.planning/MILESTONES.md](.planning/MILESTONES.md)
 ## Session Continuity
 
 Last session: 2026-01-15
-Stopped at: Completed 14-02-PLAN.md (mutation authorization)
+Stopped at: Completed 14-04-PLAN.md (host-only audit)
 Resume file: None
 
 ## Documentation
