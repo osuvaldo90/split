@@ -208,18 +208,12 @@ export default function TaxTipSettings({
                 className="w-28 min-h-[44px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
               />
             </div>
-            {session.gratuity !== undefined && session.gratuity > 0 && (
-              <p className="text-xs text-gray-500 mt-1">(from receipt)</p>
-            )}
           </div>
         ) : (
           <div>
             <div className="text-lg font-medium">
               ${gratuityInput ? parseFloat(gratuityInput).toFixed(2) : "0.00"}
             </div>
-            {session.gratuity !== undefined && session.gratuity > 0 && (
-              <p className="text-xs text-gray-500 mt-1">(from receipt)</p>
-            )}
           </div>
         )}
 
@@ -302,7 +296,7 @@ export default function TaxTipSettings({
                     }
                     onBlur={handleTipBlur}
                     onFocus={(e) => e.target.select()}
-                    placeholder="20"
+                    placeholder="0"
                     className="w-20 min-h-[44px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                   />
                   <span className="text-gray-500">%</span>
