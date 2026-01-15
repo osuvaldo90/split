@@ -32,6 +32,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 10.1: Bug Fixes and UX** - Tax calculation fix, combine join bill into home (INSERTED)
 - [x] **Phase 10.2: Join Bill UI Simplification** - Single name field with auto-fill (INSERTED)
 - [x] **Phase 11: Security Review** - Security audit and hardening
+- [ ] **Phase 12: Security Hardening** - Fix authorization and input validation issues
 
 ## Phase Details
 
@@ -312,10 +313,33 @@ Plans:
 
 - [x] 11-01: Comprehensive security audit (authorization, validation, exposure)
 
+### Phase 12: Security Hardening
+
+**Goal**: Fix high and medium priority security issues identified in the Phase 11 audit
+**Depends on**: Phase 11
+**Research**: Unlikely (implementation of audit findings)
+**Plans**: TBD
+
+Scope from security audit (SECURITY-AUDIT.md):
+
+**HIGH priority fixes:**
+- `participants.updateName` - Add authorization (verify caller owns participant or is host)
+- `claims.unclaim` - Add authorization (verify caller owns claim or is host)
+
+**MEDIUM priority fixes:**
+- Session settings (`updateTip`, `updateTax`, `updateGratuity`) - Restrict to host only
+- Item mutations (`update`, `remove`, `addBulk`) - Add session verification, restrict destructive ops to host
+- Input validation - Add length limits on names, bounds on numeric values
+- `receipts.getReceiptUrl` - Add sessionId verification
+
+Plans:
+
+- [ ] TBD (run /gsd:plan-phase 12 to break down)
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5.1 → 6 → 7 → 8 → 9 → 10 → 10.1 → 10.2 → 11
+Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5.1 → 6 → 7 → 8 → 9 → 10 → 10.1 → 10.2 → 11 → 12
 
 | Phase                            | Plans Complete | Status      | Completed  |
 | -------------------------------- | -------------- | ----------- | ---------- |
@@ -335,3 +359,4 @@ Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5
 | 10.1 Bug Fixes and UX            | 2/2            | Complete    | 2026-01-15 |
 | 10.2 Join Bill UI Simplification | 1/1            | Complete    | 2026-01-15 |
 | 11. Security Review              | 1/1            | Complete    | 2026-01-15 |
+| 12. Security Hardening           | 0/?            | Not started | -          |

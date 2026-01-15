@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-01-14)
 
 **Core value:** Seamless, real-time collaborative bill splitting that works instantly for anyone with a phone and a browser.
-**Current focus:** Phase 11 — Security Review
+**Current focus:** Phase 12 — Security Hardening
 
 ## Current Position
 
-Phase: 11 of 12 (Security Review)
-Plan: 1 of 1 in current phase
-Status: Phase complete
-Last activity: 2026-01-15 — Completed 11-01-PLAN.md
+Phase: 12 of 12 (Security Hardening)
+Plan: 0 of ? in current phase
+Status: Not planned yet
+Last activity: 2026-01-15 — Added Phase 12 to roadmap
 
-Progress: ██████████████████░ 98%
+Progress: ██████████████████░ 95%
 
 ## Performance Metrics
 
@@ -127,6 +127,7 @@ None - auto-gratuity detection implemented in Phase 10-01.
 - Phase 10.1 inserted after Phase 10: Bug Fixes and UX (URGENT) — tax calculation fix, combine join bill into home
 - Phase 10.2 inserted after Phase 10.1: Join Bill UI Simplification (URGENT) — single name field with auto-fill
 - Phase 11 added: Security Review — comprehensive security audit
+- Phase 12 added: Security Hardening — fix authorization and input validation issues from audit
 
 ### Pending Todos
 
@@ -148,5 +149,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-15
-Stopped at: Completed 11-01-PLAN.md (security audit)
-Resume file: None - phase complete
+Stopped at: Added Phase 12 (Security Hardening)
+Resume file: None - phase not yet planned
