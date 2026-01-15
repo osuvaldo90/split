@@ -27,7 +27,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 6: Calculation Engine** - Tax distribution, tip calculation, per-person totals
 - [x] **Phase 7: Summary & Display** - Final totals screen, unclaimed warnings, receipt view
 - [x] **Phase 8: Polish & Optimization** - Mobile UX refinement, edge cases, performance
-- [ ] **Phase 9: UI/UX Improvements** - Receipt upload consolidation, edit layout refinements
+- [x] **Phase 9: UI/UX Improvements** - Receipt upload consolidation, edit layout refinements
 - [ ] **Phase 10: Feature Enhancements** - Session-to-bill rename, auto-gratuity detection, multi-item UX, bill history
 - [ ] **Phase 11: Security Review** - Security audit and hardening
 
@@ -191,7 +191,7 @@ Files affected:
 - Various components (spacing audit)
 
 Plans:
-- [ ] 09-01: TBD (run /gsd:plan-phase 9 to break down)
+- [x] 09-01: UI/UX refinements (unified receipt upload, edit layout, spacing)
 
 ### Phase 10: Feature Enhancements
 **Goal**: Rename sessions to bills, add auto-gratuity detection, improve multi-item UX, and add bill history
@@ -247,6 +247,6 @@ Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5
 | 6. Calculation Engine | 3/3 | Complete | 2026-01-14 |
 | 7. Summary & Display | 1/1 | Complete | 2026-01-15 |
 | 8. Polish & Optimization | 3/3 | Complete | 2026-01-15 |
-| 9. UI/UX Improvements | 0/TBD | Not started | - |
+| 9. UI/UX Improvements | 1/1 | Complete | 2026-01-15 |
 | 10. Feature Enhancements | 0/TBD | Not started | - |
 | 11. Security Review | 0/TBD | Not started | - |
