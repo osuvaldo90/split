@@ -103,10 +103,11 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-11 todos in `.planning/todos/pending/`:
+12 todos in `.planning/todos/pending/`:
 - **Add security review phase** (general)
 - **Add session history for previous bills** (ui)
 - **Allow host to remove users from session** (api)
+- **Better UX for multiple items in one line item** (ui)
 - **Bill ID tap opens native share sheet** (ui)
 - **Combine take photo and upload image buttons into one** (ui)
 - **Detect auto-gratuity on receipts** (api)
