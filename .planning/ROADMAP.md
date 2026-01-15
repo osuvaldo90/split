@@ -27,6 +27,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 6: Calculation Engine** - Tax distribution, tip calculation, per-person totals
 - [x] **Phase 7: Summary & Display** - Final totals screen, unclaimed warnings, receipt view
 - [x] **Phase 8: Polish & Optimization** - Mobile UX refinement, edge cases, performance
+- [ ] **Phase 9: UI/UX Improvements** - Receipt upload consolidation, edit layout refinements
 
 ## Phase Details
 
@@ -171,10 +172,27 @@ Plans:
 - [x] 08-02: Edge case handling and error states
 - [x] 08-03: Performance optimization
 
+### Phase 9: UI/UX Improvements
+**Goal**: Consolidate receipt upload UI and improve edit form layout
+**Depends on**: Phase 8
+**Research**: Unlikely (UI refinement)
+**Plans**: TBD
+
+Scope from pending todos:
+- Combine take photo and upload image buttons into one unified action
+- Improve edit UI layout to prevent wrapping issues
+
+Files affected:
+- src/components/ReceiptUpload.tsx
+- src/components/InlineItem.tsx
+
+Plans:
+- [ ] 09-01: TBD (run /gsd:plan-phase 9 to break down)
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5.1 → 6 → 7 → 8
+Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5.1 → 6 → 7 → 8 → 9
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -189,3 +207,4 @@ Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5
 | 6. Calculation Engine | 3/3 | Complete | 2026-01-14 |
 | 7. Summary & Display | 1/1 | Complete | 2026-01-15 |
 | 8. Polish & Optimization | 3/3 | Complete | 2026-01-15 |
+| 9. UI/UX Improvements | 0/TBD | Not started | - |

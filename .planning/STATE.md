@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-01-14)
 
 **Core value:** Seamless, real-time collaborative bill splitting that works instantly for anyone with a phone and a browser.
-**Current focus:** Phase 8 — Polish & Optimization
+**Current focus:** Phase 9 — UI/UX Improvements
 
 ## Current Position
 
-Phase: 8 of 8 (Polish & Optimization)
-Plan: 3 of 3 in current phase
-Status: Phase complete
-Last activity: 2026-01-15 — Completed 08-03-PLAN.md
+Phase: 9 of 9 (UI/UX Improvements)
+Plan: 0 of TBD in current phase
+Status: Not started
+Last activity: 2026-01-15 — Added Phase 9
 
-Progress: ██████████████████ 100%
+Progress: ████████████████░░ 89%
 
 ## Performance Metrics
 
@@ -100,20 +100,19 @@ Recent decisions affecting current work:
 - Phase 2.1 inserted after Phase 2: Receipt Fixes (URGENT) — 3 bugs moved from deferred to fix now
 - Phase 3.1 inserted after Phase 3: Inline Item Editing (URGENT) — remove confirm step, collaborative editing
 - Phase 5.1 inserted after Phase 5: Fix New Item Broadcast (URGENT) — hide new items from others until saved
+- Phase 9 added: UI/UX Improvements — receipt upload consolidation, edit layout refinements
 
 ### Pending Todos
 
-12 todos in `.planning/todos/pending/`:
+10 todos in `.planning/todos/pending/`:
 - **Add security review phase** (general)
 - **Add session history for previous bills** (ui)
 - **Allow host to remove users from session** (api)
 - **Better UX for multiple items in one line item** (ui)
 - **Bill ID tap opens native share sheet** (ui)
-- **Combine take photo and upload image buttons into one** (ui)
 - **Detect auto-gratuity on receipts** (api)
 - **First-time user getting started tutorial** (ui)
 - **Handle strange multi-frame scrolling issues** (ui)
-- **Improve edit UI layout to prevent wrapping** (ui)
 - **Rename concept of sessions to bills** (general)
 - **Use graph algorithm to minimize inter-person transactions** (api)
 
