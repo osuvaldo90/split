@@ -77,13 +77,13 @@ Build a mobile-first real-time bill splitting web app from foundation through po
 **Plans**: 4
 
 Plans:
-- [ ] 14-01: Route protection with JoinGate component
-- [ ] 14-02: Mutation authorization (participantId verification)
-- [ ] 14-03: Frontend mutation call updates
-- [ ] 14-04: Host-only authorization audit
+- [x] 14-01: Route protection with JoinGate component
+- [x] 14-02: Mutation authorization (participantId verification)
+- [x] 14-03: Frontend mutation call updates
+- [x] 14-04: Host-only authorization audit
 
 ## v1.1 Progress
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 14. Access Control | v1.1 | 0/4 | Planned | - |
+| 14. Access Control | v1.1 | 4/4 | Complete | 2026-01-15 |

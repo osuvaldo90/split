@@ -7,9 +7,9 @@
 
 ### Access Control
 
-- [ ] **ACCESS-01**: Direct `/bill/:id` URL requires joining session before viewing bill content
-- [ ] **ACCESS-02**: All Convex mutations verify caller is a joined participant before executing
-- [ ] **ACCESS-03**: Tax and tip mutations enforce host-only restriction
+- [x] **ACCESS-01**: Direct `/bill/:id` URL requires joining session before viewing bill content
+- [x] **ACCESS-02**: All Convex mutations verify caller is a joined participant before executing
+- [x] **ACCESS-03**: Tax and tip mutations enforce host-only restriction
 
 ## v2 Requirements
 
@@ -42,9 +42,9 @@ Which phases cover which requirements. Updated by create-roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| ACCESS-01 | Phase 14 | Pending |
-| ACCESS-02 | Phase 14 | Pending |
-| ACCESS-03 | Phase 14 | Pending |
+| ACCESS-01 | Phase 14 | Complete |
+| ACCESS-02 | Phase 14 | Complete |
+| ACCESS-03 | Phase 14 | Complete |
 
 **Coverage:**
 - v1.1 requirements: 3 total
