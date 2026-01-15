@@ -12,6 +12,14 @@ export const listBySession = query({
   },
 });
 
+// Get a participant by ID (for session restoration)
+export const getById = query({
+  args: { participantId: v.id("participants") },
+  handler: async (ctx, args) => {
+    return await ctx.db.get(args.participantId);
+  },
+});
+
 // Join a session
 export const join = mutation({
   args: {
