@@ -129,3 +129,89 @@ describe("distributeWithRemainder (BTEST-10)", () => {
     });
   });
 });
+
+describe("calculateSubtotalShare", () => {
+  describe("normal proportions", () => {
+    it("should calculate half share correctly", () => {
+      // 500 / 1000 = 0.5
+      expect(calculateSubtotalShare(500, 1000)).toBe(0.5);
+    });
+
+    it("should calculate third share correctly", () => {
+      // 333 / 1000 ≈ 0.333
+      expect(calculateSubtotalShare(333, 1000)).toBeCloseTo(0.333, 3);
+    });
+
+    it("should calculate full share correctly", () => {
+      // 1000 / 1000 = 1.0
+      expect(calculateSubtotalShare(1000, 1000)).toBe(1);
+    });
+
+    it("should calculate quarter share correctly", () => {
+      // 250 / 1000 = 0.25
+      expect(calculateSubtotalShare(250, 1000)).toBe(0.25);
+    });
+  });
+
+  describe("edge cases (BTEST-15)", () => {
+    it("should return 0 for zero group subtotal (BTEST-15)", () => {
+      // any / 0 = 0 (edge case protection)
+      expect(calculateSubtotalShare(500, 0)).toBe(0);
+    });
+
+    it("should return 0 for zero participant subtotal", () => {
+      // 0 / 1000 = 0
+      expect(calculateSubtotalShare(0, 1000)).toBe(0);
+    });
+  });
+});
+
+describe("calculateTaxShare (BTEST-11)", () => {
+  describe("proportional distribution (BTEST-11)", () => {
+    it("should distribute tax proportionally to subtotal share (BTEST-11)", () => {
+      // Participant has 50% of subtotal (500/1000) -> 50% of 100 tax = 50
+      expect(calculateTaxShare(500, 1000, 100)).toBe(50);
+    });
+
+    it("should handle 100% share giving full tax", () => {
+      // Single participant gets 100% of tax
+      expect(calculateTaxShare(1000, 1000, 100)).toBe(100);
+    });
+
+    it("should handle 25% share", () => {
+      // 250/1000 * 100 = 25
+      expect(calculateTaxShare(250, 1000, 100)).toBe(25);
+    });
+  });
+
+  describe("rounding behavior (BTEST-11)", () => {
+    it("should round tax share to nearest cent (BTEST-11)", () => {
+      // 333/1000 * 100 = 33.3 -> rounds to 33
+      expect(calculateTaxShare(333, 1000, 100)).toBe(33);
+    });
+
+    it("should round up when fractional part >= 0.5", () => {
+      // 667/1000 * 100 = 66.7 -> rounds to 67
+      expect(calculateTaxShare(667, 1000, 100)).toBe(67);
+    });
+
+    it("should round correctly with large tax amounts", () => {
+      // 333/1000 * 850 = 282.55 -> rounds to 283
+      expect(calculateTaxShare(333, 1000, 850)).toBe(283);
+    });
+  });
+
+  describe("edge cases (BTEST-15)", () => {
+    it("should return 0 for zero group subtotal (BTEST-15)", () => {
+      expect(calculateTaxShare(500, 0, 100)).toBe(0);
+    });
+
+    it("should return 0 for zero participant subtotal", () => {
+      expect(calculateTaxShare(0, 1000, 100)).toBe(0);
+    });
+
+    it("should return 0 for zero total tax", () => {
+      expect(calculateTaxShare(500, 1000, 0)).toBe(0);
+    });
+  });
+});
