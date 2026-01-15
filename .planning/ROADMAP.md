@@ -29,6 +29,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 8: Polish & Optimization** - Mobile UX refinement, edge cases, performance
 - [x] **Phase 9: UI/UX Improvements** - Receipt upload consolidation, edit layout refinements
 - [x] **Phase 10: Feature Enhancements** - Session-to-bill rename, auto-gratuity detection, bill history
+- [ ] **Phase 10.1: Bug Fixes and UX** - Tax calculation fix, combine join bill into home (INSERTED)
 - [ ] **Phase 11: Security Review** - Security audit and hardening
 
 ## Phase Details
@@ -216,6 +217,25 @@ Plans:
 - [x] 10-02: Bill history on home screen
 - [x] 10-03: Session-to-bill terminology rename
 
+### Phase 10.1: Bug Fixes and UX (INSERTED)
+**Goal**: Fix tax distribution calculation and streamline home page UX
+**Depends on**: Phase 10
+**Research**: Unlikely (bug fix and UI work)
+**Plans**: TBD
+
+Scope from pending todos:
+- Fix tax distribution calculation (ensure proportional to participant's subtotal)
+- Combine join bill into the home page (reduce navigation steps)
+
+Files affected:
+- convex/participants.ts (tax calculation fix)
+- src/pages/Home.tsx (join bill integration)
+- src/pages/JoinBill.tsx (may be removed or simplified)
+
+Plans:
+- [x] 10.1-01: Fix tax distribution to use bill subtotal
+- [ ] 10.1-02: Combine join bill into home page
+
 ### Phase 11: Security Review
 **Goal**: Comprehensive security audit and hardening of the application
 **Depends on**: Phase 10
@@ -234,7 +254,7 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5.1 → 6 → 7 → 8 → 9 → 10 → 11
+Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5.1 → 6 → 7 → 8 → 9 → 10 → 10.1 → 11
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -251,4 +271,5 @@ Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5
 | 8. Polish & Optimization | 3/3 | Complete | 2026-01-15 |
 | 9. UI/UX Improvements | 1/1 | Complete | 2026-01-15 |
 | 10. Feature Enhancements | 3/3 | Complete | 2026-01-15 |
+| 10.1 Bug Fixes and UX | 1/2 | In progress | - |
 | 11. Security Review | 0/TBD | Not started | - |
