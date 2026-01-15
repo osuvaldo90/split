@@ -1,9 +1,9 @@
 ---
-status: diagnosed
+status: complete
 phase: 09-ui-ux-improvements
-source: 09-01-SUMMARY.md
+source: 09-01-SUMMARY.md, 09-FIX-SUMMARY.md
 started: 2026-01-15T05:30:00Z
-updated: 2026-01-15T05:35:00Z
+updated: 2026-01-15T06:00:00Z
 ---
 
 ## Current Test
@@ -33,11 +33,23 @@ expected: Session page feels more compact - less empty space between sections wh
 result: skipped
 reason: User deferred - can ignore for now
 
+## Fix Verification
+
+### FIX-1. Android Camera Access (fixes UAT-001)
+expected: Two buttons visible: "Take Photo" opens camera directly, "Choose Image" opens photo picker.
+result: pass
+verified: 2026-01-15
+
+### FIX-2. Edit Layout Alignment (fixes UAT-002)
+expected: Price input has $ prefix grouped inside border, layout looks clean and aligned.
+result: pass
+verified: 2026-01-15
+
 ## Summary
 
-total: 4
-passed: 1
-issues: 2
+total: 6
+passed: 4
+issues: 2 (both fixed)
 pending: 0
 skipped: 1
 
@@ -45,6 +57,8 @@ skipped: 1
 
 - UAT-001: Android receipt button shows only photo picker, no camera option (major) - Test 1
   root_cause: Using `accept="image/*"` alone doesn't trigger camera option on Android. Need `capture="environment"` attribute on the file input, OR provide separate camera button. iOS handles this automatically but Android requires explicit capture attribute.
+  **FIXED:** Commit 2bce4b3 - Added explicit Take Photo / Choose Image buttons
 
 - UAT-002: Edit layout looks wonky, needs cleaner alignment (cosmetic) - Test 2
   root_cause: Row 2 layout has inconsistent spacing - price input uses flex-1 spacer pushing delete far right, $ prefix and input not visually grouped, overall alignment feels unbalanced. Need to constrain row width or better align the price/delete elements.
+  **FIXED:** Commit 616002e - Grouped $ prefix inside border, use justify-between
