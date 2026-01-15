@@ -116,9 +116,10 @@ None - auto-gratuity detection implemented in Phase 10-01.
 
 ### Pending Todos
 
-5 todos in `.planning/todos/pending/` (5 organized into Phase 10-11):
+6 todos in `.planning/todos/pending/`:
 - **Allow host to remove users from session** (api)
 - **Bill ID tap opens native share sheet** (ui)
+- **Combine join bill into the home page** (ui)
 - **First-time user getting started tutorial** (ui)
 - **Handle strange multi-frame scrolling issues** (ui)
 - **Use graph algorithm to minimize inter-person transactions** (api)
