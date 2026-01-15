@@ -70,6 +70,25 @@ docs/
 
 - [Architecture Overview](docs/architecture.md) - Key patterns, data model, and design decisions
 
+## Testing
+
+```bash
+# Run unit tests (Vitest)
+npm test
+
+# Run unit tests in watch mode
+npm run test:watch
+
+# Run E2E tests (Playwright)
+npm run test:e2e
+
+# Run E2E tests with UI
+npm run test:e2e:ui
+
+# Run all tests (unit + E2E)
+npm run test:all
+```
+
 ## Development
 
 ```bash
