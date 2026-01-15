@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-14)
 
 **Core value:** Seamless, real-time collaborative bill splitting that works instantly for anyone with a phone and a browser.
-**Current focus:** Phase 5 — Item Management
+**Current focus:** Phase 5.1 — Fix New Item Broadcast
 
 ## Current Position
 
-Phase: 5 of 8 (Item Management)
-Plan: FIX complete (2 + FIX in current phase)
-Status: Phase complete, UAT fixes applied
-Last activity: 2026-01-15 — Completed 05-FIX-PLAN.md
+Phase: 5.1 of 8 (Fix New Item Broadcast)
+Plan: 1 of 1 in current phase
+Status: Phase complete
+Last activity: 2026-01-15 — Completed 05.1-01-PLAN.md
 
-Progress: ██████████ 70%
+Progress: ██████████ 72%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 16
+- Total plans completed: 17
 - Average duration: 3 min
-- Total execution time: 0.85 hours
+- Total execution time: 0.9 hours
 
 **By Phase:**
 
@@ -34,9 +34,10 @@ Progress: ██████████ 70%
 | 03.1-inline-item-editing | 1 + FIX | 4 min | 2 min |
 | 04-real-time-sync | 3 | 10 min | 3 min |
 | 05-item-management | 2 + FIX | 8 min | 2.7 min |
+| 05.1-fix-new-item-broadcast | 1 | 3 min | 3 min |
 
 **Recent Trend:**
-- Last 5 plans: 2 min, 3 min, 5 min, 4 min, 2 min
+- Last 5 plans: 3 min, 5 min, 4 min, 2 min, 3 min
 - Trend: fast
 
 ## Accumulated Context
@@ -72,6 +73,8 @@ Recent decisions affecting current work:
 | 05-02 | Blue left border accent for my claims | Visual hierarchy for claim ownership |
 | 05-02 | Host x buttons on claimer pills | Allow host to fix claim mistakes |
 | 05-FIX | Return hostParticipantId from create mutation | Enables host claiming without separate query |
+| 05.1-01 | Draft items use local React state | Prevents empty items from broadcasting to other users |
+| 05.1-01 | One draft at a time | Add Item disabled when draft exists to prevent confusion |
 
 ### Deferred Issues
 
@@ -101,5 +104,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-15
-Stopped at: Completed 05-FIX-PLAN.md (UAT fixes applied)
+Stopped at: Completed 05.1-01-PLAN.md (Phase 5.1 complete)
 Resume file: None
