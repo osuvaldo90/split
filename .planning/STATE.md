@@ -9,10 +9,12 @@ See: .planning/PROJECT.md (updated 2026-01-15)
 
 ## Current Position
 
-Phase: Not started (run /gsd:create-roadmap)
-Plan: —
-Status: Defining requirements
-Last activity: 2026-01-15 — Milestone v1.2 started
+Phase: 15 of 19 (Test Infrastructure)
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-01-15 — Roadmap created for v1.2
+
+Progress: ░░░░░░░░░░ 0% (0/5 phases)
 
 ## Milestone Summary
 

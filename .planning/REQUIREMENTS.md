@@ -90,43 +90,43 @@ Which phases cover which requirements. Updated by create-roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| BTEST-01 | TBD | Pending |
-| BTEST-02 | TBD | Pending |
-| BTEST-03 | TBD | Pending |
-| BTEST-04 | TBD | Pending |
-| BTEST-05 | TBD | Pending |
-| BTEST-06 | TBD | Pending |
-| BTEST-07 | TBD | Pending |
-| BTEST-08 | TBD | Pending |
-| BTEST-09 | TBD | Pending |
-| BTEST-10 | TBD | Pending |
-| BTEST-11 | TBD | Pending |
-| BTEST-12 | TBD | Pending |
-| BTEST-13 | TBD | Pending |
-| BTEST-14 | TBD | Pending |
-| BTEST-15 | TBD | Pending |
-| BTEST-16 | TBD | Pending |
-| BTEST-17 | TBD | Pending |
-| BTEST-18 | TBD | Pending |
-| BTEST-19 | TBD | Pending |
-| BTEST-20 | TBD | Pending |
-| BTEST-21 | TBD | Pending |
-| BTEST-22 | TBD | Pending |
-| BTEST-23 | TBD | Pending |
-| E2E-01 | TBD | Pending |
-| E2E-02 | TBD | Pending |
-| E2E-03 | TBD | Pending |
-| E2E-04 | TBD | Pending |
-| E2E-05 | TBD | Pending |
-| E2E-06 | TBD | Pending |
-| E2E-07 | TBD | Pending |
-| E2E-08 | TBD | Pending |
+| BTEST-01 | Phase 16 | Pending |
+| BTEST-02 | Phase 16 | Pending |
+| BTEST-03 | Phase 16 | Pending |
+| BTEST-04 | Phase 16 | Pending |
+| BTEST-05 | Phase 16 | Pending |
+| BTEST-06 | Phase 16 | Pending |
+| BTEST-07 | Phase 16 | Pending |
+| BTEST-08 | Phase 16 | Pending |
+| BTEST-09 | Phase 16 | Pending |
+| BTEST-10 | Phase 17 | Pending |
+| BTEST-11 | Phase 17 | Pending |
+| BTEST-12 | Phase 17 | Pending |
+| BTEST-13 | Phase 17 | Pending |
+| BTEST-14 | Phase 17 | Pending |
+| BTEST-15 | Phase 17 | Pending |
+| BTEST-16 | Phase 18 | Pending |
+| BTEST-17 | Phase 18 | Pending |
+| BTEST-18 | Phase 18 | Pending |
+| BTEST-19 | Phase 18 | Pending |
+| BTEST-20 | Phase 18 | Pending |
+| BTEST-21 | Phase 18 | Pending |
+| BTEST-22 | Phase 18 | Pending |
+| BTEST-23 | Phase 18 | Pending |
+| E2E-01 | Phase 19 | Pending |
+| E2E-02 | Phase 19 | Pending |
+| E2E-03 | Phase 19 | Pending |
+| E2E-04 | Phase 19 | Pending |
+| E2E-05 | Phase 19 | Pending |
+| E2E-06 | Phase 19 | Pending |
+| E2E-07 | Phase 19 | Pending |
+| E2E-08 | Phase 19 | Pending |
 
 **Coverage:**
 - v1.2 requirements: 31 total
-- Mapped to phases: 0 (pending create-roadmap)
-- Unmapped: 31 ⚠️
+- Mapped to phases: 31 ✓
+- Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-01-15*
-*Last updated: 2026-01-15 after initial definition*
+*Last updated: 2026-01-15 after roadmap creation*

@@ -8,6 +8,7 @@ Build a mobile-first real-time bill splitting web app from foundation through po
 
 - [v1.0 MVP](milestones/v1.0-ROADMAP.md) (Phases 1-13) — SHIPPED 2026-01-15
 - [v1.1 Access Control](milestones/v1.1-ROADMAP.md) (Phase 14) — SHIPPED 2026-01-15
+- 🚧 [v1.2 Test Foundation](milestones/v1.2-ROADMAP.md) (Phases 15-19) — IN PROGRESS
 
 ## Progress
 
@@ -32,6 +33,11 @@ Build a mobile-first real-time bill splitting web app from foundation through po
 | 12. Security Hardening           | v1.0      | 4/4            | Complete | 2026-01-15 |
 | 13. Documentation                | v1.0      | 1/1            | Complete | 2026-01-15 |
 | 14. Access Control               | v1.1      | 4/4            | Complete | 2026-01-15 |
+| 15. Test Infrastructure          | v1.2      | 0/?            | Not started | - |
+| 16. Authorization Tests          | v1.2      | 0/?            | Not started | - |
+| 17. Calculation Tests            | v1.2      | 0/?            | Not started | - |
+| 18. Mutation Tests               | v1.2      | 0/?            | Not started | - |
+| 19. E2E Tests                    | v1.2      | 0/?            | Not started | - |
 
 ---
-*Last updated: 2026-01-15 after v1.1 milestone*
+*Last updated: 2026-01-15 after starting v1.2 Test Foundation*
