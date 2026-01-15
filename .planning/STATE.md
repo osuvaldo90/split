@@ -75,7 +75,8 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-9 todos in `.planning/todos/pending/`:
+10 todos in `.planning/todos/pending/`:
+- **Investigate concurrent add item race condition** (ui)
 - **Animate item updates with flash/fade** (ui)
 - **Fix inline item edit mode layout overflow** (ui)
 - **User-friendly error messages** (ui)
