@@ -178,13 +178,26 @@ export const getTotals = query({
     const tipValue = session.tipValue ?? 0;
 
     // 5. Calculate tax for each participant and distribute remainder
+    // Use TOTAL bill subtotal (all items) as denominator, not just claimed items
+    // This ensures tax is proportional to participant's share of the ENTIRE bill
     const participantSubtotals = participants.map(
       (p) => participantData.get(p._id)?.subtotal ?? 0
     );
-    const taxShares = distributeWithRemainder(totalTax, participantSubtotals);
+
+    // Calculate total bill subtotal (all items, claimed or not)
+    const billSubtotal = items.reduce((sum, item) => sum + item.price, 0);
+    const claimedSubtotal = participantSubtotals.reduce((sum, s) => sum + s, 0);
+    const unclaimedSubtotal = billSubtotal - claimedSubtotal;
+
+    // Include unclaimed portion in distribution to get correct proportions
+    // The unclaimed portion's share will be discarded (not assigned to anyone)
+    const allSubtotals = [...participantSubtotals, unclaimedSubtotal];
+    const allTaxShares = distributeWithRemainder(totalTax, allSubtotals);
+    const taxShares = allTaxShares.slice(0, -1); // Remove unclaimed portion's tax
 
     // 5b. Calculate gratuity for each participant (proportional like tax)
-    const gratuityShares = distributeWithRemainder(totalGratuity, participantSubtotals);
+    const allGratuityShares = distributeWithRemainder(totalGratuity, allSubtotals);
+    const gratuityShares = allGratuityShares.slice(0, -1); // Remove unclaimed portion's gratuity
 
     // 6. Calculate tip based on type
     // For percent types, calculate individually; for manual, distribute with remainder
