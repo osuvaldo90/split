@@ -10,17 +10,17 @@ See: .planning/PROJECT.md (updated 2026-01-14)
 ## Current Position
 
 Phase: 13 of 13 (Documentation)
-Plan: 0 of 1 (13-01 ready for execution)
-Status: PLANNED
-Last activity: 2026-01-15 — Phase 13 planned (1 plan in 1 wave)
+Plan: 1 of 1 (13-01 complete)
+Status: COMPLETE
+Last activity: 2026-01-15 — Completed 13-01-PLAN.md (Documentation)
 
-Progress: ████████████████████░ 92% (12/13 phases complete)
+Progress: █████████████████████ 100% (13/13 phases complete)
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 26
-- Average duration: 3.3 min
+- Total plans completed: 27
+- Average duration: 3.2 min
 - Total execution time: 1.6 hours
 
 **By Phase:**
@@ -42,9 +42,10 @@ Progress: ████████████████████░ 92% (1
 | 10.2-join-bill-ui-simplification | 1 | 2 min | 2 min |
 | 11-security-review | 1 | 3 min | 3 min |
 | 12-security-hardening | 4 | 11 min | 3 min |
+| 13-documentation | 1 | 2 min | 2 min |
 
 **Recent Trend:**
-- Last 5 plans: 2 min, 2 min, 3 min, 2 min, 4 min
+- Last 5 plans: 2 min, 3 min, 2 min, 4 min, 2 min
 - Trend: steady
 
 ## Accumulated Context
@@ -122,6 +123,8 @@ Recent decisions affecting current work:
 | 12-02 | Host verification pattern | Query participant, check isHost, verify sessionId match |
 | 12-01 | Keep unclaim and unclaimByHost separate | API clarity for self-unclaim vs host override |
 | 12-01 | Add duplicate name check to updateName | Consistent with join mutation behavior |
+| 13-01 | Concise README focused on quick start | 86 lines, no fluff |
+| 13-01 | Architecture doc explains 'why' not 'what' | Patterns unique to Split, not generic concepts |
 
 ### Deferred Issues
 
@@ -155,18 +158,23 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-15
-Stopped at: Phase 13 planned, ready to execute
-Resume file: .planning/phases/13-documentation/13-01-PLAN.md
+Stopped at: v1.0 MVP COMPLETE
+Resume file: None
 
 ## Milestone Summary
 
-**v1.0 - Bill Splitting MVP**
+**v1.0 - Bill Splitting MVP - COMPLETE**
 
-12 of 13 phases completed:
+All 13 phases completed:
 - Foundation → Receipt Processing → Session Management → Real-Time Sync
 - Item Management → Calculation Engine → Summary & Display → Polish
 - UI/UX Improvements → Feature Enhancements → Security Review → Security Hardening
-- **Next:** Documentation
+- Documentation
 
-**Total Plans Executed:** 30
+**Total Plans Executed:** 31
 **Total Execution Time:** ~2 hours
+
+## Documentation
+
+- `README.md` - Quick start guide for local development
+- `docs/architecture.md` - Key patterns and design decisions
