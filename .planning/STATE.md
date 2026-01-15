@@ -102,7 +102,7 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-18 todos in `.planning/todos/pending/`:
+19 todos in `.planning/todos/pending/`:
 - **Add security review phase** (general)
 - **Add session history for previous bills** (ui)
 - **Allow host to remove users from session** (api)
