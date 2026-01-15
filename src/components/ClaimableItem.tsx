@@ -202,6 +202,7 @@ export default function ClaimableItem({
 
   // View mode - tappable for claiming
   const canClaim = currentParticipantId !== null;
+  const isUnclaimed = claimerNames.length === 0;
 
   return (
     <div
@@ -210,10 +211,10 @@ export default function ClaimableItem({
         canClaim ? "cursor-pointer active:bg-gray-100" : ""
       } ${
         hasClaimed
-          ? "bg-blue-50 border-2 border-blue-200"
-          : claimerNames.length === 0
-            ? "bg-gray-50 opacity-60"
-            : "bg-gray-50"
+          ? "bg-blue-50 border-l-4 border-l-blue-500 border-y border-r border-y-blue-200 border-r-blue-200"
+          : isUnclaimed
+            ? "bg-gray-50 border border-dashed border-gray-300 opacity-70"
+            : "bg-gray-50 border border-gray-200"
       }`}
     >
       <div className="flex justify-between items-center">
@@ -244,8 +245,24 @@ export default function ClaimableItem({
 
       {/* Claimer names */}
       {claimerNames.length > 0 && (
-        <div className="mt-2 text-sm text-gray-600">
-          {claimerNames.join(", ")}
+        <div className="mt-2 text-sm text-gray-600 flex flex-wrap gap-1">
+          {claims.map((c) => {
+            const participant = participants.find((p) => p._id === c.participantId);
+            const name = participant?.name ?? "Unknown";
+            const isCurrentUser = c.participantId === currentParticipantId;
+            return (
+              <span
+                key={c._id}
+                className={`px-2 py-0.5 rounded-full text-xs ${
+                  isCurrentUser
+                    ? "bg-blue-100 text-blue-700 font-medium"
+                    : "bg-gray-200 text-gray-600"
+                }`}
+              >
+                {name}
+              </span>
+            );
+          })}
         </div>
       )}
 
