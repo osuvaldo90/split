@@ -334,7 +334,10 @@ Scope from security audit (SECURITY-AUDIT.md):
 
 Plans:
 
-- [ ] TBD (run /gsd:plan-phase 12 to break down)
+- [ ] 12-01: HIGH priority authorization fixes (updateName, unclaim)
+- [ ] 12-02: Host-only restrictions (settings, destructive item ops)
+- [ ] 12-03: Input validation bounds (names, money, quantities)
+- [ ] 12-04: Receipt URL session verification
 
 ## Progress
 
@@ -359,4 +362,4 @@ Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5
 | 10.1 Bug Fixes and UX            | 2/2            | Complete    | 2026-01-15 |
 | 10.2 Join Bill UI Simplification | 1/1            | Complete    | 2026-01-15 |
 | 11. Security Review              | 1/1            | Complete    | 2026-01-15 |
-| 12. Security Hardening           | 0/?            | Not started | -          |
+| 12. Security Hardening           | 0/4            | Planned     | -          |
