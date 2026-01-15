@@ -75,7 +75,8 @@ Recent decisions affecting current work:
 
 ### Pending Todos
 
-7 todos in `.planning/todos/pending/`:
+8 todos in `.planning/todos/pending/`:
+- **Fix inline item edit mode layout overflow** (ui)
 - **User-friendly error messages** (ui)
 
 ### Blockers/Concerns
