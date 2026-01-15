@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-14)
 ## Current Position
 
 Phase: 10.1 of 12 (Bug Fixes and UX)
-Plan: 1 of 2 in current phase
-Status: In progress
-Last activity: 2026-01-15 — Completed 10.1-01-PLAN.md
+Plan: 2 of 2 in current phase
+Status: Phase complete
+Last activity: 2026-01-15 — Completed 10.1-02-PLAN.md
 
-Progress: █████████████████░ 92%
+Progress: █████████████████░ 93%
 
 ## Performance Metrics
 
@@ -102,6 +102,8 @@ Recent decisions affecting current work:
 | 10-01 | Gratuity distributed proportionally | Same distributeWithRemainder helper as tax |
 | 10.1-01 | Phantom entry for unclaimed in distribution | Keep distributeWithRemainder generic, localize fix |
 | 10.1-01 | Calculate billSubtotal separately | groupSubtotal only has claimed items |
+| 10.1-02 | Expandable section for join flow on home | One-screen simplicity, reduce navigation |
+| 10.1-02 | Reuse localStorage auto-rejoin logic | Preserve existing behavior from Join.tsx |
 
 ### Deferred Issues
 
@@ -137,5 +139,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-15
-Stopped at: Completed 10.1-01-PLAN.md (tax distribution fix)
+Stopped at: Completed 10.1-02-PLAN.md (combine join bill into home) - Phase 10.1 complete
 Resume file: None
