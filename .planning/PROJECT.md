@@ -8,6 +8,14 @@ A mobile-first web app for splitting restaurant bills in real-time. One person s
 
 Seamless, real-time collaborative bill splitting that works instantly for anyone with a phone and a browser.
 
+## Current Milestone: v1.2 Test Foundation
+
+**Goal:** Comprehensive test coverage to prevent regressions in future development.
+
+**Target features:**
+- Backend unit tests for authorization logic, bill calculations, and core mutations
+- E2E tests for host flow, join flow, and real-time sync scenarios
+
 ## Requirements
 
 ### Validated
@@ -38,6 +46,10 @@ Seamless, real-time collaborative bill splitting that works instantly for anyone
 - ✓ Host-only enforcement on tax/tip mutations — v1.1
 
 ### Active
+
+**v1.2 Test Foundation:**
+- [ ] Backend unit tests — Convex function testing for authorization, calculations, mutations
+- [ ] E2E tests — Browser automation for host flow, join flow, real-time sync
 
 **Backlog:**
 - [ ] Allow host to remove users from session
@@ -100,4 +112,4 @@ Security model: Session participants must join before viewing/mutating. Host-onl
 | Participant verification on mutations | All write mutations verify caller is joined to session | ✓ Good |
 
 ---
-*Last updated: 2026-01-15 after v1.1 milestone*
+*Last updated: 2026-01-15 after starting v1.2 Test Foundation milestone*
