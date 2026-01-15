@@ -89,7 +89,7 @@ Recent decisions affecting current work:
 12 todos in `.planning/todos/pending/`:
 - **Add session history for previous bills** (ui)
 - **Allow host to remove users from session** (api)
-- **Investigate concurrent add item race condition** (ui)
+- **Fix new item broadcast to other users before save** (ui)
 - **Animate item updates with flash/fade** (ui)
 - **Fix inline item edit mode layout overflow** (ui)
 - **User-friendly error messages** (ui)

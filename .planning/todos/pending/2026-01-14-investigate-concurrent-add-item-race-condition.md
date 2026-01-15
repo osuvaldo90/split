@@ -1,6 +1,6 @@
 ---
-created: 2026-01-14T16:08
-title: Investigate concurrent add item race condition
+created: 2026-01-14T20:40
+title: Fix new item broadcast to other users before save
 area: ui
 files:
   - src/pages/Session.tsx
@@ -9,19 +9,17 @@ files:
 
 ## Problem
 
-Potential race condition when multiple users click "Add Item" simultaneously in a session:
-- User A clicks Add Item → creates new item with empty name
-- User B clicks Add Item at same time → may create another item OR overwrite User A's item
+When a user clicks "Add Item", the new empty item is immediately broadcast to other users in the session:
+- User A clicks "Add Item" → new empty editable item appears for User A
+- Before User A has entered any data or saved, other users see an empty editable item appear in their view
+- This creates confusion — other users see an item they didn't create, in edit mode, with no content
 
-This needs testing to confirm the behavior. In a real-time collaborative app with multiple participants, concurrent actions on shared data need careful handling.
+The item should only be visible to other users after it has been saved with actual content.
 
 ## Solution
 
-TBD — needs investigation first:
-1. Test with two browser windows in same session
-2. Click "Add Item" in both at nearly the same time
-3. Observe what happens — do both items appear? Does one get lost?
-4. If race condition confirmed, fix may involve:
-   - Optimistic UI with unique temp IDs
-   - Server-side conflict resolution
-   - Different mutation pattern
+TBD — possible approaches:
+1. Don't create the item in the database until the user saves (local-only until confirmed)
+2. Add a "draft" or "pending" status that filters items from other users' views
+3. Use optimistic UI for the creator but delay the actual mutation until save
+4. Add a "creatorId" check to only show unsaved items to their creator
