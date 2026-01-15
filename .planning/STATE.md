@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-01-14)
 ## Current Position
 
 Phase: 10 of 11 (Feature Enhancements)
-Plan: 3 of 3 in current phase
+Plan: 2 of 3 in current phase (10-02, 10-03 complete)
 Status: In progress
-Last activity: 2026-01-15 — Completed 10-03-PLAN.md
+Last activity: 2026-01-15 — Completed 10-02-PLAN.md (bill history)
 
 Progress: ████████████████░░ 85%
 
@@ -95,6 +95,8 @@ Recent decisions affecting current work:
 | 09-01 | ~25% reduction in vertical spacing | Compact mobile UI while maintaining 44px touch targets |
 | 09-FIX | Two explicit buttons (Take Photo / Choose Image) | Android needs capture="environment" for camera |
 | 09-FIX | Grouped $ prefix inside input border | Visual cohesion in edit mode price input |
+| 10-02 | Max 10 bill history entries | Keep localStorage size reasonable |
+| 10-02 | Dedupe by code when adding to history | Update existing entry rather than duplicate |
 
 ### Deferred Issues
 
@@ -130,5 +132,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-15
-Stopped at: Completed 10-03-PLAN.md (session-to-bill terminology rename)
+Stopped at: Completed 10-02-PLAN.md (bill history)
 Resume file: None

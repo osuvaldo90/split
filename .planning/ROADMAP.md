@@ -212,7 +212,9 @@ Files affected:
 - New: bill history components and storage
 
 Plans:
-- [ ] 10-01: TBD (run /gsd:plan-phase 10 to break down)
+- [ ] 10-01: Session-to-bill terminology rename
+- [x] 10-02: Bill history on home screen
+- [x] 10-03: Multi-item per line item UX
 
 ### Phase 11: Security Review
 **Goal**: Comprehensive security audit and hardening of the application
@@ -248,5 +250,5 @@ Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5
 | 7. Summary & Display | 1/1 | Complete | 2026-01-15 |
 | 8. Polish & Optimization | 3/3 | Complete | 2026-01-15 |
 | 9. UI/UX Improvements | 1/1 | Complete | 2026-01-15 |
-| 10. Feature Enhancements | 0/TBD | Not started | - |
+| 10. Feature Enhancements | 2/3 | In progress | - |
 | 11. Security Review | 0/TBD | Not started | - |
