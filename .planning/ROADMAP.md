@@ -173,7 +173,7 @@ Plans:
 - [x] 08-03: Performance optimization
 
 ### Phase 9: UI/UX Improvements
-**Goal**: Consolidate receipt upload UI and improve edit form layout
+**Goal**: Consolidate receipt upload UI, improve edit form layout, and reduce vertical spacing
 **Depends on**: Phase 8
 **Research**: Unlikely (UI refinement)
 **Plans**: TBD
@@ -181,10 +181,12 @@ Plans:
 Scope from pending todos:
 - Combine take photo and upload image buttons into one unified action
 - Improve edit UI layout to prevent wrapping issues
+- Reduce empty vertical space for a more compact UI
 
 Files affected:
 - src/components/ReceiptUpload.tsx
 - src/components/InlineItem.tsx
+- Various components (spacing audit)
 
 Plans:
 - [ ] 09-01: TBD (run /gsd:plan-phase 9 to break down)
