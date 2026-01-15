@@ -2,6 +2,8 @@
 
 Real-time collaborative bill splitting for groups.
 
+> Built using [Claude Code](https://claude.ai/claude-code) + [GSD (Get Shit Done)](https://github.com/glittercowboy/get-shit-done) — a planning system that turns Claude into a solo dev powerhouse.
+
 ## Features
 
 - **Receipt OCR** - Snap a photo, AI extracts line items automatically
