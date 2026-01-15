@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery, useAction, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
@@ -6,6 +6,7 @@ import { Id } from "../../convex/_generated/dataModel";
 import ReceiptCapture from "../components/ReceiptCapture";
 import InlineItem from "../components/InlineItem";
 import JoinToast from "../components/JoinToast";
+import { getStoredParticipant } from "../lib/sessionStorage";
 
 // Share code component with copy functionality
 function ShareCode({ code }: { code: string }) {
@@ -58,6 +59,28 @@ export default function Session() {
 
   // Fetch session by code
   const session = useQuery(api.sessions.getByCode, code ? { code } : "skip");
+
+  // Get stored participant ID from sessionStorage
+  const storedParticipantId = useMemo(() => {
+    if (!code) return null;
+    return getStoredParticipant(code);
+  }, [code]);
+
+  // Fetch current participant data
+  const currentParticipant = useQuery(
+    api.participants.getById,
+    storedParticipantId
+      ? { participantId: storedParticipantId as Id<"participants"> }
+      : "skip"
+  );
+
+  // Derive current participant info (null if not joined)
+  const currentParticipantId = currentParticipant?._id ?? null;
+  const isHost = currentParticipant?.isHost ?? false;
+
+  // Debug: verify current participant is loaded (will be used by ClaimableItem in Task 3)
+  // eslint-disable-next-line no-console
+  console.log("currentParticipant:", { currentParticipantId, isHost, name: currentParticipant?.name });
 
   // Fetch items for this session
   const items = useQuery(
