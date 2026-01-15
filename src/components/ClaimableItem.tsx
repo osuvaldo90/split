@@ -190,6 +190,12 @@ export default function ClaimableItem({
                 setEditPriceInput(e.target.value.replace(/[^0-9.]/g, ""))
               }
               onFocus={(e) => e.target.select()}
+              onBlur={(e) => {
+                const value = parseFloat(e.target.value);
+                if (!isNaN(value)) {
+                  setEditPriceInput(value.toFixed(2));
+                }
+              }}
               className="w-24 min-h-[44px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
           </div>
