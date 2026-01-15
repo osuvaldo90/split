@@ -1,0 +1,56 @@
+# Requirements: Split v1.1
+
+**Defined:** 2026-01-15
+**Core Value:** Seamless, real-time collaborative bill splitting that works instantly for anyone with a phone and a browser.
+
+## v1.1 Requirements
+
+### Access Control
+
+- [ ] **ACCESS-01**: Direct `/bill/:id` URL requires joining session before viewing bill content
+- [ ] **ACCESS-02**: All Convex mutations verify caller is a joined participant before executing
+- [ ] **ACCESS-03**: Tax and tip mutations enforce host-only restriction
+
+## v2 Requirements
+
+Deferred to future release. Tracked but not in current roadmap.
+
+### Session Management
+
+- **SESS-01**: Host can remove users from session
+
+### UX Enhancements
+
+- **UX-01**: Bill ID tap opens native share sheet
+- **UX-02**: Bottom tabs with route-based navigation
+- **UX-03**: First-time user getting started tutorial
+
+## Out of Scope
+
+Explicitly excluded from v1.1. Documented to prevent scope creep.
+
+| Feature | Reason |
+|---------|--------|
+| Payment processing | Core decision: show who owes what, not handle payments |
+| User accounts | Core decision: anonymous sessions reduce friction |
+| Offline functionality | Core decision: requires internet throughout |
+| Desktop-first design | Core decision: mobile-first priority |
+
+## Traceability
+
+Which phases cover which requirements. Updated by create-roadmap.
+
+| Requirement | Phase | Status |
+|-------------|-------|--------|
+| ACCESS-01 | TBD | Pending |
+| ACCESS-02 | TBD | Pending |
+| ACCESS-03 | TBD | Pending |
+
+**Coverage:**
+- v1.1 requirements: 3 total
+- Mapped to phases: 0
+- Unmapped: 3 ⚠️
+
+---
+*Requirements defined: 2026-01-15*
+*Last updated: 2026-01-15 after initial definition*
