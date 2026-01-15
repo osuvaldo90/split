@@ -5,23 +5,23 @@
 See: .planning/PROJECT.md (updated 2026-01-14)
 
 **Core value:** Seamless, real-time collaborative bill splitting that works instantly for anyone with a phone and a browser.
-**Current focus:** Phase 5.1 — Fix New Item Broadcast
+**Current focus:** Phase 6 — Calculation Engine
 
 ## Current Position
 
-Phase: 5.1 of 8 (Fix New Item Broadcast)
-Plan: 1 of 1 in current phase
-Status: Phase complete
-Last activity: 2026-01-15 — Completed 05.1-01-PLAN.md
+Phase: 6 of 8 (Calculation Engine)
+Plan: 1 of 3 in current phase
+Status: In progress
+Last activity: 2026-01-15 — Completed 06-01-PLAN.md
 
-Progress: ██████████ 72%
+Progress: ██████████ 75%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 17
+- Total plans completed: 18
 - Average duration: 3 min
-- Total execution time: 0.9 hours
+- Total execution time: 1.0 hours
 
 **By Phase:**
 
@@ -35,10 +35,11 @@ Progress: ██████████ 72%
 | 04-real-time-sync | 3 | 10 min | 3 min |
 | 05-item-management | 2 + FIX | 8 min | 2.7 min |
 | 05.1-fix-new-item-broadcast | 1 | 3 min | 3 min |
+| 06-calculation-engine | 1 | 8 min | 8 min |
 
 **Recent Trend:**
-- Last 5 plans: 3 min, 5 min, 4 min, 2 min, 3 min
-- Trend: fast
+- Last 5 plans: 5 min, 4 min, 2 min, 3 min, 8 min
+- Trend: steady
 
 ## Accumulated Context
 
@@ -75,6 +76,8 @@ Recent decisions affecting current work:
 | 05-FIX | Return hostParticipantId from create mutation | Enables host claiming without separate query |
 | 05.1-01 | Draft items use local React state | Prevents empty items from broadcasting to other users |
 | 05.1-01 | One draft at a time | Add Item disabled when draft exists to prevent confusion |
+| 06-01 | Math.floor + remainder distribution | First N claimants get extra cent for exact totals |
+| 06-01 | distributeWithRemainder helper | Generic proportional distribution with exact sum |
 
 ### Deferred Issues
 
@@ -104,5 +107,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-15
-Stopped at: Completed 05.1-01-PLAN.md (Phase 5.1 complete)
+Stopped at: Completed 06-01-PLAN.md
 Resume file: None
