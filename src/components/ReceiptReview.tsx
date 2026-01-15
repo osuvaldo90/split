@@ -107,6 +107,7 @@ export default function ReceiptReview({
       if (subtotal !== null && tax !== null) {
         await updateTotals({
           sessionId,
+          participantId,
           subtotal: Math.round(subtotal * 100),
           tax: Math.round(tax * 100),
         });

@@ -48,8 +48,10 @@ export default function InlineItem({ item, participantId }: InlineItemProps) {
   async function handleSave() {
     const priceInCents = Math.round(parseFloat(editPriceInput) * 100) || 0;
 
+    if (!participantId) return;
     await updateItem({
       itemId: item._id,
+      participantId,
       name: editName,
       price: priceInCents,
       quantity: editQuantity,

@@ -146,8 +146,10 @@ export default function ClaimableItem({
     if (isDraft && onDraftSave) {
       onDraftSave(editName, priceInCents, editQuantity);
     } else {
+      if (!currentParticipantId) return;
       await updateItem({
         itemId: item._id,
+        participantId: currentParticipantId,
         name: editName,
         price: priceInCents,
         quantity: editQuantity,
