@@ -74,13 +74,16 @@ Build a mobile-first real-time bill splitting web app from foundation through po
   3. Tax and tip mutations fail for non-hosts
   4. Existing participants retain full functionality
 **Research**: Unlikely (internal Convex patterns, extends existing auth code)
-**Plans**: TBD
+**Plans**: 4
 
 Plans:
-- [ ] 14-01: TBD
+- [ ] 14-01: Route protection with JoinGate component
+- [ ] 14-02: Mutation authorization (participantId verification)
+- [ ] 14-03: Frontend mutation call updates
+- [ ] 14-04: Host-only authorization audit
 
 ## v1.1 Progress
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 14. Access Control | v1.1 | 0/TBD | Not started | - |
+| 14. Access Control | v1.1 | 0/4 | Planned | - |
