@@ -148,7 +148,7 @@ Plans:
 
 Plans:
 - [x] 06-01: Proportional tax distribution logic
-- [ ] 06-02: Tip calculation (% subtotal, % subtotal+tax, manual)
+- [x] 06-02: Tip calculation (% subtotal, % subtotal+tax, manual)
 - [ ] 06-03: Per-person total aggregation
 
 ### Phase 7: Summary & Display
@@ -188,6 +188,6 @@ Phases execute in numeric order: 1 → 2 → 2.1 → 3 → 3.1 → 4 → 5 → 5
 | 4. Real-Time Sync | 3/3 | Complete | 2026-01-14 |
 | 5. Item Management | 2/2 | Complete | 2026-01-15 |
 | 5.1 Fix New Item Broadcast | 1/1 | Complete | 2026-01-15 |
-| 6. Calculation Engine | 1/3 | In progress | - |
+| 6. Calculation Engine | 2/3 | In progress | - |
 | 7. Summary & Display | 0/3 | Not started | - |
 | 8. Polish & Optimization | 0/3 | Not started | - |

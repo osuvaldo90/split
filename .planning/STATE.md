@@ -10,16 +10,16 @@ See: .planning/PROJECT.md (updated 2026-01-14)
 ## Current Position
 
 Phase: 6 of 8 (Calculation Engine)
-Plan: 1 of 3 in current phase
+Plan: 2 of 3 in current phase
 Status: In progress
-Last activity: 2026-01-15 — Completed 06-01-PLAN.md
+Last activity: 2026-01-15 — Completed 06-02-PLAN.md
 
-Progress: ██████████ 75%
+Progress: ██████████ 79%
 
 ## Performance Metrics
 
 **Velocity:**
-- Total plans completed: 18
+- Total plans completed: 19
 - Average duration: 3 min
 - Total execution time: 1.0 hours
 
@@ -35,10 +35,10 @@ Progress: ██████████ 75%
 | 04-real-time-sync | 3 | 10 min | 3 min |
 | 05-item-management | 2 + FIX | 8 min | 2.7 min |
 | 05.1-fix-new-item-broadcast | 1 | 3 min | 3 min |
-| 06-calculation-engine | 1 | 8 min | 8 min |
+| 06-calculation-engine | 2 | 10 min | 5 min |
 
 **Recent Trend:**
-- Last 5 plans: 5 min, 4 min, 2 min, 3 min, 8 min
+- Last 5 plans: 4 min, 2 min, 3 min, 8 min, 2 min
 - Trend: steady
 
 ## Accumulated Context
@@ -78,6 +78,8 @@ Recent decisions affecting current work:
 | 05.1-01 | One draft at a time | Add Item disabled when draft exists to prevent confusion |
 | 06-01 | Math.floor + remainder distribution | First N claimants get extra cent for exact totals |
 | 06-01 | distributeWithRemainder helper | Generic proportional distribution with exact sum |
+| 06-02 | Save tax/tip on blur | Simpler than debounce for input persistence |
+| 06-02 | Group total preview in settings | Immediate feedback on tax/tip changes |
 
 ### Deferred Issues
 
@@ -107,5 +109,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-15
-Stopped at: Completed 06-01-PLAN.md
+Stopped at: Completed 06-02-PLAN.md
 Resume file: None
