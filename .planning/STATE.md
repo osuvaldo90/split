@@ -11,19 +11,19 @@ See: .planning/PROJECT.md (updated 2026-01-15)
 
 Phase: 14 of 14 (Access Control)
 Plan: 4 of 4 complete
-Status: In progress
-Last activity: 2026-01-15 - Completed 14-01-PLAN.md (route protection with join prompt)
+Status: Phase complete
+Last activity: 2026-01-15 - Completed 14-03-PLAN.md (frontend mutation updates - verified)
 
 Progress: █████████████████████ 100% (4/4 plans)
 
 ## Milestone Summary
 
-**v1.1 Access Control — In Progress**
+**v1.1 Access Control — Complete**
 
-Target features:
-- Route protection with join prompt
-- Participant authorization on mutations
-- Host-only checks audit
+Delivered features:
+- Route protection with join prompt (14-01)
+- Participant authorization on mutations (14-02, 14-03)
+- Host-only checks audit (14-04)
 
 Previous: v1.0 MVP shipped 2026-01-15
 
@@ -50,7 +50,7 @@ See: [.planning/MILESTONES.md](.planning/MILESTONES.md)
 ## Session Continuity
 
 Last session: 2026-01-15
-Stopped at: Completed 14-01-PLAN.md (route protection with join prompt)
+Stopped at: Completed 14-03-PLAN.md (verified frontend mutation updates)
 Resume file: None
 
 ## Documentation
