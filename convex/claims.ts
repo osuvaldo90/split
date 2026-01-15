@@ -61,13 +61,28 @@ export const claim = mutation({
   },
 });
 
-// Unclaim an item
+// Unclaim an item (requires authorization)
 export const unclaim = mutation({
   args: {
     itemId: v.id("items"),
     participantId: v.id("participants"),
+    callerParticipantId: v.id("participants"),
   },
   handler: async (ctx, args) => {
+    // Get the caller's participant record
+    const callerParticipant = await ctx.db.get(args.callerParticipantId);
+    if (!callerParticipant) {
+      throw new Error("Caller participant not found");
+    }
+
+    // Check authorization: caller is unclaiming self OR caller is host
+    const isUnclaimingSelf = args.callerParticipantId === args.participantId;
+    const isHost = callerParticipant.isHost === true;
+
+    if (!isUnclaimingSelf && !isHost) {
+      throw new Error("Not authorized to unclaim for this participant");
+    }
+
     const claim = await ctx.db
       .query("claims")
       .withIndex("by_item", (q) => q.eq("itemId", args.itemId))
