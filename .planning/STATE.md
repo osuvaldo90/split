@@ -12,7 +12,7 @@ See: .planning/PROJECT.md (updated 2026-01-15)
 Phase: 14 of 14 (Access Control)
 Plan: 4 of 4 complete
 Status: In progress
-Last activity: 2026-01-15 - Completed 14-04-PLAN.md (host-only audit)
+Last activity: 2026-01-15 - Completed 14-01-PLAN.md (route protection with join prompt)
 
 Progress: █████████████████████ 100% (4/4 plans)
 
@@ -35,6 +35,8 @@ See: [.planning/MILESTONES.md](.planning/MILESTONES.md)
 |----------|-------|-----------|
 | Host-only pattern: fetch participant, check isHost, verify sessionId | 14-04 | Consistent authorization across all host mutations |
 | Fixed unclaimByHost cross-session vulnerability | 14-04 | Security fix - hosts should only operate in their own session |
+| Route-level gating with JoinGate component | 14-01 | Non-participants see join prompt before bill content |
+| Use justJoinedParticipantId for immediate UI update | 14-01 | No page refresh needed after joining |
 
 ## Pending Todos
 
@@ -48,7 +50,7 @@ See: [.planning/MILESTONES.md](.planning/MILESTONES.md)
 ## Session Continuity
 
 Last session: 2026-01-15
-Stopped at: Completed 14-04-PLAN.md (host-only audit)
+Stopped at: Completed 14-01-PLAN.md (route protection with join prompt)
 Resume file: None
 
 ## Documentation
