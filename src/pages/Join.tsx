@@ -110,7 +110,7 @@ export default function Join() {
     } catch (err) {
       // Parse Convex error messages to extract user-friendly portion
       // Convex errors have format: "[CONVEX M(...)] [Request ID: ...] Server Error Uncaught Error: {message}"
-      let errorMessage = "Failed to join session";
+      let errorMessage = "Failed to join bill";
       if (err instanceof Error) {
         const match = err.message.match(/Uncaught Error:\s*(.+)$/);
         errorMessage = match ? match[1] : err.message;
@@ -127,10 +127,10 @@ export default function Join() {
       : session === undefined
         ? "Checking..."
         : session === null
-          ? "No session with this code"
+          ? "No bill with this code"
           : isCheckingStored
             ? "Checking..."
-            : "Session found!";
+            : "Bill found!";
 
   const sessionFound = session !== undefined && session !== null;
   // Don't show name input while checking stored participant
@@ -139,7 +139,7 @@ export default function Join() {
 
   return (
     <div className="p-4 max-w-md mx-auto">
-      <h1 className="text-2xl font-bold mb-6">Join a session</h1>
+      <h1 className="text-2xl font-bold mb-6">Join a Bill</h1>
 
       {/* Code input */}
       <div className="mb-4">
@@ -147,7 +147,7 @@ export default function Join() {
           htmlFor="code"
           className="block text-sm font-medium text-gray-700 mb-1"
         >
-          Session Code
+          Bill Code
         </label>
         <input
           ref={codeInputRef}
@@ -213,7 +213,7 @@ export default function Join() {
           disabled={!canJoin}
           className="w-full py-3 px-4 bg-blue-500 text-white text-lg font-medium rounded-lg hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors"
         >
-          {isJoining ? "Joining..." : "Join Session"}
+          {isJoining ? "Joining..." : "Join Bill"}
         </button>
       )}
     </div>
