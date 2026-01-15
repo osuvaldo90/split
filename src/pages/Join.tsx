@@ -2,6 +2,12 @@ import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
+import { Id } from "../../convex/_generated/dataModel";
+import {
+  getStoredParticipant,
+  storeParticipant,
+  clearParticipant,
+} from "../lib/sessionStorage";
 
 export default function Join() {
   const navigate = useNavigate();
@@ -9,6 +15,10 @@ export default function Join() {
   const [name, setName] = useState("");
   const [isJoining, setIsJoining] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [isCheckingStored, setIsCheckingStored] = useState(false);
+  const [storedParticipantId, setStoredParticipantId] = useState<string | null>(
+    null
+  );
   const codeInputRef = useRef<HTMLInputElement>(null);
 
   // Auto-focus code input on mount
@@ -21,6 +31,50 @@ export default function Join() {
     api.sessions.getByCode,
     code.length >= 6 ? { code } : "skip"
   );
+
+  // Check localStorage for stored participant when session is found
+  useEffect(() => {
+    if (session && code.length >= 6) {
+      const stored = getStoredParticipant(code);
+      if (stored) {
+        setStoredParticipantId(stored);
+        setIsCheckingStored(true);
+      } else {
+        setStoredParticipantId(null);
+        setIsCheckingStored(false);
+      }
+    } else {
+      setStoredParticipantId(null);
+      setIsCheckingStored(false);
+    }
+  }, [session, code]);
+
+  // Query stored participant to verify it still exists
+  const storedParticipant = useQuery(
+    api.participants.getById,
+    storedParticipantId
+      ? { participantId: storedParticipantId as Id<"participants"> }
+      : "skip"
+  );
+
+  // Handle stored participant verification result
+  useEffect(() => {
+    if (!isCheckingStored || storedParticipant === undefined) return;
+
+    if (
+      storedParticipant &&
+      session &&
+      storedParticipant.sessionId === session._id
+    ) {
+      // Participant exists and belongs to this session - auto-redirect
+      navigate(`/session/${code}`);
+    } else {
+      // Participant doesn't exist or belongs to different session - clear storage
+      clearParticipant(code);
+      setStoredParticipantId(null);
+      setIsCheckingStored(false);
+    }
+  }, [storedParticipant, isCheckingStored, session, code, navigate]);
 
   // Join mutation
   const joinSession = useMutation(api.participants.join);
@@ -46,10 +100,12 @@ export default function Join() {
     setError(null);
 
     try {
-      await joinSession({
+      const participantId = await joinSession({
         sessionId: session._id,
         name: name.trim(),
       });
+      // Store participant ID for session restoration on future visits
+      storeParticipant(session.code, participantId);
       navigate(`/session/${session.code}`);
     } catch (err) {
       // Parse Convex error messages to extract user-friendly portion
@@ -72,10 +128,14 @@ export default function Join() {
         ? "Checking..."
         : session === null
           ? "No session with this code"
-          : "Session found!";
+          : isCheckingStored
+            ? "Checking..."
+            : "Session found!";
 
   const sessionFound = session !== undefined && session !== null;
-  const canJoin = sessionFound && name.trim().length > 0 && !isJoining;
+  // Don't show name input while checking stored participant
+  const showNameInput = sessionFound && !isCheckingStored;
+  const canJoin = showNameInput && name.trim().length > 0 && !isJoining;
 
   return (
     <div className="p-4 max-w-md mx-auto">
@@ -118,8 +178,8 @@ export default function Join() {
         )}
       </div>
 
-      {/* Name input - appears when session found */}
-      {sessionFound && (
+      {/* Name input - appears when session found and not checking stored participant */}
+      {showNameInput && (
         <div className="mb-6">
           <label
             htmlFor="name"
@@ -147,7 +207,7 @@ export default function Join() {
       )}
 
       {/* Join button */}
-      {sessionFound && (
+      {showNameInput && (
         <button
           onClick={handleJoin}
           disabled={!canJoin}
