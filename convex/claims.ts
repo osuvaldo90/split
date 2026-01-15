@@ -79,3 +79,30 @@ export const unclaim = mutation({
     }
   },
 });
+
+// Unclaim an item as host (can remove anyone's claim)
+export const unclaimByHost = mutation({
+  args: {
+    itemId: v.id("items"),
+    participantId: v.id("participants"),
+    hostParticipantId: v.id("participants"),
+  },
+  handler: async (ctx, args) => {
+    // Verify hostParticipantId is actually a host
+    const host = await ctx.db.get(args.hostParticipantId);
+    if (!host || !host.isHost) {
+      throw new Error("Only host can unclaim for others");
+    }
+
+    // Find and delete the claim
+    const claim = await ctx.db
+      .query("claims")
+      .withIndex("by_item", (q) => q.eq("itemId", args.itemId))
+      .filter((q) => q.eq(q.field("participantId"), args.participantId))
+      .first();
+
+    if (claim) {
+      await ctx.db.delete(claim._id);
+    }
+  },
+});

@@ -28,7 +28,7 @@ export default function ClaimableItem({
   claims,
   participants,
   currentParticipantId,
-  isHost: _isHost, // Reserved for future: hosts can unclaim anyone
+  isHost,
 }: ClaimableItemProps) {
   // Check if current user has claimed this item
   const hasClaimed = currentParticipantId
@@ -57,6 +57,7 @@ export default function ClaimableItem({
   const removeItem = useMutation(api.items.remove);
   const claimItem = useMutation(api.claims.claim);
   const unclaimItem = useMutation(api.claims.unclaim);
+  const unclaimByHost = useMutation(api.claims.unclaimByHost);
 
   // Get claimer names
   const claimerNames = claims
@@ -87,6 +88,16 @@ export default function ClaimableItem({
   function handleEdit(e: React.MouseEvent) {
     e.stopPropagation(); // Prevent claim toggle
     setIsEditing(true);
+  }
+
+  function handleHostUnclaim(e: React.MouseEvent, participantId: Id<"participants">) {
+    e.stopPropagation(); // Prevent claim toggle
+    if (!currentParticipantId) return;
+    unclaimByHost({
+      itemId: item._id,
+      participantId,
+      hostParticipantId: currentParticipantId,
+    });
   }
 
   function handleCancel() {
@@ -253,13 +264,33 @@ export default function ClaimableItem({
             return (
               <span
                 key={c._id}
-                className={`px-2 py-0.5 rounded-full text-xs ${
+                className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs ${
                   isCurrentUser
                     ? "bg-blue-100 text-blue-700 font-medium"
                     : "bg-gray-200 text-gray-600"
                 }`}
               >
                 {name}
+                {isHost && (
+                  <button
+                    onClick={(e) => handleHostUnclaim(e, c.participantId)}
+                    className="hover:bg-gray-300 rounded-full p-0.5 -mr-1 transition-colors"
+                    aria-label={`Remove ${name}'s claim`}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-3 w-3"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  </button>
+                )}
               </span>
             );
           })}
