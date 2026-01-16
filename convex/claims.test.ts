@@ -393,7 +393,7 @@ describe("claims authorization", () => {
       const t = convexTest(schema);
 
       // Setup: Create session with participants and claim
-      const { sessionId, hostParticipantId, guestParticipantId, itemId, claimId } = await t.run(async (ctx) => {
+      const { sessionId,  guestParticipantId, itemId, claimId } = await t.run(async (ctx) => {
         const sessionId = await ctx.db.insert("sessions", {
           code: "ABC123",
           hostName: "Host",
