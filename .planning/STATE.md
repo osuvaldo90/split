@@ -9,12 +9,12 @@ See: .planning/PROJECT.md (updated 2026-01-15)
 
 ## Current Position
 
-Phase: 18 of 19 (Mutation Tests)
-Plan: 01 of 01 complete
-Status: Phase complete
-Last activity: 2026-01-15 — Completed 18-01-PLAN.md (Mutation Tests)
+Phase: 19 of 19 (E2E Tests)
+Plan: 01 of 02 complete
+Status: In progress
+Last activity: 2026-01-16 — Completed 19-01-PLAN.md (Host Flow Tests)
 
-Progress: ████████░░ 80% (4/5 phases)
+Progress: █████████░ 90% (4.5/5 phases)
 
 ## Milestone Summary
 
@@ -38,6 +38,8 @@ See: [.planning/MILESTONES.md](.planning/MILESTONES.md)
 | 16-01 | server.deps.inline for convex-test | Required for import.meta.glob transformation in vitest |
 | 17-01 | Pure function tests in edge-runtime | No convex-test needed for calculations.ts functions |
 | 18-01 | Test through mutations not direct validation | Ensures end-to-end validation works correctly |
+| 19-01 | Use .first() for price selectors in E2E tests | Prices appear in multiple places (item row and totals) |
+| 19-01 | Self-contained E2E tests create own sessions | Ensures test isolation and reliability |
 
 ## Pending Todos
 
@@ -50,8 +52,8 @@ See: [.planning/MILESTONES.md](.planning/MILESTONES.md)
 
 ## Session Continuity
 
-Last session: 2026-01-15T23:41:56Z
-Stopped at: Completed 18-01-PLAN.md
+Last session: 2026-01-16T00:00:10Z
+Stopped at: Completed 19-01-PLAN.md
 Resume file: None
 
 ## Documentation
