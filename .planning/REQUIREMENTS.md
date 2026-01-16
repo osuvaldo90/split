@@ -55,16 +55,16 @@ Which phases cover which requirements. Updated by create-roadmap.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| OCR-01 | TBD | Pending |
-| OCR-02 | TBD | Pending |
-| OCR-03 | TBD | Pending |
-| OCR-04 | TBD | Pending |
+| OCR-01 | Phase 22 | Pending |
+| OCR-02 | Phase 21 | Pending |
+| OCR-03 | Phase 20 | Pending |
+| OCR-04 | Phase 23 | Pending |
 
 **Coverage:**
 - v1.3 requirements: 4 total
-- Mapped to phases: 0
-- Unmapped: 4 ⚠️
+- Mapped to phases: 4 ✓
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-01-16*
-*Last updated: 2026-01-16 after initial definition*
+*Last updated: 2026-01-16 after roadmap creation*
