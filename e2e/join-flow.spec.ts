@@ -83,4 +83,97 @@ test.describe("Join Flow", () => {
       await guestContext.close();
     }
   });
+
+  test("E2E-07: guest can claim items", async ({ browser }) => {
+    const hostContext = await browser.newContext();
+    const guestContext = await browser.newContext();
+
+    try {
+      // 1. Host creates bill and adds an item
+      const { page: hostPage, code } = await createBillAsHost(hostContext);
+
+      // Host adds an item
+      await hostPage.click('button:has-text("+ Add Item")');
+      await hostPage.fill('input[placeholder="Item name"]', "Pizza");
+      await hostPage.fill('input[inputmode="decimal"]', "15.00");
+      await hostPage.click('button:has-text("Save")');
+      await expect(hostPage.locator("text=Pizza")).toBeVisible();
+
+      // 2. Guest joins the bill
+      const guestPage = await guestContext.newPage();
+      await guestPage.goto(`/bill/${code}`);
+      await guestPage.fill("input#join-name", "Bob");
+      await guestPage.click('button:has-text("Join Bill")');
+
+      // 3. Wait for items to load - verify "Tap to claim" hint is visible
+      const pizzaItem = guestPage.locator(".rounded-lg").filter({ hasText: "Pizza" });
+      await expect(pizzaItem).toBeVisible();
+      await expect(pizzaItem.locator("text=Tap to claim")).toBeVisible();
+
+      // 4. Claim the item (click on the item container)
+      await pizzaItem.click();
+
+      // 5. Verify claim indicator appears - Bob's name should be in a pill
+      await expect(pizzaItem.locator("text=Bob")).toBeVisible();
+    } finally {
+      await hostContext.close();
+      await guestContext.close();
+    }
+  });
+
+  test("E2E-08: guest can see updated totals after claiming", async ({
+    browser,
+  }) => {
+    const hostContext = await browser.newContext();
+    const guestContext = await browser.newContext();
+
+    try {
+      // 1. Host creates bill and adds an item
+      const { page: hostPage, code } = await createBillAsHost(hostContext);
+
+      await hostPage.click('button:has-text("+ Add Item")');
+      await hostPage.fill('input[placeholder="Item name"]', "Pasta");
+      await hostPage.fill('input[inputmode="decimal"]', "20.00");
+      await hostPage.click('button:has-text("Save")');
+      await expect(hostPage.locator("text=Pasta")).toBeVisible();
+
+      // 2. Guest joins and claims
+      const guestPage = await guestContext.newPage();
+      await guestPage.goto(`/bill/${code}`);
+      await guestPage.fill("input#join-name", "Carol");
+      await guestPage.click('button:has-text("Join Bill")');
+
+      // Wait for the item to load - verify "Tap to claim" hint is visible
+      const pastaItem = guestPage
+        .locator(".rounded-lg")
+        .filter({ hasText: "Pasta" })
+        .filter({ hasText: "Tap to claim" });
+      await expect(pastaItem).toBeVisible();
+
+      // Claim the item
+      await pastaItem.click();
+
+      // Wait for claim to be processed (Carol's name appears in pill)
+      await expect(
+        guestPage
+          .locator(".rounded-lg")
+          .filter({ hasText: "Pasta" })
+          .locator("text=Carol")
+      ).toBeVisible();
+
+      // 3. Navigate to Summary tab
+      await guestPage.click('button:has-text("Summary")');
+
+      // 4. Verify Carol's participant card shows with correct total
+      // Carol's card should have $20.00 (font-bold for total)
+      const carolCard = guestPage.locator(".rounded-lg.border-2").filter({ hasText: "Carol" });
+      await expect(carolCard).toBeVisible();
+
+      // 5. Verify the total includes $20.00 (the claimed item)
+      await expect(carolCard.locator("text=$20.00").first()).toBeVisible();
+    } finally {
+      await hostContext.close();
+      await guestContext.close();
+    }
+  });
 });
