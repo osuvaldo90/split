@@ -8,13 +8,13 @@ A mobile-first web app for splitting restaurant bills in real-time. One person s
 
 Seamless, real-time collaborative bill splitting that works instantly for anyone with a phone and a browser.
 
-## Current Milestone: v1.2 Test Foundation
+## Current State
 
-**Goal:** Comprehensive test coverage to prevent regressions in future development.
+**Last Shipped:** v1.2 Test Foundation (2026-01-15)
+**Test Coverage:** 140 tests (131 unit + 9 E2E)
+**Lines of Code:** 7,486 LOC TypeScript
 
-**Target features:**
-- Backend unit tests for authorization logic, bill calculations, and core mutations
-- E2E tests for host flow, join flow, and real-time sync scenarios
+**Next Milestone:** To be defined
 
 ## Requirements
 
@@ -44,18 +44,17 @@ Seamless, real-time collaborative bill splitting that works instantly for anyone
 - ✓ Route protection with join prompt — direct `/bill/:id` requires joining before viewing — v1.1
 - ✓ Participant authorization on mutations — verify caller is joined before allowing changes — v1.1
 - ✓ Host-only enforcement on tax/tip mutations — v1.1
+- ✓ Backend unit tests — Convex function testing for authorization, calculations, mutations — v1.2
+- ✓ E2E tests — Browser automation for host flow, join flow — v1.2
 
 ### Active
-
-**v1.2 Test Foundation:**
-- [ ] Backend unit tests — Convex function testing for authorization, calculations, mutations
-- [ ] E2E tests — Browser automation for host flow, join flow, real-time sync
 
 **Backlog:**
 - [ ] Allow host to remove users from session
 - [ ] Bill ID tap opens native share sheet
 - [ ] Bottom tabs with route-based navigation
 - [ ] First-time user getting started tutorial
+- [ ] Handle oversized receipt images
 
 ### Out of Scope
 
@@ -67,9 +66,10 @@ Seamless, real-time collaborative bill splitting that works instantly for anyone
 
 ## Context
 
-Shipped v1.1 with 4,597 LOC TypeScript.
+Shipped v1.2 with 7,486 LOC TypeScript.
 Tech stack: Vite + React, Convex (real-time backend), TailwindCSS v4, Claude Vision for OCR.
-Built in 2 days (v1.0) + 1 day (v1.1) using GSD workflow methodology.
+Testing: Vitest (edge-runtime) + Playwright (E2E), 140 tests total.
+Built in 2 days (v1.0) + 1 day (v1.1) + 2 days (v1.2) using GSD workflow methodology.
 
 Key user journey:
 1. Host scans receipt → sees parsed line items
@@ -110,6 +110,8 @@ Security model: Session participants must join before viewing/mutating. Host-onl
 | JoinGate route protection | Non-participants see join prompt, not bill content | ✓ Good |
 | Host-only auth pattern | fetch participant → check isHost → verify sessionId | ✓ Good |
 | Participant verification on mutations | All write mutations verify caller is joined to session | ✓ Good |
+| edge-runtime for Vitest | Match Convex production runtime in tests | ✓ Good |
+| Playwright multi-context | Separate browser contexts for multi-user E2E tests | ✓ Good |
 
 ---
-*Last updated: 2026-01-15 after starting v1.2 Test Foundation milestone*
+*Last updated: 2026-01-15 after v1.2 milestone*

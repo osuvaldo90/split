@@ -1,5 +1,33 @@
 # Project Milestones: Split
 
+## v1.2 Test Foundation (Shipped: 2026-01-15)
+
+**Delivered:** Comprehensive test coverage with 140 tests (131 unit + 9 E2E) covering authorization, calculations, mutations, and browser flows.
+
+**Phases completed:** 15-19 (6 plans total)
+
+**Key accomplishments:**
+
+- Test infrastructure with Vitest (edge-runtime) and Playwright (E2E)
+- 30 authorization tests covering host-only mutations and access control
+- 58 calculation tests for bill splitting, tax, and tip logic
+- 39 mutation tests for session management and input validation
+- 9 E2E tests covering host flow and guest join flow
+- 100% coverage of all 31 v1.2 requirements
+
+**Stats:**
+
+- 40 files changed, 6,007 insertions
+- 7,486 lines of TypeScript
+- 5 phases, 6 plans, ~15 tasks
+- 2 days (2026-01-14 → 2026-01-15)
+
+**Git range:** `7ea7d16` → `2286e3e`
+
+**What's next:** Pending todos include host user removal, native share sheet, bottom tabs navigation, and first-time tutorial.
+
+---
+
 ## v1.1 Access Control (Shipped: 2026-01-15)
 
 **Delivered:** Secured bill sessions with participant authorization and host-only restrictions for tax/tip settings.
