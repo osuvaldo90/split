@@ -5,14 +5,14 @@
 See: .planning/PROJECT.md (updated 2026-01-16)
 
 **Core value:** Seamless, real-time collaborative bill splitting that works instantly for anyone with a phone and a browser
-**Current focus:** Phase 20 — Image Validation
+**Current focus:** Phase 21 — Multiple Fees/Taxes
 
 ## Current Position
 
-Phase: 20 of 23 (Image Validation)
-Plan: 01 of 01 (complete)
-Status: Phase complete
-Last activity: 2026-01-16 — Completed 20-01-PLAN.md
+Phase: 21 of 23 (Multiple Fees/Taxes)
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-01-16 — Phase 20 complete
 
 Progress: ████████████████████░░░ 87% (20/23 phases complete)
 

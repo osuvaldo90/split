@@ -11,7 +11,7 @@ Requirements for Smart Receipt Scanning release. Each maps to roadmap phases.
 
 - [ ] **OCR-01**: User sees handwritten tip amount detected from signed receipt and pre-filled in tip field
 - [ ] **OCR-02**: User sees multiple fees/taxes extracted and classified (sales tax, liquor tax, service fees)
-- [ ] **OCR-03**: User sees error with retry option when non-receipt image is uploaded
+- [x] **OCR-03**: User sees error with retry option when non-receipt image is uploaded
 - [ ] **OCR-04**: User sees AI disclaimer after OCR scan completes
 
 ## v2 Requirements
@@ -57,7 +57,7 @@ Which phases cover which requirements. Updated by create-roadmap.
 |-------------|-------|--------|
 | OCR-01 | Phase 22 | Pending |
 | OCR-02 | Phase 21 | Pending |
-| OCR-03 | Phase 20 | Pending |
+| OCR-03 | Phase 20 | Complete |
 | OCR-04 | Phase 23 | Pending |
 
 **Coverage:**
