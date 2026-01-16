@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-16)
 ## Current Position
 
 Phase: 20 of 23 (Image Validation)
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-01-16 — v1.3 roadmap created
+Plan: 01 of 01 (complete)
+Status: Phase complete
+Last activity: 2026-01-16 — Completed 20-01-PLAN.md
 
-Progress: ██████████████████░░ 83% (19/23 phases complete)
+Progress: ████████████████████░░░ 87% (20/23 phases complete)
 
 ## Performance Metrics
 
@@ -42,6 +42,8 @@ Recent decisions affecting current work:
 
 - v1.0: Claude Vision for OCR (best cost/accuracy balance)
 - v1.2: edge-runtime for Vitest (match Convex production)
+- v1.3: Structured outputs beta for guaranteed JSON (20-01)
+- v1.3: 0.7 confidence threshold for receipt validation (20-01)
 
 ### Pending Todos
 
@@ -59,5 +61,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-16
-Stopped at: v1.3 roadmap creation complete
+Stopped at: Completed 20-01-PLAN.md (Image Validation)
 Resume file: None
