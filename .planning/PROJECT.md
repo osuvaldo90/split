@@ -8,13 +8,21 @@ A mobile-first web app for splitting restaurant bills in real-time. One person s
 
 Seamless, real-time collaborative bill splitting that works instantly for anyone with a phone and a browser.
 
+## Current Milestone: v1.3 Smart Receipt Scanning
+
+**Goal:** Improve receipt OCR to handle real-world complexity — multiple fees/taxes, handwritten tips, and invalid images.
+
+**Target features:**
+- Handwritten tip detection from signed receipts
+- Multiple fees/taxes support with LLM classification
+- Non-receipt image detection with retry
+- AI disclaimer after OCR scan
+
 ## Current State
 
 **Last Shipped:** v1.2 Test Foundation (2026-01-15)
 **Test Coverage:** 140 tests (131 unit + 9 E2E)
 **Lines of Code:** 7,486 LOC TypeScript
-
-**Next Milestone:** To be defined
 
 ## Requirements
 
@@ -48,6 +56,13 @@ Seamless, real-time collaborative bill splitting that works instantly for anyone
 - ✓ E2E tests — Browser automation for host flow, join flow — v1.2
 
 ### Active
+
+**v1.3 Smart Receipt Scanning:**
+- [ ] Detect handwritten tip amounts on signed receipts and pre-fill tip field
+- [ ] Support multiple fees/taxes with LLM classification (sales tax, liquor tax, service fees)
+- [ ] Detect non-receipt images and show error with retry option
+- [ ] Show AI disclaimer after OCR scan completes
+- [ ] Update tests as features are built (TDD)
 
 **Backlog:**
 - [ ] Allow host to remove users from session
@@ -114,4 +129,4 @@ Security model: Session participants must join before viewing/mutating. Host-onl
 | Playwright multi-context | Separate browser contexts for multi-user E2E tests | ✓ Good |
 
 ---
-*Last updated: 2026-01-15 after v1.2 milestone*
+*Last updated: 2026-01-16 after v1.3 milestone start*
