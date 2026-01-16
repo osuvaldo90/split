@@ -24,25 +24,25 @@ Requirements for test foundation. Each maps to roadmap phases.
 - [x] **BTEST-13**: Calculation unit tests verify tip calculation (percent on total)
 - [x] **BTEST-14**: Calculation unit tests verify manual tip distribution
 - [x] **BTEST-15**: Calculation unit tests verify edge cases (zero claimants, single claimant)
-- [ ] **BTEST-16**: Core mutation tests verify session creation generates valid code
-- [ ] **BTEST-17**: Core mutation tests verify joining creates participant correctly
-- [ ] **BTEST-18**: Core mutation tests verify duplicate name rejection
-- [ ] **BTEST-19**: Core mutation tests verify claim idempotency
-- [ ] **BTEST-20**: Core mutation tests verify item removal cascades claims
-- [ ] **BTEST-21**: Input validation tests verify name validation
-- [ ] **BTEST-22**: Input validation tests verify money validation
-- [ ] **BTEST-23**: Input validation tests verify tip percent validation
+- [x] **BTEST-16**: Core mutation tests verify session creation generates valid code
+- [x] **BTEST-17**: Core mutation tests verify joining creates participant correctly
+- [x] **BTEST-18**: Core mutation tests verify duplicate name rejection
+- [x] **BTEST-19**: Core mutation tests verify claim idempotency
+- [x] **BTEST-20**: Core mutation tests verify item removal cascades claims
+- [x] **BTEST-21**: Input validation tests verify name validation
+- [x] **BTEST-22**: Input validation tests verify money validation
+- [x] **BTEST-23**: Input validation tests verify tip percent validation
 
 ### E2E Testing
 
-- [ ] **E2E-01**: Host can create bill and enter display name
-- [ ] **E2E-02**: Host can add items with name and price
-- [ ] **E2E-03**: Host can set tip settings
-- [ ] **E2E-04**: Host can view summary with totals
-- [ ] **E2E-05**: Guest can join via session code
-- [ ] **E2E-06**: Guest can enter display name
-- [ ] **E2E-07**: Guest can claim items
-- [ ] **E2E-08**: Guest can see updated totals after claiming
+- [x] **E2E-01**: Host can create bill and enter display name
+- [x] **E2E-02**: Host can add items with name and price
+- [x] **E2E-03**: Host can set tip settings
+- [x] **E2E-04**: Host can view summary with totals
+- [x] **E2E-05**: Guest can join via session code
+- [x] **E2E-06**: Guest can enter display name
+- [x] **E2E-07**: Guest can claim items
+- [x] **E2E-08**: Guest can see updated totals after claiming
 
 ## v1.2.x Requirements (Stretch)
 
@@ -105,22 +105,22 @@ Which phases cover which requirements. Updated by create-roadmap.
 | BTEST-13 | Phase 17 | Complete |
 | BTEST-14 | Phase 17 | Complete |
 | BTEST-15 | Phase 17 | Complete |
-| BTEST-16 | Phase 18 | Pending |
-| BTEST-17 | Phase 18 | Pending |
-| BTEST-18 | Phase 18 | Pending |
-| BTEST-19 | Phase 18 | Pending |
-| BTEST-20 | Phase 18 | Pending |
-| BTEST-21 | Phase 18 | Pending |
-| BTEST-22 | Phase 18 | Pending |
-| BTEST-23 | Phase 18 | Pending |
-| E2E-01 | Phase 19 | Pending |
-| E2E-02 | Phase 19 | Pending |
-| E2E-03 | Phase 19 | Pending |
-| E2E-04 | Phase 19 | Pending |
-| E2E-05 | Phase 19 | Pending |
-| E2E-06 | Phase 19 | Pending |
-| E2E-07 | Phase 19 | Pending |
-| E2E-08 | Phase 19 | Pending |
+| BTEST-16 | Phase 18 | Complete |
+| BTEST-17 | Phase 18 | Complete |
+| BTEST-18 | Phase 18 | Complete |
+| BTEST-19 | Phase 18 | Complete |
+| BTEST-20 | Phase 18 | Complete |
+| BTEST-21 | Phase 18 | Complete |
+| BTEST-22 | Phase 18 | Complete |
+| BTEST-23 | Phase 18 | Complete |
+| E2E-01 | Phase 19 | Complete |
+| E2E-02 | Phase 19 | Complete |
+| E2E-03 | Phase 19 | Complete |
+| E2E-04 | Phase 19 | Complete |
+| E2E-05 | Phase 19 | Complete |
+| E2E-06 | Phase 19 | Complete |
+| E2E-07 | Phase 19 | Complete |
+| E2E-08 | Phase 19 | Complete |
 
 **Coverage:**
 - v1.2 requirements: 31 total
@@ -129,4 +129,4 @@ Which phases cover which requirements. Updated by create-roadmap.
 
 ---
 *Requirements defined: 2026-01-15*
-*Last updated: 2026-01-15 after Phase 17 completion*
+*Last updated: 2026-01-15 after Phase 19 completion — v1.2 milestone complete*
