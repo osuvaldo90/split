@@ -13,6 +13,30 @@ import Summary from "../components/Summary";
 import TaxTipSettings from "../components/TaxTipSettings";
 import { getStoredParticipant } from "../lib/sessionStorage";
 
+// Map rejection reasons to user-friendly error messages
+const REJECTION_MESSAGES: Record<string, { title: string; hint: string }> = {
+  landscape_photo: {
+    title: "This doesn't look like a receipt",
+    hint: "Try taking a photo of your receipt instead",
+  },
+  screenshot: {
+    title: "Screenshots aren't supported",
+    hint: "Please take a photo of the physical receipt",
+  },
+  document: {
+    title: "This looks like a document, not a receipt",
+    hint: "Make sure you're photographing a store receipt",
+  },
+  blurry: {
+    title: "The image is too blurry",
+    hint: "Try taking another photo with better lighting",
+  },
+  other: {
+    title: "We couldn't recognize this as a receipt",
+    hint: "Try taking a clearer photo of your receipt",
+  },
+};
+
 
 // Receipt processing state machine
 type ReceiptState =
@@ -148,7 +172,17 @@ export default function Session() {
       const result = await parseReceipt({ storageId });
 
       if ("error" in result) {
-        const rawPreview = result.raw ? `\n\nRaw response: ${result.raw.slice(0, 500)}` : "";
+        // Check for validation rejection (non-receipt)
+        if ("rejection_reason" in result && result.rejection_reason) {
+          const msg = REJECTION_MESSAGES[result.rejection_reason] || REJECTION_MESSAGES.other;
+          setReceiptState({
+            step: "error",
+            message: `${msg.title}\n\n${msg.hint}`,
+          });
+          return;
+        }
+        // Existing parse error handling
+        const rawPreview = "raw" in result && result.raw ? `\n\nRaw response: ${result.raw.slice(0, 500)}` : "";
         setReceiptState({
           step: "error",
           message: `OCR failed: ${result.error}.${rawPreview}`,
@@ -401,8 +435,21 @@ export default function Session() {
                       />
                     </svg>
                   </div>
-                  <p className="text-red-600 font-medium">Something went wrong</p>
-                  <p className="text-sm text-gray-600 mt-1">{receiptState.message}</p>
+                  {receiptState.message.includes("\n\n") ? (
+                    <>
+                      <p className="text-red-600 font-medium">
+                        {receiptState.message.split("\n\n")[0]}
+                      </p>
+                      <p className="text-sm text-gray-600 mt-1">
+                        {receiptState.message.split("\n\n")[1]}
+                      </p>
+                    </>
+                  ) : (
+                    <>
+                      <p className="text-red-600 font-medium">Something went wrong</p>
+                      <p className="text-sm text-gray-600 mt-1">{receiptState.message}</p>
+                    </>
+                  )}
                   <button
                     onClick={handleRetry}
                     className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
