@@ -43,12 +43,11 @@ See archived milestone documentation for details.
   1. User uploading a non-receipt image sees an error message
   2. User can retry with a different image after error
   3. Valid receipt images continue to process normally
-**Research**: Likely (Claude Vision prompt engineering)
-**Research topics**: Prompt patterns for image classification, confidence thresholds
-**Plans**: TBD
+**Research**: Complete (20-RESEARCH.md)
+**Plans**: 1 plan
 
 Plans:
-- [ ] 20-01: TBD
+- [ ] 20-01-PLAN.md — Add validation to parseReceipt with structured outputs and user-friendly error messages
 
 ### Phase 21: Multiple Fees/Taxes
 **Goal**: Extract and classify multiple fees/taxes from receipts
@@ -103,7 +102,7 @@ Phases execute in numeric order: 20 → 21 → 22 → 23
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 20. Image Validation | 0/TBD | Not started | - |
+| 20. Image Validation | 0/1 | Planned | - |
 | 21. Multiple Fees/Taxes | 0/TBD | Not started | - |
 | 22. Handwritten Tip Detection | 0/TBD | Not started | - |
 | 23. AI Transparency | 0/TBD | Not started | - |
