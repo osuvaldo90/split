@@ -58,12 +58,12 @@ Plans:
   2. Tax types are labeled (sales tax, liquor tax, service fee, etc.)
   3. Each tax/fee is distributed proportionally to participants
   4. Totals calculate correctly with multiple fees
-**Research**: Likely (schema design, LLM classification)
-**Research topics**: Convex schema migration for multiple fees, prompt engineering for tax classification
-**Plans**: TBD
+**Research**: Complete (21-RESEARCH.md)
+**Plans**: 2 plans
 
 Plans:
-- [ ] 21-01: TBD
+- [ ] 21-01-PLAN.md — Add fees table and CRUD operations, update calculation engine
+- [ ] 21-02-PLAN.md — Update OCR to extract multiple fees, update UI for fees section
 
 ### Phase 22: Handwritten Tip Detection
 **Goal**: Detect handwritten tip amounts and pre-fill tip field
@@ -103,6 +103,6 @@ Phases execute in numeric order: 20 → 21 → 22 → 23
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 20. Image Validation | 1/1 | Complete | 2026-01-16 |
-| 21. Multiple Fees/Taxes | 0/TBD | Not started | - |
+| 21. Multiple Fees/Taxes | 0/2 | Planned | - |
 | 22. Handwritten Tip Detection | 0/TBD | Not started | - |
 | 23. AI Transparency | 0/TBD | Not started | - |
