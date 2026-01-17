@@ -217,15 +217,36 @@ export const getTotals = query({
       groupSubtotal += item.price;
     }
 
-    // 4. Get tax, gratuity, and tip settings from session
-    const totalTax = session.tax ?? 0;
+    // 4. Get fees from fees table (or fall back to legacy session.tax)
+    const feesFromTable = await ctx.db
+      .query("fees")
+      .withIndex("by_session", (q) => q.eq("sessionId", args.sessionId))
+      .collect();
+
+    // Dual-read fallback: use fees table if present, otherwise legacy tax field
+    let fees: { label: string; amount: number }[];
+    let totalFees: number;
+    if (feesFromTable.length > 0) {
+      // Use fees from table
+      fees = feesFromTable.map((f) => ({ label: f.label, amount: f.amount }));
+      totalFees = fees.reduce((sum, fee) => sum + fee.amount, 0);
+    } else if (session.tax) {
+      // Fall back to legacy tax field (existing sessions)
+      fees = [{ label: "Tax", amount: session.tax }];
+      totalFees = session.tax;
+    } else {
+      // No fees
+      fees = [];
+      totalFees = 0;
+    }
+
     const totalGratuity = session.gratuity ?? 0;
     const tipType = session.tipType ?? "percent_subtotal";
     const tipValue = session.tipValue ?? 0;
 
-    // 5. Calculate tax for each participant and distribute remainder
+    // 5. Calculate fees for each participant and distribute remainder
     // Use TOTAL bill subtotal (all items) as denominator, not just claimed items
-    // This ensures tax is proportional to participant's share of the ENTIRE bill
+    // This ensures fees are proportional to participant's share of the ENTIRE bill
     const participantSubtotals = participants.map(
       (p) => participantData.get(p._id)?.subtotal ?? 0
     );
@@ -238,10 +259,18 @@ export const getTotals = query({
     // Include unclaimed portion in distribution to get correct proportions
     // The unclaimed portion's share will be discarded (not assigned to anyone)
     const allSubtotals = [...participantSubtotals, unclaimedSubtotal];
-    const allTaxShares = distributeWithRemainder(totalTax, allSubtotals);
-    const taxShares = allTaxShares.slice(0, -1); // Remove unclaimed portion's tax
 
-    // 5b. Calculate gratuity for each participant (proportional like tax)
+    // Distribute each fee proportionally, accumulate per-participant totals
+    const feeShares = participants.map(() => 0);
+    for (const fee of fees) {
+      const allFeeShares = distributeWithRemainder(fee.amount, allSubtotals);
+      const participantFeeShares = allFeeShares.slice(0, -1); // Remove unclaimed portion
+      for (let i = 0; i < participants.length; i++) {
+        feeShares[i] += participantFeeShares[i];
+      }
+    }
+
+    // 5b. Calculate gratuity for each participant (proportional like fees)
     const allGratuityShares = distributeWithRemainder(totalGratuity, allSubtotals);
     const gratuityShares = allGratuityShares.slice(0, -1); // Remove unclaimed portion's gratuity
 
@@ -256,9 +285,9 @@ export const getTotals = query({
         if (!data) return 0;
         return calculateTipShare(
           data.subtotal,
-          taxShares[i],
+          feeShares[i],
           groupSubtotal,
-          totalTax,
+          totalFees,
           tipType,
           tipValue
         );
@@ -276,7 +305,7 @@ export const getTotals = query({
         subtotal: 0,
         claimedItems: [],
       };
-      const tax = taxShares[originalIndex];
+      const tax = feeShares[originalIndex]; // Keep "tax" field name for backward compat
       const gratuity = gratuityShares[originalIndex];
       const tip = tipShares[originalIndex];
 
@@ -285,10 +314,10 @@ export const getTotals = query({
         name: participant.name,
         isHost: participant.isHost,
         subtotal: data.subtotal,
-        tax,
+        tax, // Renamed semantically to "fees" share, but keep field name for UI compat
         gratuity,
         tip,
-        total: data.subtotal + tax + gratuity + tip, // subtotal + tax + gratuity + tip
+        total: data.subtotal + tax + gratuity + tip, // subtotal + fees + gratuity + tip
         claimedItems: data.claimedItems,
       };
     });
@@ -300,10 +329,11 @@ export const getTotals = query({
       unclaimedTotal,
       unclaimedItems,
       groupSubtotal,
-      totalTax,
+      totalTax: totalFees, // Keep "totalTax" field name for backward compat
       totalGratuity,
       tipType,
       tipValue,
+      fees, // NEW: Array of fees for UI display
     };
   },
 });
