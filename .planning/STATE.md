@@ -10,9 +10,9 @@ See: .planning/PROJECT.md (updated 2026-01-16)
 ## Current Position
 
 Phase: 21 of 23 (Multiple Fees/Taxes)
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-01-16 — Phase 20 complete
+Plan: 01 complete
+Status: In progress
+Last activity: 2026-01-17 — Completed 21-01-PLAN.md
 
 Progress: ████████████████████░░░ 87% (20/23 phases complete)
 
@@ -44,6 +44,7 @@ Recent decisions affecting current work:
 - v1.2: edge-runtime for Vitest (match Convex production)
 - v1.3: Structured outputs beta for guaranteed JSON (20-01)
 - v1.3: 0.7 confidence threshold for receipt validation (20-01)
+- v1.3: Dual-read fallback for fees table migration (21-01)
 
 ### Pending Todos
 
@@ -60,6 +61,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-01-16
-Stopped at: Completed 20-01-PLAN.md (Image Validation)
+Last session: 2026-01-17
+Stopped at: Completed 21-01-PLAN.md (Fees Table and CRUD)
 Resume file: None
