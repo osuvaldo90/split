@@ -47,4 +47,12 @@ export default defineSchema({
     .index("by_session", ["sessionId"])  // All claims in a session
     .index("by_item", ["itemId"])        // Who claimed this item?
     .index("by_participant", ["participantId"]), // What did this person claim?
+
+  // Fees are tax and fee line items (multiple per session)
+  fees: defineTable({
+    sessionId: v.id("sessions"),
+    label: v.string(),                   // Exact text from receipt (e.g., "Philadelphia Liquor Tax")
+    amount: v.number(),                  // Amount in cents
+  })
+    .index("by_session", ["sessionId"]), // List fees in a session
 });
