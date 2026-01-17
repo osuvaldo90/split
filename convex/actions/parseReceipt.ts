@@ -9,14 +9,27 @@ const RECEIPT_VALIDATION_PROMPT = `Analyze this image and determine if it is a r
 First, determine if this image is a receipt.
 
 If it IS a receipt (is_receipt: true):
-- Extract the merchant, items, subtotal, tax, gratuity, and total
+- Extract the merchant, items, subtotal, fees, gratuity, and total
 - Provide your confidence (0.0 to 1.0) that this is a valid receipt
 - Rules for extraction:
   - Prices must be numbers (not strings), in dollars (not cents)
   - If a field is unclear or missing, use null
+  - fees: Extract ALL tax and fee line items from the receipt as an array
+    - Each fee should have:
+      - label: The EXACT text from the receipt (e.g., "Philadelphia Sales Tax", "Kitchen Appreciation Fee", "Liquor Tax")
+      - amount: The dollar amount for that fee
+    - Include all types: sales tax, liquor tax, service fees, gratuity charges, surcharges, etc.
+    - If the receipt shows a single "Tax" line, use label "Tax"
+    - If no taxes/fees are visible, return an empty array []
+    - Do NOT combine multiple fees into one - keep them separate
+    - Examples of fee labels you might see:
+      - "Sales Tax", "PA Sales Tax", "Philadelphia Sales Tax"
+      - "Liquor Tax", "Philadelphia Liquor Tax", "Alcohol Tax"
+      - "Kitchen Appreciation Fee", "Service Fee", "Service Charge"
   - gratuity: auto-gratuity or service charge if present on receipt, otherwise null
     - Look for: "Gratuity", "Service Charge", "Auto Gratuity", "18% Gratuity", "Service Fee", "Tip Included"
     - This is different from optional tip - it's a mandatory charge already on the receipt
+    - Note: If gratuity appears as a fee line, extract it BOTH in fees AND as gratuity field
   - IMPORTANT - Split quantity items for bill splitting:
     - If an item has quantity > 1, split it into SEPARATE items with quantity: 1 each
     - Example: "2 Pilsner $13" becomes TWO items: [{"name": "Pilsner", "price": 6.50, "quantity": 1}, {"name": "Pilsner", "price": 6.50, "quantity": 1}]
@@ -58,11 +71,22 @@ const receiptValidationSchema = {
           },
         },
         subtotal: { type: ["number", "null"] },
-        tax: { type: ["number", "null"] },
+        fees: {
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              label: { type: "string" },
+              amount: { type: "number" },
+            },
+            required: ["label", "amount"],
+            additionalProperties: false,
+          },
+        },
         gratuity: { type: ["number", "null"] },
         total: { type: ["number", "null"] },
       },
-      required: ["merchant", "items", "subtotal", "tax", "gratuity", "total"],
+      required: ["merchant", "items", "subtotal", "fees", "gratuity", "total"],
       additionalProperties: false,
     },
     // Present when is_receipt is false
@@ -85,7 +109,7 @@ export type ParsedReceipt =
       merchant: string | null;
       items: Array<{ name: string; price: number; quantity: number }>;
       subtotal: number | null;
-      tax: number | null;
+      fees: Array<{ label: string; amount: number }>;
       gratuity: number | null;
       total: number | null;
     }
@@ -108,7 +132,7 @@ type ReceiptValidationResponse =
         merchant: string | null;
         items: Array<{ name: string; price: number; quantity: number }>;
         subtotal: number | null;
-        tax: number | null;
+        fees: Array<{ label: string; amount: number }>;
         gratuity: number | null;
         total: number | null;
       };

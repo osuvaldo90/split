@@ -103,7 +103,7 @@ export default function Session() {
   // Parse receipt action and mutations for saving items directly
   const parseReceipt = useAction(api.actions.parseReceipt.parseReceipt);
   const addBulk = useMutation(api.items.addBulk);
-  const updateTotals = useMutation(api.sessions.updateTotals);
+  const addBulkFees = useMutation(api.fees.addBulk);
   const updateGratuity = useMutation(api.sessions.updateGratuity);
   const addItem = useMutation(api.items.add);
 
@@ -202,13 +202,16 @@ export default function Session() {
       }
       await addBulk({ sessionId: session._id, items: itemsInCents, participantId: currentParticipantId });
 
-      // Update session totals if provided (convert to cents)
-      if (result.subtotal !== null && result.tax !== null) {
-        await updateTotals({
+      // Add fees from receipt (convert to cents)
+      if (result.fees && result.fees.length > 0) {
+        const feesInCents = result.fees.map((fee) => ({
+          label: fee.label,
+          amount: Math.round(fee.amount * 100),
+        }));
+        await addBulkFees({
           sessionId: session._id,
           participantId: currentParticipantId,
-          subtotal: Math.round(result.subtotal * 100),
-          tax: Math.round(result.tax * 100),
+          fees: feesInCents,
         });
       }
 
