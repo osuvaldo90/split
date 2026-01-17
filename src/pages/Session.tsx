@@ -100,6 +100,12 @@ export default function Session() {
     session ? { sessionId: session._id } : "skip"
   );
 
+  // Fetch fees for this session
+  const fees = useQuery(
+    api.fees.listBySession,
+    session ? { sessionId: session._id } : "skip"
+  );
+
   // Parse receipt action and mutations for saving items directly
   const parseReceipt = useAction(api.actions.parseReceipt.parseReceipt);
   const addBulk = useMutation(api.items.addBulk);
@@ -532,6 +538,7 @@ export default function Session() {
         {activeTab === "taxtip" && (
           <TaxTipSettings
             session={session}
+            fees={fees ?? []}
             isHost={isHost}
             groupSubtotal={groupSubtotal}
             participantId={currentParticipantId}
