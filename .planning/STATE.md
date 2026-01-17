@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-01-16)
 
 **Core value:** Seamless, real-time collaborative bill splitting that works instantly for anyone with a phone and a browser
-**Current focus:** Phase 21 — Multiple Fees/Taxes
+**Current focus:** Phase 22 — Handwritten Tip Detection
 
 ## Current Position
 
-Phase: 21 of 23 (Multiple Fees/Taxes)
-Plan: 02 complete
-Status: Phase complete
-Last activity: 2026-01-17 — Completed 21-02-PLAN.md
+Phase: 22 of 23 (Handwritten Tip Detection)
+Plan: Not started
+Status: Ready to plan
+Last activity: 2026-01-17 — Phase 21 complete
 
-Progress: ████████████████████░░░ 87% (20/23 phases complete)
+Progress: █████████████████████░░ 91% (21/23 phases complete)
 
 ## Performance Metrics
 
@@ -28,7 +28,7 @@ Progress: ████████████████████░░░ 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | v1.0-v1.2 | 35+ | ~9h | ~15 min |
-| v1.3 (21) | 2 | ~11 min | ~5.5 min |
+| v1.3 (20-21) | 3 | ~12 min | ~4 min |
 
 **Recent Trend:**
 - Last milestone: v1.2 Test Foundation (4 phases, 2 days)
@@ -64,5 +64,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-17
-Stopped at: Completed 21-02-PLAN.md (OCR and UI Updates)
+Stopped at: Completed Phase 21 (Multiple Fees/Taxes)
 Resume file: None
