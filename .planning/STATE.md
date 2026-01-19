@@ -51,9 +51,9 @@ Recent decisions affecting future work:
 - Allow host to remove users from session (api)
 - Bill ID tap opens native share sheet (ui)
 - Bottom tabs with route-based navigation (ui)
+- Detect restaurant name and improve bill list UI (api)
 - First-time user getting started tutorial (ui)
 - Handle oversized receipt images (api)
-- Show AI disclaimer after OCR scan completes (api)
 
 ### Blockers/Concerns
 
