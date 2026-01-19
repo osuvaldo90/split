@@ -172,13 +172,6 @@ export default function TaxTipSettings({
     await removeFee({ feeId, participantId });
   }
 
-  // Gratuity handler
-  async function handleGratuityBlur() {
-    if (!participantId) return;
-    const gratuityInCents = Math.round(parseFloat(gratuityInput) * 100) || 0;
-    await updateGratuity({ sessionId: session._id, gratuity: gratuityInCents, participantId });
-  }
-
   // Tip handlers
   async function handleTipTypeChange(
     newType: "percent_subtotal" | "percent_total" | "manual"
