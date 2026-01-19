@@ -106,6 +106,26 @@ export default function Session() {
     session ? { sessionId: session._id } : "skip"
   );
 
+  // Compute display fees with legacy fallback
+  // New sessions: use fees from fees table
+  // Legacy sessions: synthesize from session.tax if fees table is empty
+  const displayFees = useMemo(() => {
+    // If fees table has entries, use them
+    if (fees && fees.length > 0) {
+      return fees;
+    }
+    // Legacy fallback: synthesize fee from session.tax
+    if (session?.tax && session.tax > 0) {
+      return [{
+        _id: "legacy-tax" as Id<"fees">,
+        label: "Tax",
+        amount: session.tax,
+      }];
+    }
+    // No fees
+    return [];
+  }, [fees, session?.tax]);
+
   // Parse receipt action and mutations for saving items directly
   const parseReceipt = useAction(api.actions.parseReceipt.parseReceipt);
   const addBulk = useMutation(api.items.addBulk);
@@ -538,7 +558,7 @@ export default function Session() {
         {activeTab === "taxtip" && (
           <TaxTipSettings
             session={session}
-            fees={fees ?? []}
+            fees={displayFees}
             isHost={isHost}
             groupSubtotal={groupSubtotal}
             participantId={currentParticipantId}
