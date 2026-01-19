@@ -37,6 +37,8 @@ const REJECTION_MESSAGES: Record<string, { title: string; hint: string }> = {
   },
 };
 
+// Confidence threshold for handwritten tip pre-fill (higher than receipt validation)
+const HANDWRITTEN_TIP_CONFIDENCE_THRESHOLD = 0.8;
 
 // Receipt processing state machine
 type ReceiptState =
@@ -130,7 +132,7 @@ export default function Session() {
   const parseReceipt = useAction(api.actions.parseReceipt.parseReceipt);
   const addBulk = useMutation(api.items.addBulk);
   const addBulkFees = useMutation(api.fees.addBulk);
-  const updateGratuity = useMutation(api.sessions.updateGratuity);
+  const updateTip = useMutation(api.sessions.updateTip);
   const addItem = useMutation(api.items.add);
 
   // Draft item state - local only until saved
@@ -238,6 +240,21 @@ export default function Session() {
           sessionId: session._id,
           participantId: currentParticipantId,
           fees: feesInCents,
+        });
+      }
+
+      // Pre-fill tip from handwritten detection (silent - no toast per user decision)
+      if (
+        "handwritten_tip" in result &&
+        result.handwritten_tip?.detected &&
+        result.handwritten_tip.amount !== null &&
+        result.handwritten_tip.confidence >= HANDWRITTEN_TIP_CONFIDENCE_THRESHOLD
+      ) {
+        await updateTip({
+          sessionId: session._id,
+          tipType: "manual",
+          tipValue: Math.round(result.handwritten_tip.amount * 100), // convert dollars to cents
+          participantId: currentParticipantId,
         });
       }
 
