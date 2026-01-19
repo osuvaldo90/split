@@ -75,12 +75,11 @@ Plans:
   2. Pre-filled tip amount matches handwritten amount
   3. User can still manually adjust tip after pre-fill
   4. Receipts without handwritten tips work normally
-**Research**: Likely (handwriting detection)
-**Research topics**: Handwriting recognition via Claude Vision, prompt patterns for tip detection
-**Plans**: TBD
+**Research**: Complete (22-RESEARCH.md)
+**Plans**: 1 plan
 
 Plans:
-- [ ] 22-01: TBD
+- [ ] 22-01-PLAN.md — Extend parseReceipt for handwritten tip detection and add pre-fill logic
 
 ### Phase 23: AI Transparency
 **Goal**: Show AI disclaimer after OCR processing
@@ -105,5 +104,5 @@ Phases execute in numeric order: 20 → 21 → 22 → 23
 |-------|----------------|--------|-----------|
 | 20. Image Validation | 1/1 | Complete | 2026-01-16 |
 | 21. Multiple Fees/Taxes | 3/3 | Complete | 2026-01-19 |
-| 22. Handwritten Tip Detection | 0/TBD | Not started | - |
+| 22. Handwritten Tip Detection | 0/1 | Planned | - |
 | 23. AI Transparency | 0/TBD | Not started | - |
