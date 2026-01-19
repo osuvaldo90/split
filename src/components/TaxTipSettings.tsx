@@ -239,10 +239,12 @@ export default function TaxTipSettings({
           {fees.map((fee) => {
             const input = feeInputs.get(fee._id) || { label: fee.label, amount: (fee.amount / 100).toFixed(2) };
             const isLastAdded = fee._id === newFeeIdRef.current;
+            // Synthetic legacy fees should always render as read-only
+            const isLegacyFee = typeof fee._id === 'string' && fee._id.startsWith('legacy-');
 
             return (
               <div key={fee._id} className="flex items-center gap-2">
-                {isHost ? (
+                {isHost && !isLegacyFee ? (
                   <>
                     <input
                       ref={isLastAdded ? newFeeLabelInputRef : null}
