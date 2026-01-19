@@ -1,9 +1,9 @@
 ---
 status: complete
 phase: 21-multiple-fees-taxes
-source: 21-01-SUMMARY.md, 21-02-SUMMARY.md
+source: 21-01-SUMMARY.md, 21-02-SUMMARY.md, 21-03-SUMMARY.md
 started: 2026-01-17T23:00:00Z
-updated: 2026-01-17T23:15:00Z
+updated: 2026-01-19T16:23:00Z
 ---
 
 ## Current Test
@@ -42,26 +42,17 @@ result: pass
 
 ### 8. Backward Compatibility
 expected: Existing sessions created before this feature (with single tax field) continue to display and calculate correctly.
-result: issue
-reported: "Failed, the old session data has a 'tax' column in the sessions table with a value in it but there are no corresponding entries in the fees table"
-severity: major
+result: pass
+resolved: "Plan 21-03 added displayFees computation with session.tax fallback. Legacy sessions now show synthetic 'Tax' fee in TaxTipSettings as read-only."
 
 ## Summary
 
 total: 8
-passed: 7
-issues: 1
+passed: 8
+issues: 0
 pending: 0
 skipped: 0
 
 ## Gaps
 
-- truth: "Existing sessions with legacy session.tax field display tax correctly in UI"
-  status: failed
-  reason: "User reported: Failed, the old session data has a 'tax' column in the sessions table with a value in it but there are no corresponding entries in the fees table"
-  severity: major
-  test: 8
-  root_cause: ""
-  artifacts: []
-  missing: []
-  debug_session: ""
+None - all gaps closed by Plan 21-03.
