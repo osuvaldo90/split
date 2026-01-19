@@ -9,7 +9,7 @@ v1.3 enhances receipt scanning to handle real-world complexity: multiple fees/ta
 - ✅ **v1.0 MVP** - Phases 1-13 (shipped 2026-01-13)
 - ✅ **v1.1 Security** - Phases 14 (shipped 2026-01-14)
 - ✅ **v1.2 Test Foundation** - Phases 15-19 (shipped 2026-01-15)
-- 🚧 **v1.3 Smart Receipt Scanning** - Phases 20-23 (in progress)
+- ✅ **v1.3 Smart Receipt Scanning** - Phases 20-22 (shipped 2026-01-19)
 
 ## Phases
 
@@ -24,14 +24,13 @@ See archived milestone documentation for details.
 
 </details>
 
-### 🚧 v1.3 Smart Receipt Scanning (In Progress)
+### ✅ v1.3 Smart Receipt Scanning (Complete)
 
 **Milestone Goal:** Improve receipt OCR to handle real-world complexity — multiple fees/taxes, handwritten tips, and invalid images.
 
 - [x] **Phase 20: Image Validation** - Detect non-receipt images with retry
 - [x] **Phase 21: Multiple Fees/Taxes** - LLM classification of tax types
 - [x] **Phase 22: Handwritten Tip Detection** - Pre-fill tip from signed receipts
-- [ ] **Phase 23: AI Transparency** - Show disclaimer after OCR
 
 ## Phase Details
 
@@ -81,28 +80,13 @@ Plans:
 Plans:
 - [x] 22-01-PLAN.md — Extend parseReceipt for handwritten tip detection and add pre-fill logic
 
-### Phase 23: AI Transparency
-**Goal**: Show AI disclaimer after OCR processing
-**Depends on**: Phase 20
-**Requirements**: OCR-04
-**Success Criteria** (what must be TRUE):
-  1. User sees disclaimer after OCR scan completes
-  2. Disclaimer indicates AI was used for extraction
-  3. User can dismiss disclaimer and continue
-**Research**: Unlikely (simple UI component)
-**Plans**: TBD
-
-Plans:
-- [ ] 23-01: TBD
-
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 20 → 21 → 22 → 23
+Phases execute in numeric order: 20 → 21 → 22
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 20. Image Validation | 1/1 | Complete | 2026-01-16 |
 | 21. Multiple Fees/Taxes | 3/3 | Complete | 2026-01-19 |
 | 22. Handwritten Tip Detection | 1/1 | Complete | 2026-01-19 |
-| 23. AI Transparency | 0/TBD | Not started | - |

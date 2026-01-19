@@ -5,16 +5,16 @@
 See: .planning/PROJECT.md (updated 2026-01-16)
 
 **Core value:** Seamless, real-time collaborative bill splitting that works instantly for anyone with a phone and a browser
-**Current focus:** Phase 22 — Handwritten Tip Detection
+**Current focus:** v1.3 milestone complete
 
 ## Current Position
 
-Phase: 22 of 23 (Handwritten Tip Detection)
+Phase: 22 of 22 (Handwritten Tip Detection)
 Plan: 1 of 1 in current phase
-Status: Phase complete
-Last activity: 2026-01-19 — Completed 22-01-PLAN.md
+Status: Milestone complete
+Last activity: 2026-01-19 — Completed v1.3 milestone
 
-Progress: ██████████████████████░ 96% (22/23 phases complete)
+Progress: ████████████████████████ 100% (22/22 phases complete)
 
 ## Performance Metrics
 
