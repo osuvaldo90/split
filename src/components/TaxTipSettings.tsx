@@ -316,46 +316,6 @@ export default function TaxTipSettings({
         )}
       </div>
 
-      {/* Auto-Gratuity Section */}
-      <div className="p-4 bg-gray-50 rounded-lg">
-        <div className="flex justify-between items-center mb-2">
-          <h3 className="font-semibold text-gray-800">Auto-Gratuity</h3>
-          {!isHost && (
-            <span className="text-xs text-gray-500">(set by host)</span>
-          )}
-        </div>
-
-        {isHost ? (
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="text-gray-500">$</span>
-              <input
-                type="text"
-                inputMode="decimal"
-                value={gratuityInput}
-                onChange={(e) =>
-                  setGratuityInput(e.target.value.replace(/[^0-9.]/g, ""))
-                }
-                onBlur={handleGratuityBlur}
-                onFocus={(e) => e.target.select()}
-                placeholder="0.00"
-                className="w-28 min-h-[44px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-              />
-            </div>
-          </div>
-        ) : (
-          <div>
-            <div className="text-lg font-medium">
-              ${gratuityInput ? parseFloat(gratuityInput).toFixed(2) : "0.00"}
-            </div>
-          </div>
-        )}
-
-        <p className="text-xs text-gray-500 mt-2">
-          Service charge or mandatory gratuity already on the bill
-        </p>
-      </div>
-
       {/* Tip Section */}
       <div className="p-4 bg-gray-50 rounded-lg">
         <div className="flex justify-between items-center mb-3">
@@ -477,10 +437,6 @@ export default function TaxTipSettings({
             <div className="flex justify-between">
               <span>Taxes & Fees:</span>
               <span>${(totalFees / 100).toFixed(2)}</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Auto-Gratuity:</span>
-              <span>${(currentGratuity / 100).toFixed(2)}</span>
             </div>
             <div className="flex justify-between">
               <span>Tip:</span>

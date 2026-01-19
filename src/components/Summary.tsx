@@ -124,12 +124,6 @@ export default function Summary({ sessionId, currentParticipantId }: SummaryProp
                   <span>Items ${(participant.subtotal / 100).toFixed(2)}</span>
                   <span className="text-gray-300">|</span>
                   <span>Taxes & Fees ${(participant.tax / 100).toFixed(2)}</span>
-                  {participant.gratuity > 0 && (
-                    <>
-                      <span className="text-gray-300">|</span>
-                      <span>Grat ${(participant.gratuity / 100).toFixed(2)}</span>
-                    </>
-                  )}
                   <span className="text-gray-300">|</span>
                   <span>Tip ${(participant.tip / 100).toFixed(2)}</span>
                 </div>

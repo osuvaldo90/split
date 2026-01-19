@@ -240,7 +240,6 @@ export const getTotals = query({
       totalFees = 0;
     }
 
-    const totalGratuity = session.gratuity ?? 0;
     const tipType = session.tipType ?? "percent_subtotal";
     const tipValue = session.tipValue ?? 0;
 
@@ -269,10 +268,6 @@ export const getTotals = query({
         feeShares[i] += participantFeeShares[i];
       }
     }
-
-    // 5b. Calculate gratuity for each participant (proportional like fees)
-    const allGratuityShares = distributeWithRemainder(totalGratuity, allSubtotals);
-    const gratuityShares = allGratuityShares.slice(0, -1); // Remove unclaimed portion's gratuity
 
     // 6. Calculate tip based on type
     // For percent types, calculate individually; for manual, distribute with remainder
@@ -306,7 +301,6 @@ export const getTotals = query({
         claimedItems: [],
       };
       const tax = feeShares[originalIndex]; // Keep "tax" field name for backward compat
-      const gratuity = gratuityShares[originalIndex];
       const tip = tipShares[originalIndex];
 
       return {
@@ -315,9 +309,8 @@ export const getTotals = query({
         isHost: participant.isHost,
         subtotal: data.subtotal,
         tax, // Renamed semantically to "fees" share, but keep field name for UI compat
-        gratuity,
         tip,
-        total: data.subtotal + tax + gratuity + tip, // subtotal + fees + gratuity + tip
+        total: data.subtotal + tax + tip, // subtotal + fees + tip
         claimedItems: data.claimedItems,
       };
     });
@@ -330,7 +323,6 @@ export const getTotals = query({
       unclaimedItems,
       groupSubtotal,
       totalTax: totalFees, // Keep "totalTax" field name for backward compat
-      totalGratuity,
       tipType,
       tipValue,
       fees, // NEW: Array of fees for UI display

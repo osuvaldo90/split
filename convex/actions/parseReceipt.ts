@@ -26,10 +26,6 @@ If it IS a receipt (is_receipt: true):
       - "Sales Tax", "PA Sales Tax", "Philadelphia Sales Tax"
       - "Liquor Tax", "Philadelphia Liquor Tax", "Alcohol Tax"
       - "Kitchen Appreciation Fee", "Service Fee", "Service Charge"
-  - gratuity: auto-gratuity or service charge if present on receipt, otherwise null
-    - Look for: "Gratuity", "Service Charge", "Auto Gratuity", "18% Gratuity", "Service Fee", "Tip Included"
-    - This is different from optional tip - it's a mandatory charge already on the receipt
-    - Note: If gratuity appears as a fee line, extract it BOTH in fees AND as gratuity field
   - IMPORTANT - Split quantity items for bill splitting:
     - If an item has quantity > 1, split it into SEPARATE items with quantity: 1 each
     - Example: "2 Pilsner $13" becomes TWO items: [{"name": "Pilsner", "price": 6.50, "quantity": 1}, {"name": "Pilsner", "price": 6.50, "quantity": 1}]
@@ -83,10 +79,9 @@ const receiptValidationSchema = {
             additionalProperties: false,
           },
         },
-        gratuity: { type: ["number", "null"] },
         total: { type: ["number", "null"] },
       },
-      required: ["merchant", "items", "subtotal", "fees", "gratuity", "total"],
+      required: ["merchant", "items", "subtotal", "fees", "total"],
       additionalProperties: false,
     },
     // Present when is_receipt is false
@@ -110,7 +105,6 @@ export type ParsedReceipt =
       items: Array<{ name: string; price: number; quantity: number }>;
       subtotal: number | null;
       fees: Array<{ label: string; amount: number }>;
-      gratuity: number | null;
       total: number | null;
     }
   | {
@@ -133,7 +127,6 @@ type ReceiptValidationResponse =
         items: Array<{ name: string; price: number; quantity: number }>;
         subtotal: number | null;
         fees: Array<{ label: string; amount: number }>;
-        gratuity: number | null;
         total: number | null;
       };
     }

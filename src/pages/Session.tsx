@@ -241,15 +241,6 @@ export default function Session() {
         });
       }
 
-      // Update gratuity if detected from receipt (convert to cents)
-      if (result.gratuity !== null && result.gratuity > 0 && currentParticipantId) {
-        await updateGratuity({
-          sessionId: session._id,
-          gratuity: Math.round(result.gratuity * 100),
-          participantId: currentParticipantId,
-        });
-      }
-
       // Reset to idle - items are now visible via real-time query
       setReceiptState({ step: "idle" });
     } catch (error) {
