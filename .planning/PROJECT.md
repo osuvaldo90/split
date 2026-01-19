@@ -2,27 +2,17 @@
 
 ## What This Is
 
-A mobile-first web app for splitting restaurant bills in real-time. One person scans a receipt, gets a shareable code, and everyone at the table can join instantly to claim their items. No app download, no accounts — just open the link and start splitting.
+A mobile-first web app for splitting restaurant bills in real-time. One person scans a receipt, gets a shareable code, and everyone at the table can join instantly to claim their items. No app download, no accounts — just open the link and start splitting. Features intelligent receipt OCR with multiple fee/tax extraction, handwritten tip detection, and image validation.
 
 ## Core Value
 
 Seamless, real-time collaborative bill splitting that works instantly for anyone with a phone and a browser.
 
-## Current Milestone: v1.3 Smart Receipt Scanning
-
-**Goal:** Improve receipt OCR to handle real-world complexity — multiple fees/taxes, handwritten tips, and invalid images.
-
-**Target features:**
-- Handwritten tip detection from signed receipts
-- Multiple fees/taxes support with LLM classification
-- Non-receipt image detection with retry
-- AI disclaimer after OCR scan
-
 ## Current State
 
-**Last Shipped:** v1.2 Test Foundation (2026-01-15)
+**Last Shipped:** v1.3 Smart Receipt Scanning (2026-01-19)
 **Test Coverage:** 140 tests (131 unit + 9 E2E)
-**Lines of Code:** 7,486 LOC TypeScript
+**Lines of Code:** 7,640 LOC TypeScript
 
 ## Requirements
 
@@ -54,15 +44,11 @@ Seamless, real-time collaborative bill splitting that works instantly for anyone
 - ✓ Host-only enforcement on tax/tip mutations — v1.1
 - ✓ Backend unit tests — Convex function testing for authorization, calculations, mutations — v1.2
 - ✓ E2E tests — Browser automation for host flow, join flow — v1.2
+- ✓ Detect handwritten tip amounts on signed receipts and pre-fill tip field — v1.3
+- ✓ Support multiple fees/taxes with LLM classification (sales tax, liquor tax, service fees) — v1.3
+- ✓ Detect non-receipt images and show error with retry option — v1.3
 
 ### Active
-
-**v1.3 Smart Receipt Scanning:**
-- [ ] Detect handwritten tip amounts on signed receipts and pre-fill tip field
-- [ ] Support multiple fees/taxes with LLM classification (sales tax, liquor tax, service fees)
-- [ ] Detect non-receipt images and show error with retry option
-- [ ] Show AI disclaimer after OCR scan completes
-- [ ] Update tests as features are built (TDD)
 
 **Backlog:**
 - [ ] Allow host to remove users from session
@@ -70,6 +56,7 @@ Seamless, real-time collaborative bill splitting that works instantly for anyone
 - [ ] Bottom tabs with route-based navigation
 - [ ] First-time user getting started tutorial
 - [ ] Handle oversized receipt images
+- [ ] Show AI disclaimer after OCR scan completes
 
 ### Out of Scope
 
@@ -81,10 +68,10 @@ Seamless, real-time collaborative bill splitting that works instantly for anyone
 
 ## Context
 
-Shipped v1.2 with 7,486 LOC TypeScript.
-Tech stack: Vite + React, Convex (real-time backend), TailwindCSS v4, Claude Vision for OCR.
+Shipped v1.3 with 7,640 LOC TypeScript.
+Tech stack: Vite + React, Convex (real-time backend), TailwindCSS v4, Claude Vision for OCR (structured outputs beta).
 Testing: Vitest (edge-runtime) + Playwright (E2E), 140 tests total.
-Built in 2 days (v1.0) + 1 day (v1.1) + 2 days (v1.2) using GSD workflow methodology.
+Built in 2 days (v1.0) + 1 day (v1.1) + 2 days (v1.2) + 4 days (v1.3) using GSD workflow methodology.
 
 Key user journey:
 1. Host scans receipt → sees parsed line items
@@ -127,6 +114,11 @@ Security model: Session participants must join before viewing/mutating. Host-onl
 | Participant verification on mutations | All write mutations verify caller is joined to session | ✓ Good |
 | edge-runtime for Vitest | Match Convex production runtime in tests | ✓ Good |
 | Playwright multi-context | Separate browser contexts for multi-user E2E tests | ✓ Good |
+| Structured outputs beta for OCR | Guaranteed valid JSON responses from Claude Vision | ✓ Good |
+| 0.7 confidence threshold for receipt validation | Balance between accepting valid receipts and rejecting noise | ✓ Good |
+| 0.8 confidence threshold for handwritten tip | Higher threshold for handwriting (harder to read than printed) | ✓ Good |
+| Dual-read fallback for fees migration | Legacy sessions with session.tax continue working | ✓ Good |
+| Extract gratuity in fees AND gratuity field | Gratuity has special distribution logic, needs both | ✓ Good |
 
 ---
-*Last updated: 2026-01-16 after v1.3 milestone start*
+*Last updated: 2026-01-19 after v1.3 milestone*

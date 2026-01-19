@@ -1,5 +1,32 @@
 # Project Milestones: Split
 
+## v1.3 Smart Receipt Scanning (Shipped: 2026-01-19)
+
+**Delivered:** Enhanced receipt OCR to handle real-world complexity with image validation, multiple fees/taxes extraction, and handwritten tip detection.
+
+**Phases completed:** 20-22 (5 plans total)
+
+**Key accomplishments:**
+
+- Image validation with user-friendly error messages and retry option for non-receipt images
+- Multiple fees/taxes extraction with LLM classification (sales tax, liquor tax, service fees)
+- Handwritten tip detection from signed receipts with automatic pre-fill
+- Backward compatibility for legacy sessions via dual-read fallback
+- Claude Vision structured outputs beta for guaranteed valid JSON responses
+
+**Stats:**
+
+- 28 files changed, 3,193 insertions
+- 7,640 lines of TypeScript
+- 3 phases, 5 plans, ~10 tasks
+- 4 days (2026-01-16 → 2026-01-19)
+
+**Git range:** `cb68f54` → `d7b4954`
+
+**What's next:** Pending todos include host user removal, native share sheet, bottom tabs navigation, first-time tutorial, and oversized image handling.
+
+---
+
 ## v1.2 Test Foundation (Shipped: 2026-01-15)
 
 **Delivered:** Comprehensive test coverage with 140 tests (131 unit + 9 E2E) covering authorization, calculations, mutations, and browser flows.
