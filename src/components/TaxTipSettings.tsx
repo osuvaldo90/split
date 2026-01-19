@@ -108,7 +108,6 @@ export default function TaxTipSettings({
   const addFee = useMutation(api.fees.add);
   const updateFee = useMutation(api.fees.update);
   const removeFee = useMutation(api.fees.remove);
-  const updateGratuity = useMutation(api.sessions.updateGratuity);
   const updateTip = useMutation(api.sessions.updateTip);
 
   // Calculate total fees for preview
