@@ -36,6 +36,25 @@ If it IS a receipt (is_receipt: true):
       - Trailing: "Beer (2)", "Tacos x3"
       - Multiplication notation: "2 @ $5.00"
     - Every item in the output must have quantity: 1
+  - handwritten_tip: Detect HANDWRITTEN tip amounts on signed receipts
+    - Look for pen/pencil marks in the tip or gratuity section
+    - Only extract if the writing appears handwritten (not pre-printed)
+    - If a dollar amount is written (e.g., "$5", "5.00", "$5.50"):
+      - Set detected: true
+      - Set amount to the numeric value
+      - Set confidence based on handwriting legibility (0.0-1.0)
+    - If "CASH", "ON TABLE", or similar text is written:
+      - Set detected: true
+      - Set amount: null
+      - Include raw_text showing what was written
+    - If a percentage is written (e.g., "20%"):
+      - Set detected: false (we only handle dollar amounts)
+    - If amount is crossed out and rewritten:
+      - Use the final (uncrossed) value
+    - If multiple amounts visible, use the one on the tip line specifically
+    - Ignore pre-printed tip suggestions or calculations, even if circled
+    - If no handwritten tip visible:
+      - Set handwritten_tip: null
 
 If it is NOT a receipt (is_receipt: false):
 - Classify the rejection reason: landscape_photo, screenshot, document, blurry, other
@@ -80,8 +99,19 @@ const receiptValidationSchema = {
           },
         },
         total: { type: ["number", "null"] },
+        handwritten_tip: {
+          type: ["object", "null"],
+          properties: {
+            detected: { type: "boolean" },
+            amount: { type: ["number", "null"] }, // null for "CASH"/"ON TABLE"
+            confidence: { type: "number" },
+            raw_text: { type: "string" },
+          },
+          required: ["detected", "confidence"],
+          additionalProperties: false,
+        },
       },
-      required: ["merchant", "items", "subtotal", "fees", "total"],
+      required: ["merchant", "items", "subtotal", "fees", "total", "handwritten_tip"],
       additionalProperties: false,
     },
     // Present when is_receipt is false
@@ -98,6 +128,14 @@ const receiptValidationSchema = {
 // Confidence threshold for accepting a receipt
 const CONFIDENCE_THRESHOLD = 0.7;
 
+// Type for handwritten tip detection
+interface HandwrittenTip {
+  detected: boolean;
+  amount: number | null; // null for "CASH"/"ON TABLE"
+  confidence: number;
+  raw_text?: string;
+}
+
 // Response type for parsed receipt data
 export type ParsedReceipt =
   | {
@@ -106,6 +144,7 @@ export type ParsedReceipt =
       subtotal: number | null;
       fees: Array<{ label: string; amount: number }>;
       total: number | null;
+      handwritten_tip?: HandwrittenTip | null;
     }
   | {
       error: string;
@@ -128,6 +167,7 @@ type ReceiptValidationResponse =
         subtotal: number | null;
         fees: Array<{ label: string; amount: number }>;
         total: number | null;
+        handwritten_tip: HandwrittenTip | null;
       };
     }
   | {
