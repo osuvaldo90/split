@@ -10,11 +10,11 @@ See: .planning/PROJECT.md (updated 2026-01-16)
 ## Current Position
 
 Phase: 22 of 23 (Handwritten Tip Detection)
-Plan: Not started
-Status: Ready to plan
-Last activity: 2026-01-19 — Phase 21 gap closure complete (21-03)
+Plan: 1 of 1 in current phase
+Status: Phase complete
+Last activity: 2026-01-19 — Completed 22-01-PLAN.md
 
-Progress: █████████████████████░░ 91% (21/23 phases complete)
+Progress: ██████████████████████░ 96% (22/23 phases complete)
 
 ## Performance Metrics
 
@@ -47,6 +47,7 @@ Recent decisions affecting current work:
 - v1.3: 0.7 confidence threshold for receipt validation (20-01)
 - v1.3: Dual-read fallback for fees table migration (21-01)
 - v1.3: Extract gratuity in both fees array AND gratuity field (21-02)
+- v1.3: 0.8 confidence threshold for handwritten tip pre-fill (22-01)
 
 ### Pending Todos
 
@@ -64,5 +65,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-01-19
-Stopped at: Completed 21-03-PLAN.md (Phase 21 gap closure)
+Stopped at: Completed 22-01-PLAN.md (Phase 22 complete)
 Resume file: None

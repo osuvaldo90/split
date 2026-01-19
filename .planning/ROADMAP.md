@@ -30,7 +30,7 @@ See archived milestone documentation for details.
 
 - [x] **Phase 20: Image Validation** - Detect non-receipt images with retry
 - [x] **Phase 21: Multiple Fees/Taxes** - LLM classification of tax types
-- [ ] **Phase 22: Handwritten Tip Detection** - Pre-fill tip from signed receipts
+- [x] **Phase 22: Handwritten Tip Detection** - Pre-fill tip from signed receipts
 - [ ] **Phase 23: AI Transparency** - Show disclaimer after OCR
 
 ## Phase Details
@@ -79,7 +79,7 @@ Plans:
 **Plans**: 1 plan
 
 Plans:
-- [ ] 22-01-PLAN.md — Extend parseReceipt for handwritten tip detection and add pre-fill logic
+- [x] 22-01-PLAN.md — Extend parseReceipt for handwritten tip detection and add pre-fill logic
 
 ### Phase 23: AI Transparency
 **Goal**: Show AI disclaimer after OCR processing
@@ -104,5 +104,5 @@ Phases execute in numeric order: 20 → 21 → 22 → 23
 |-------|----------------|--------|-----------|
 | 20. Image Validation | 1/1 | Complete | 2026-01-16 |
 | 21. Multiple Fees/Taxes | 3/3 | Complete | 2026-01-19 |
-| 22. Handwritten Tip Detection | 0/1 | Planned | - |
+| 22. Handwritten Tip Detection | 1/1 | Complete | 2026-01-19 |
 | 23. AI Transparency | 0/TBD | Not started | - |
