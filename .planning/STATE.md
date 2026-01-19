@@ -28,7 +28,7 @@ Progress: █████████████████████░░ 
 | Phase | Plans | Total | Avg/Plan |
 |-------|-------|-------|----------|
 | v1.0-v1.2 | 35+ | ~9h | ~15 min |
-| v1.3 (20-21) | 3 | ~12 min | ~4 min |
+| v1.3 (20-21) | 4 | ~13 min | ~3 min |
 
 **Recent Trend:**
 - Last milestone: v1.2 Test Foundation (4 phases, 2 days)

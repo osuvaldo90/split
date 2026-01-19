@@ -29,7 +29,7 @@ See archived milestone documentation for details.
 **Milestone Goal:** Improve receipt OCR to handle real-world complexity — multiple fees/taxes, handwritten tips, and invalid images.
 
 - [x] **Phase 20: Image Validation** - Detect non-receipt images with retry
-- [ ] **Phase 21: Multiple Fees/Taxes** - LLM classification of tax types
+- [x] **Phase 21: Multiple Fees/Taxes** - LLM classification of tax types
 - [ ] **Phase 22: Handwritten Tip Detection** - Pre-fill tip from signed receipts
 - [ ] **Phase 23: AI Transparency** - Show disclaimer after OCR
 
@@ -64,7 +64,7 @@ Plans:
 Plans:
 - [x] 21-01-PLAN.md — Add fees table and CRUD operations, update calculation engine
 - [x] 21-02-PLAN.md — Update OCR to extract multiple fees, update UI for fees section
-- [ ] 21-03-PLAN.md — Fix legacy session backward compatibility for fees display (gap closure)
+- [x] 21-03-PLAN.md — Fix legacy session backward compatibility for fees display (gap closure)
 
 ### Phase 22: Handwritten Tip Detection
 **Goal**: Detect handwritten tip amounts and pre-fill tip field
@@ -104,6 +104,6 @@ Phases execute in numeric order: 20 → 21 → 22 → 23
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 20. Image Validation | 1/1 | Complete | 2026-01-16 |
-| 21. Multiple Fees/Taxes | 2/3 | In Progress | - |
+| 21. Multiple Fees/Taxes | 3/3 | Complete | 2026-01-19 |
 | 22. Handwritten Tip Detection | 0/TBD | Not started | - |
 | 23. AI Transparency | 0/TBD | Not started | - |
