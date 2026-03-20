@@ -19,10 +19,6 @@ const REJECTION_MESSAGES: Record<string, { title: string; hint: string }> = {
     title: "This doesn't look like a receipt",
     hint: "Try taking a photo of your receipt instead",
   },
-  screenshot: {
-    title: "Screenshots aren't supported",
-    hint: "Please take a photo of the physical receipt",
-  },
   document: {
     title: "This looks like a document, not a receipt",
     hint: "Make sure you're photographing a store receipt",

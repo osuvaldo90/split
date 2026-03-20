@@ -57,7 +57,7 @@ If it IS a receipt (is_receipt: true):
       - Set handwritten_tip: null
 
 If it is NOT a receipt (is_receipt: false):
-- Classify the rejection reason: landscape_photo, screenshot, document, blurry, other
+- Classify the rejection reason: landscape_photo, document, blurry, other
 - Briefly describe what the image appears to be
 - Provide your confidence (0.0 to 1.0) that this is NOT a receipt`;
 
@@ -117,7 +117,7 @@ const receiptValidationSchema = {
     // Present when is_receipt is false
     rejection_reason: {
       type: "string",
-      enum: ["landscape_photo", "screenshot", "document", "blurry", "other"],
+      enum: ["landscape_photo", "document", "blurry", "other"],
     },
     description: { type: "string" },
   },
@@ -152,7 +152,7 @@ export type ParsedReceipt =
     }
   | {
       error: string;
-      rejection_reason: "landscape_photo" | "screenshot" | "document" | "blurry" | "other";
+      rejection_reason: "landscape_photo" | "document" | "blurry" | "other";
       description: string;
     };
 
@@ -173,7 +173,7 @@ type ReceiptValidationResponse =
   | {
       is_receipt: false;
       confidence: number;
-      rejection_reason: "landscape_photo" | "screenshot" | "document" | "blurry" | "other";
+      rejection_reason: "landscape_photo" | "document" | "blurry" | "other";
       description: string;
     };
 
