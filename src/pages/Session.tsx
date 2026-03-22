@@ -327,7 +327,7 @@ export default function Session() {
   // Handle copying session code to clipboard
   async function handleCopyCode() {
     try {
-      await navigator.clipboard.writeText(session?.code ?? "");
+      await navigator.clipboard.writeText(window.location.href);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
@@ -370,7 +370,7 @@ export default function Session() {
           {session.code}
         </span>
         <p className="text-xs text-blue-500 mt-1">
-          {copied ? "Copied!" : "tap to copy code"}
+          {copied ? "Copied!" : "tap to copy URL"}
         </p>
       </button>
 
