@@ -11,6 +11,7 @@ export default defineSchema({
     subtotal: v.optional(v.number()),    // Parsed from receipt
     tax: v.optional(v.number()),         // Parsed from receipt
     gratuity: v.optional(v.number()),    // Auto-gratuity from receipt (in cents)
+    merchantName: v.optional(v.string()),// Parsed from receipt
     tipType: v.optional(v.union(
       v.literal("percent_subtotal"),     // Tip on subtotal only
       v.literal("percent_total"),        // Tip on subtotal + tax
