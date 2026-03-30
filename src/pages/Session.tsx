@@ -365,18 +365,29 @@ export default function Session() {
         />
       ))}
 
-      {/* Tappable Session Code Header */}
-      <button
-        onClick={handleCopyCode}
-        className="sticky top-0 z-10 w-full p-4 bg-blue-50 border-b border-blue-100 text-center active:bg-blue-100 transition-colors"
-      >
-        <span className="text-2xl font-mono font-bold tracking-widest text-blue-600">
-          {session.code}
-        </span>
-        <p className="text-xs text-blue-500 mt-1">
-          {copied ? "Copied!" : "tap to copy code"}
-        </p>
-      </button>
+      {/* Sticky Header: back button + session code */}
+      <div className="sticky top-0 z-10 w-full flex items-center bg-blue-50 border-b border-blue-100">
+        <Link
+          to="/"
+          className="flex items-center justify-center w-12 h-full pl-3 py-4 text-blue-500 active:text-blue-700"
+          aria-label="Back to home"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M15 18l-6-6 6-6"/>
+          </svg>
+        </Link>
+        <button
+          onClick={handleCopyCode}
+          className="flex-1 py-4 pr-12 text-center active:bg-blue-100 transition-colors"
+        >
+          <span className="text-2xl font-mono font-bold tracking-widest text-blue-600">
+            {session.code}
+          </span>
+          <p className="text-xs text-blue-500 mt-1">
+            {copied ? "Copied!" : "tap to copy code"}
+          </p>
+        </button>
+      </div>
 
       {/* Single scroll content area */}
       <div className="p-4">
