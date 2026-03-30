@@ -361,18 +361,45 @@ export default function Session() {
         />
       ))}
 
-      {/* Tappable Session Code Header */}
-      <button
-        onClick={handleCopyCode}
-        className="sticky top-0 z-10 w-full p-4 bg-blue-50 border-b border-blue-100 text-center active:bg-blue-100 transition-colors"
-      >
-        <span className="text-2xl font-mono font-bold tracking-widest text-blue-600">
-          {session.code}
-        </span>
-        <p className="text-xs text-blue-500 mt-1">
-          {copied ? "Copied!" : "tap to copy URL"}
-        </p>
-      </button>
+      {/* Session Header */}
+      <div className="sticky top-0 z-10 w-full bg-blue-50 border-b border-blue-100 flex items-center">
+        {/* Back button */}
+        <Link
+          to="/"
+          className="flex items-center gap-1 px-4 py-4 text-blue-600 hover:text-blue-800 active:text-blue-900 shrink-0"
+          aria-label="Back to home"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2.5}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M15 18l-6-6 6-6" />
+          </svg>
+          <span className="text-sm font-medium">Bills</span>
+        </Link>
+
+        {/* Tappable Session Code */}
+        <button
+          onClick={handleCopyCode}
+          className="flex-1 py-4 text-center active:bg-blue-100 transition-colors"
+        >
+          <span className="text-2xl font-mono font-bold tracking-widest text-blue-600">
+            {session.code}
+          </span>
+          <p className="text-xs text-blue-500 mt-1">
+            {copied ? "Copied!" : "tap to copy URL"}
+          </p>
+        </button>
+
+        {/* Spacer to balance back button width */}
+        <div className="w-[72px] shrink-0" />
+      </div>
 
       {/* Single scroll content area */}
       <div className="p-4">
