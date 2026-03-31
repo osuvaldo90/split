@@ -36,6 +36,11 @@ If it IS a receipt (is_receipt: true):
       - Trailing: "Beer (2)", "Tacos x3"
       - Multiplication notation: "2 @ $5.00"
     - Every item in the output must have quantity: 1
+  - Item modifiers and customizations:
+    - Restaurant receipts often print modifier/customization lines beneath a menu item (e.g., "Medium", "Honey Mustard", "No Onions", "Gluten Free Bun")
+    - If a modifier line has NO price printed next to it on the receipt, it is purely descriptive — skip it entirely, do NOT include it as an item
+    - If a modifier line DOES have a price printed next to it (e.g., "Add Bacon $2.00"), include it as its own line item
+    - The key rule: only extract a line as an item if it has an explicit price value on the receipt
   - handwritten_tip: Detect HANDWRITTEN tip amounts on signed receipts
     - Look for pen/pencil marks in the tip or gratuity section
     - Only extract if the writing appears handwritten (not pre-printed)
