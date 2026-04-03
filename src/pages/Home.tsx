@@ -144,8 +144,8 @@ export default function Home() {
       // Parse Convex error messages to extract user-friendly portion
       let errorMessage = isJoinMode ? "Failed to join bill" : "Failed to create bill";
       if (err instanceof Error) {
-        const match = err.message.match(/Uncaught Error:\s*(.+)$/);
-        errorMessage = match ? match[1] : err.message;
+        const match = err.message.match(/Uncaught Error:\s*([^\n]+)/);
+        errorMessage = match ? match[1] : err.message.split("\n")[0];
       }
       setJoinError(errorMessage);
       setIsSubmitting(false);
