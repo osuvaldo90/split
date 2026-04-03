@@ -185,22 +185,12 @@ type ReceiptValidationResponse =
 export const parseReceipt = action({
   args: { storageId: v.id("_storage") },
   handler: async (ctx, args): Promise<ParsedReceipt> => {
-    // Get the image blob from Convex storage
-    const imageBlob = await ctx.storage.get(args.storageId);
-    if (!imageBlob) {
+    // Get a publicly-accessible URL for the image from Convex storage.
+    // Using a URL avoids base64 encoding, which would be subject to Claude's 5MB limit.
+    const imageUrl = await ctx.storage.getUrl(args.storageId);
+    if (!imageUrl) {
       throw new Error("Image not found in storage");
     }
-
-    // Convert blob to base64
-    const arrayBuffer = await imageBlob.arrayBuffer();
-    const base64 = Buffer.from(arrayBuffer).toString("base64");
-
-    // Determine media type from blob
-    const mediaType = imageBlob.type as
-      | "image/jpeg"
-      | "image/png"
-      | "image/gif"
-      | "image/webp";
 
     // Initialize Anthropic client (API key from environment)
     const anthropic = new Anthropic({
@@ -219,9 +209,8 @@ export const parseReceipt = action({
             {
               type: "image",
               source: {
-                type: "base64",
-                media_type: mediaType,
-                data: base64,
+                type: "url",
+                url: imageUrl,
               },
             },
             {
