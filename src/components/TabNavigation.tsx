@@ -69,7 +69,7 @@ export default function TabNavigation({
   const tabs: { id: Tab; label: string; Icon: typeof ListIcon }[] = [
     { id: "items", label: "Items", Icon: ListIcon },
     { id: "taxtip", label: "Tax & Tip", Icon: CalculatorIcon },
-    { id: "summary", label: "Summary", Icon: UsersIcon },
+    { id: "summary", label: "Totals", Icon: UsersIcon },
   ];
 
   return (

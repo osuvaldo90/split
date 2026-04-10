@@ -162,7 +162,7 @@ test.describe("Join Flow", () => {
       ).toBeVisible();
 
       // 3. Navigate to Summary tab
-      await guestPage.click('button:has-text("Summary")');
+      await guestPage.click('button:has-text("Totals")');
 
       // 4. Verify Carol's participant card shows with correct total
       // Carol's card should have $20.00 (font-bold for total)
