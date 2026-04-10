@@ -98,7 +98,7 @@ test.describe("Host Flow", () => {
     await page.locator("text=Salad").click();
 
     // Navigate to Summary tab
-    await page.click('button:has-text("Summary")');
+    await page.click('button:has-text("Totals")');
 
     // Verify participant card shows with name and total
     await expect(page.locator("text=Alice")).toBeVisible();
