@@ -273,7 +273,8 @@ export const getTotals = query({
     // For percent types, calculate individually; for manual, distribute with remainder
     let tipShares: number[];
     if (tipType === "manual") {
-      tipShares = distributeWithRemainder(tipValue, participantSubtotals);
+      const allTipShares = distributeWithRemainder(tipValue, allSubtotals);
+      tipShares = allTipShares.slice(0, -1);
     } else {
       tipShares = participants.map((p, i) => {
         const data = participantData.get(p._id);
