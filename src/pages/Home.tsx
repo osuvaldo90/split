@@ -183,7 +183,6 @@ export default function Home() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-6">
-      <h1>TEST TEST TEST</h1>
       <div className="w-full max-w-md text-center space-y-8">
         {/* App branding */}
         <div className="space-y-2">
