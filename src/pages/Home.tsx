@@ -8,7 +8,11 @@ import {
   storeParticipant,
   clearParticipant,
 } from "../lib/sessionStorage";
-import { addBillToHistory, getBillHistory, BillHistoryEntry } from "../lib/billHistory";
+import {
+  addBillToHistory,
+  getBillHistory,
+  BillHistoryEntry,
+} from "../lib/billHistory";
 import { getLastUsedName, setLastUsedName } from "../lib/userPreferences";
 
 export default function Home() {
@@ -19,7 +23,9 @@ export default function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [joinError, setJoinError] = useState<string | null>(null);
   const [isCheckingStored, setIsCheckingStored] = useState(false);
-  const [storedParticipantId, setStoredParticipantId] = useState<string | null>(null);
+  const [storedParticipantId, setStoredParticipantId] = useState<string | null>(
+    null,
+  );
 
   const navigate = useNavigate();
   const createSession = useMutation(api.sessions.create);
@@ -28,7 +34,7 @@ export default function Home() {
   // Query session by code (skip when code too short)
   const joinSession = useQuery(
     api.sessions.getByCode,
-    code.length >= 6 ? { code } : "skip"
+    code.length >= 6 ? { code } : "skip",
   );
 
   // Pre-fill name from localStorage on mount
@@ -61,7 +67,7 @@ export default function Home() {
     api.participants.getById,
     storedParticipantId
       ? { participantId: storedParticipantId as Id<"participants"> }
-      : "skip"
+      : "skip",
   );
 
   // Handle stored participant verification result (auto-rejoin)
@@ -96,7 +102,8 @@ export default function Home() {
 
   // Determine button state
   const isJoinMode = isValidCode && sessionFound && !isCheckingStored;
-  const canSubmit = name.trim().length > 0 && !isSubmitting && !isCheckingStored;
+  const canSubmit =
+    name.trim().length > 0 && !isSubmitting && !isCheckingStored;
 
   // Handle form submission
   async function handleSubmit() {
@@ -142,7 +149,9 @@ export default function Home() {
       }
     } catch (err) {
       // Parse Convex error messages to extract user-friendly portion
-      let errorMessage = isJoinMode ? "Failed to join bill" : "Failed to create bill";
+      let errorMessage = isJoinMode
+        ? "Failed to join bill"
+        : "Failed to create bill";
       if (err instanceof Error) {
         const match = err.message.match(/Uncaught Error:\s*(.+)$/);
         errorMessage = match ? match[1] : err.message;
@@ -169,10 +178,12 @@ export default function Home() {
         ? "Join Bill"
         : "Start Bill";
 
-  const buttonDisabled = !canSubmit || (isValidCode && !sessionFound && !sessionNotFound);
+  const buttonDisabled =
+    !canSubmit || (isValidCode && !sessionFound && !sessionNotFound);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-6">
+      <h1>TEST TEST TEST</h1>
       <div className="w-full max-w-md text-center space-y-8">
         {/* App branding */}
         <div className="space-y-2">
@@ -211,7 +222,8 @@ export default function Home() {
               htmlFor="code"
               className="block text-sm font-medium text-gray-700 text-left"
             >
-              Bill code <span className="text-gray-400 font-normal">(optional)</span>
+              Bill code{" "}
+              <span className="text-gray-400 font-normal">(optional)</span>
             </label>
             <input
               id="code"
