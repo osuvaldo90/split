@@ -202,14 +202,6 @@ export default function Session() {
     try {
       const result = await parseReceipt({ storageId });
 
-      if ("merchant" in result) {
-        await updateMerchant({
-          sessionId: session._id,
-          participantId: currentParticipantId,
-          merchant: result.merchant,
-        });
-      }
-
       if ("error" in result) {
         // Check for validation rejection (non-receipt)
         if ("rejection_reason" in result && result.rejection_reason) {
@@ -249,6 +241,14 @@ export default function Session() {
         items: itemsInCents,
         participantId: currentParticipantId,
       });
+
+      if (result.merchant) {
+        await updateMerchant({
+          sessionId: session._id,
+          participantId: currentParticipantId,
+          merchant: result.merchant,
+        });
+      }
 
       // Add fees from receipt (convert to cents)
       if (result.fees && result.fees.length > 0) {
