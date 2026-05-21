@@ -11,7 +11,7 @@ export interface BillHistoryEntry {
   createdAt: number; // Unix timestamp
   participantName: string; // User's name in this bill
   participantId: string; // For session persistence check
-  merchantName?: string; // From receipt if available
+  merchant?: string; // From receipt if available
   total?: number; // Final total in cents (if known)
 }
 
