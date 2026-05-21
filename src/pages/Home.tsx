@@ -294,7 +294,7 @@ export default function Home() {
                   <div className="flex justify-between items-center">
                     <div>
                       <div className="font-medium text-gray-900">
-                        {bill.merchantName || `Bill ${bill.code}`}
+                        {bill.merchant || `Bill ${bill.code}`}
                       </div>
                       <div className="text-sm text-gray-500">
                         {new Date(bill.createdAt).toLocaleDateString()}

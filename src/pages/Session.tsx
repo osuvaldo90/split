@@ -134,6 +134,7 @@ export default function Session() {
   const addBulkFees = useMutation(api.fees.addBulk);
   const updateTip = useMutation(api.sessions.updateTip);
   const addItem = useMutation(api.items.add);
+  const updateMerchant = useMutation(api.sessions.updateMerchant);
 
   // Draft item state - local only until saved
   const [draftItem, setDraftItem] = useState<{
@@ -200,6 +201,14 @@ export default function Session() {
 
     try {
       const result = await parseReceipt({ storageId });
+
+      if ("merchant" in result) {
+        await updateMerchant({
+          sessionId: session._id,
+          participantId: currentParticipantId,
+          merchant: result.merchant,
+        });
+      }
 
       if ("error" in result) {
         // Check for validation rejection (non-receipt)
@@ -551,6 +560,12 @@ export default function Session() {
                   </button>
                 </div>
               )}
+            </div>
+
+            {/* Merchant name */}
+            <div className="mb-3">
+              <h2 className="text-lg font-semibold mb-2">Merchant name</h2>
+              <div className="text-sm text-gray-600">{session.merchant}</div>
             </div>
 
             {/* Items list */}
