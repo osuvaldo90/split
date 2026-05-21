@@ -563,10 +563,12 @@ export default function Session() {
             </div>
 
             {/* Merchant name */}
-            <div className="mb-3">
-              <h2 className="text-lg font-semibold mb-2">Merchant name</h2>
-              <div className="text-sm text-gray-600">{session.merchant}</div>
-            </div>
+            {session.merchant ? (
+              <div className="mb-3">
+                <h2 className="text-lg font-semibold mb-2">Merchant name</h2>
+                <div className="text-sm text-gray-600">{session.merchant}</div>
+              </div>
+            ) : null}
 
             {/* Items list */}
             <div className="mb-3">
