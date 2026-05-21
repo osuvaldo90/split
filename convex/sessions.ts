@@ -129,6 +129,26 @@ export const updateTax = mutation({
   },
 });
 
+// Update merchant (host only)
+export const updateMerchant = mutation({
+  args: {
+    sessionId: v.id("sessions"),
+    participantId: v.id("participants"),
+    merchant: v.string(),
+  },
+  handler: async (ctx, args) => {
+    const participant = await ctx.db.get(args.participantId);
+    if (!participant || !participant.isHost) {
+      throw new Error("Only the host can modify bill settings");
+    }
+    if (participant.sessionId !== args.sessionId) {
+      throw new Error("Participant not in this session");
+    }
+
+    await ctx.db.patch(args.sessionId, { merchant: args.merchant });
+  },
+});
+
 // Update receipt totals (called after OCR)
 export const updateTotals = mutation({
   args: {
