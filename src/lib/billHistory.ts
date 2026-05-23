@@ -80,6 +80,22 @@ export function updateBillTotal(code: string, total: number): void {
 }
 
 /**
+ * Update the merchant name for a bill in history.
+ */
+export function updateMerchantName(code: string, merchant: string): void {
+  try {
+    const entries = getBillHistory();
+    const entry = entries.find((e) => e.code === code);
+    if (entry) {
+      entry.merchant = merchant;
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
+    }
+  } catch {
+    // Silently fail :-(
+  }
+}
+
+/**
  * Clear all bill history. Useful for testing or reset.
  */
 export function clearBillHistory(): void {
