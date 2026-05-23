@@ -564,19 +564,19 @@ export default function Session() {
               )}
             </div>
 
-            {/* Merchant name */}
-            {session.merchant ? (
-              <div className="mb-3">
-                <h2 className="text-lg font-semibold mb-2">Merchant name</h2>
-                <div className="text-sm text-gray-600">{session.merchant}</div>
-              </div>
-            ) : null}
-
             {/* Items list */}
             <div className="mb-3">
-              <h2 className="text-lg font-semibold mb-2">
-                Items {items && items.length > 0 ? `(${items.length})` : ""}
-              </h2>
+              <div className="flex flex-row justify-between">
+                <h2 className="text-lg font-semibold mb-2">
+                  Items {items && items.length > 0 ? `(${items.length})` : ""}
+                </h2>
+                <div className="text-sm text-gray-400 pt-1">
+                  {session.merchant ?
+                    session.merchant :
+                    null
+                  }
+                </div>
+              </div>
               <div className="space-y-1">
                 {items?.map((item) => (
                   <ClaimableItem
