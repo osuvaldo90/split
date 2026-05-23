@@ -12,6 +12,7 @@ import TabNavigation from "../components/TabNavigation";
 import Summary from "../components/Summary";
 import TaxTipSettings from "../components/TaxTipSettings";
 import { getStoredParticipant } from "../lib/sessionStorage";
+import { updateMerchantNameInBillHistory } from "../lib/billHistory";
 
 // Map rejection reasons to user-friendly error messages
 const REJECTION_MESSAGES: Record<string, { title: string; hint: string }> = {
@@ -248,6 +249,7 @@ export default function Session() {
           participantId: currentParticipantId,
           merchant: result.merchant,
         });
+        updateMerchantNameInBillHistory(code, result.merchant);
       }
 
       // Add fees from receipt (convert to cents)
