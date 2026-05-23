@@ -249,7 +249,9 @@ export default function Session() {
           participantId: currentParticipantId,
           merchant: result.merchant,
         });
-        updateMerchantNameInBillHistory(code, result.merchant);
+        if (code) {
+          updateMerchantNameInBillHistory(code, result.merchant);
+        }
       }
 
       // Add fees from receipt (convert to cents)
