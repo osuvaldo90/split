@@ -82,7 +82,7 @@ export function updateBillTotal(code: string, total: number): void {
 /**
  * Update the merchant name for a bill in history.
  */
-export function updateMerchantName(code: string, merchant: string): void {
+export function updateMerchantNameInBillHistory(code: string, merchant: string): void {
   try {
     const entries = getBillHistory();
     const entry = entries.find((e) => e.code === code);
