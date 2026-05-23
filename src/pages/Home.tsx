@@ -292,7 +292,7 @@ export default function Home() {
                   className="block p-3 bg-gray-50 rounded-lg hover:bg-gray-100 transition-colors"
                 >
                   <div className="flex justify-between items-center">
-                    <div>
+                    <div className="flex flex-col items-start">
                       <div className="font-medium text-gray-900">
                         {bill.merchant || `Bill ${bill.code}`}
                       </div>
