@@ -14,6 +14,29 @@ export interface Fee {
   amount: number;
 }
 
+export interface Participant {
+  _id: Id<"participants">;
+  sessionId: Id<"sessions">;
+  name: string;
+  isHost: boolean;
+  joinedAt: number;
+}
+
+export interface Item {
+  _id: Id<"items">;
+  sessionId: Id<"sessions">;
+  name: string;
+  price: number;
+  quantity: number;
+}
+
+export interface Claim {
+  _id: Id<"claims">;
+  sessionId: Id<"sessions">;
+  participantId: Id<"participants">;
+  itemId: Id<"items">;
+}
+
 interface Session {
   _id: Id<"sessions">;
   gratuity?: number;
@@ -26,12 +49,12 @@ interface Session {
 
 export interface Context {
   fees: Fee[];
-  participants: any[];
+  participants: Participant[];
   session: Session;
-  items: any[];
+  items: Item[];
   isHost: boolean;
   groupSubtotal: number;
-  claims: any[];
+  claims: Claim[];
   currentParticipantId: Id<"participants">;
 }
 
