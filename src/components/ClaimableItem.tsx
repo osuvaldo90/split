@@ -2,11 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { Id } from "../../convex/_generated/dataModel";
-import type {
-  Claim,
-  Item,
-  Participant
-} from "../pages/Session";
+import type { Claim, Item, Participant } from "../pages/Session";
 
 interface ClaimableItemProps {
   item: Item;
