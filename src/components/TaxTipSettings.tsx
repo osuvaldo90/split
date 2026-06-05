@@ -100,7 +100,10 @@ export default function TaxTipSettings() {
   const updateTip = useMutation(api.sessions.updateTip);
 
   // Calculate total fees for preview
-  const totalFees = fees.reduce((sum: number, fee: Doc<"fees">) => sum + fee.amount, 0);
+  const totalFees = fees.reduce(
+    (sum: number, fee: Doc<"fees">) => sum + fee.amount,
+    0,
+  );
   const currentGratuity = gratuityInput
     ? Math.round(parseFloat(gratuityInput) * 100) || 0
     : 0;
