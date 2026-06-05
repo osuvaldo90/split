@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router";
 import Layout from "./components/Layout";
 import Items from "./components/Items";
 import TaxTipSettings from "./components/TaxTipSettings";
@@ -13,6 +13,7 @@ function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="bill/:code" element={<Session />}>
+            <Route index element={<Navigate to={"items"} replace />} />
             <Route path="items" element={<Items />} />
             <Route path="taxtip" element={<TaxTipSettings />} />
             <Route path="summary" element={<Summary />} />
