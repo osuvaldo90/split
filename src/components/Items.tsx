@@ -382,7 +382,7 @@ export default function Items() {
 
           {/* Items total */}
           {items && items.length > 0 && (
-            <div className="mt-2 pt-2 border-t border-gray-200 flex justify-between items-center">
+            <div className="mt-2 mb-20 pt-2 border-t border-gray-200 flex justify-between items-center">
               <span className="font-medium">Items Total</span>
               <span className="font-semibold">
                 ${(groupSubtotal / 100).toFixed(2)}
