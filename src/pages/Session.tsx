@@ -2,59 +2,20 @@ import { useState, useRef, useEffect, useMemo } from "react";
 import { useParams, Link, Outlet } from "react-router";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
-import { Id } from "../../convex/_generated/dataModel";
+import { Id, Doc } from "../../convex/_generated/dataModel";
 import JoinGate from "../components/JoinGate";
 import JoinToast from "../components/JoinToast";
 import TabNavigation from "../components/TabNavigation";
 import { getStoredParticipant } from "../lib/sessionStorage";
 
-export interface Fee {
-  _id: Id<"fees">;
-  label: string;
-  amount: number;
-}
-
-export interface Participant {
-  _id: Id<"participants">;
-  sessionId: Id<"sessions">;
-  name: string;
-  isHost: boolean;
-  joinedAt: number;
-}
-
-export interface Item {
-  _id: Id<"items">;
-  sessionId: Id<"sessions">;
-  name: string;
-  price: number;
-  quantity: number;
-}
-
-export interface Claim {
-  _id: Id<"claims">;
-  sessionId: Id<"sessions">;
-  participantId: Id<"participants">;
-  itemId: Id<"items">;
-}
-
-interface Session {
-  _id: Id<"sessions">;
-  gratuity?: number;
-  tipType?: "percent_subtotal" | "percent_total" | "manual";
-  tipValue?: number;
-  merchant?: string;
-  code?: string;
-  receiptImageId?: Id<"_storage">;
-}
-
 export interface Context {
-  fees: Fee[];
-  participants: Participant[];
-  session: Session;
-  items: Item[];
+  fees: Doc<"fees">[];
+  participants: Doc<"participants">[];
+  session: Doc<"sessions">;
+  items: Doc<"items">[];
   isHost: boolean;
   groupSubtotal: number;
-  claims: Claim[];
+  claims: Doc<"claims">[];
   currentParticipantId: Id<"participants">;
 }
 
@@ -116,21 +77,10 @@ export default function Session() {
 
   // Compute display fees with legacy fallback
   // New sessions: use fees from fees table
-  // Legacy sessions: synthesize from session.tax if fees table is empty
-  const displayFees: Fee[] = useMemo(() => {
+  const displayFees: Doc<"fees">[] = useMemo(() => {
     // If fees table has entries, use them
     if (fees && fees.length > 0) {
       return fees;
-    }
-    // Legacy fallback: synthesize fee from session.tax
-    if (session?.tax && session.tax > 0) {
-      return [
-        {
-          _id: "legacy-tax" as Id<"fees">,
-          label: "Tax",
-          amount: session.tax,
-        },
-      ];
     }
     // No fees
     return [];

@@ -355,6 +355,7 @@ export default function Items() {
                 name: draftItem.name,
                 price: draftItem.price,
                 quantity: draftItem.quantity,
+
               }}
               claims={[]}
               participants={participants ?? []}

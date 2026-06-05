@@ -3,8 +3,8 @@ import { useMutation } from "convex/react";
 import { useOutletContext } from "react-router";
 import { api } from "../../convex/_generated/api";
 import { calculateTipShare } from "../../convex/calculations";
-import { Fee, Context } from "../pages/Session";
-import { Id } from "../../convex/_generated/dataModel";
+import { Context } from "../pages/Session";
+import { Id, Doc } from "../../convex/_generated/dataModel";
 
 // Local state for each fee row
 interface FeeEditState {
@@ -100,7 +100,7 @@ export default function TaxTipSettings() {
   const updateTip = useMutation(api.sessions.updateTip);
 
   // Calculate total fees for preview
-  const totalFees = fees.reduce((sum: number, fee: Fee) => sum + fee.amount, 0);
+  const totalFees = fees.reduce((sum: number, fee: Doc<"fees">) => sum + fee.amount, 0);
   const currentGratuity = gratuityInput
     ? Math.round(parseFloat(gratuityInput) * 100) || 0
     : 0;
@@ -234,7 +234,7 @@ export default function TaxTipSettings() {
 
         {/* Fee list */}
         <div className="space-y-2">
-          {fees.map((fee: Fee) => {
+          {fees.map((fee: Doc<"fees">) => {
             const input = feeInputs.get(fee._id) || {
               label: fee.label,
               amount: (fee.amount / 100).toFixed(2),
