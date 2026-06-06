@@ -5,6 +5,7 @@ import TaxTipSettings from "./components/TaxTipSettings";
 import Summary from "./components/Summary";
 import Home from "./pages/Home";
 import Session from "./pages/Session";
+import QrCode from "./pages/QrCode";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
             <Route path="items" element={<Items />} />
             <Route path="taxtip" element={<TaxTipSettings />} />
             <Route path="summary" element={<Summary />} />
+            <Route path="qr" element={<QrCode />} />
           </Route>
         </Route>
       </Routes>

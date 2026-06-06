@@ -196,7 +196,9 @@ export default function Session() {
   // Handle copying session code to clipboard
   async function handleCopyCode() {
     try {
-      await navigator.clipboard.writeText(window.location.href);
+      await navigator.clipboard.writeText(
+        `${window.location.origin}/bill/${code}`
+      );
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
@@ -251,8 +253,34 @@ export default function Session() {
           </p>
         </button>
 
-        {/* Spacer to balance back button width */}
-        <div className="w-[72px] shrink-0" />
+        {/* QR code button */}
+        <Link
+          to="qr"
+          className="flex items-center justify-center px-4 py-4 text-blue-600 hover:text-blue-800 active:text-blue-900 shrink-0 w-[72px]"
+          aria-label="Show QR code"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth={2}
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <rect x="3" y="3" width="7" height="7" />
+            <rect x="14" y="3" width="7" height="7" />
+            <rect x="3" y="14" width="7" height="7" />
+            <rect x="5" y="5" width="3" height="3" fill="currentColor" stroke="none" />
+            <rect x="16" y="5" width="3" height="3" fill="currentColor" stroke="none" />
+            <rect x="5" y="16" width="3" height="3" fill="currentColor" stroke="none" />
+            <path d="M14 14h3v3h-3z" fill="currentColor" stroke="none" />
+            <path d="M17 17h3v3h-3z" fill="currentColor" stroke="none" />
+            <path d="M14 20h3" />
+            <path d="M20 14v3" />
+          </svg>
+        </Link>
       </div>
 
       <div>
