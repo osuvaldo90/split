@@ -196,7 +196,8 @@ export default function Session() {
   // Handle copying session code to clipboard
   async function handleCopyCode() {
     try {
-      await navigator.clipboard.writeText(window.location.href);
+      const shareUrl = `${window.location.host}/bill/${session?.code}`;
+      await navigator.clipboard.writeText(shareUrl);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
