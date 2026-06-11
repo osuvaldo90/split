@@ -24,6 +24,20 @@ export const getByCode = query({
   },
 });
 
+// Delete session by code
+export const deleteByCode = mutation({
+  args: { code: v.string() },
+  handler: async (ctx, args) => {
+    const normalizedCode = args.code.toUpperCase().trim();
+    const session = await ctx.db
+      .query("sessions")
+      .withIndex("by_code", (q) => q.eq("code", normalizedCode))
+      .first();
+    if (!session) return;
+    await ctx.db.delete("sessions", session._id);
+  },
+});
+
 // Get session by ID
 export const get = query({
   args: { id: v.id("sessions") },

@@ -2,15 +2,15 @@ import { useState } from "react";
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { useOutletContext } from "react-router";
-import { Context } from "../pages/Session";
+import type { Context } from "../pages/Session";
 
 export default function Summary() {
   const context: Context = useOutletContext();
   const { session, currentParticipantId } = context;
-
   const totals = useQuery(api.participants.getTotals, {
     sessionId: session._id,
   });
+
   const [expandedParticipant, setExpandedParticipant] = useState<string | null>(
     null,
   );

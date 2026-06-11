@@ -1,12 +1,13 @@
 import { useState, useRef, useEffect, useMemo } from "react";
-import { useParams, Link, Outlet } from "react-router";
-import { useQuery } from "convex/react";
+import { useParams, Link, Outlet, useNavigate } from "react-router";
+import { useQuery, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { Id, Doc } from "../../convex/_generated/dataModel";
 import JoinGate from "../components/JoinGate";
 import JoinToast from "../components/JoinToast";
 import TabNavigation from "../components/TabNavigation";
-import { getStoredParticipant } from "../lib/sessionStorage";
+import { getStoredParticipant, clearParticipant } from "../lib/sessionStorage";
+import { clearOneBillFromHistory } from "../lib/billHistory";
 
 export interface Context {
   fees: Doc<"fees">[];
@@ -21,6 +22,7 @@ export interface Context {
 
 export default function Session() {
   const { code } = useParams<{ code: string }>();
+  const navigate = useNavigate();
 
   // State to track participant ID after just joining (before localStorage is read again)
   const [justJoinedParticipantId, setJustJoinedParticipantId] =
@@ -28,6 +30,7 @@ export default function Session() {
 
   // Fetch session by code
   const session = useQuery(api.sessions.getByCode, code ? { code } : "skip");
+  const deleteSessionByCode = useMutation(api.sessions.deleteByCode);
 
   // Get stored participant ID from sessionStorage
   const storedParticipantId = useMemo(() => {
@@ -205,6 +208,13 @@ export default function Session() {
     }
   }
 
+  async function handleDeleteBillClick(code: string) {
+    await deleteSessionByCode({ code });
+    clearParticipant(code);
+    clearOneBillFromHistory(code);
+    navigate("/");
+  }
+
   return (
     <div>
       {/* Join notifications */}
@@ -253,7 +263,12 @@ export default function Session() {
         </button>
 
         {/* Spacer to balance back button width */}
-        <div className="w-[72px] shrink-0" />
+        <div
+          className="w-18 shrink-0"
+          onClick={() => handleDeleteBillClick(session.code)}
+        >
+          Delete
+        </div>
       </div>
 
       <div>

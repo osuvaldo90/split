@@ -79,7 +79,7 @@ export default function TabNavigation({
               to={id}
               key={id}
               className={({ isActive }) => {
-                const baseClasses = `flex-1 flex flex-col items-center justify-center py-2 min-h-[56px] transition-colors`;
+                const baseClasses = `flex-1 flex flex-col items-center justify-center py-2 min-h-14 transition-colors`;
                 return isActive
                   ? baseClasses + " text-blue-600"
                   : baseClasses + " text-gray-500";
@@ -90,7 +90,7 @@ export default function TabNavigation({
                   <div className="relative">
                     <Icon className="w-6 h-6" />
                     {id === "items" && unclaimedCount > 0 && (
-                      <span className="absolute -top-1 -right-2 bg-red-500 text-white text-xs font-medium rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1">
+                      <span className="absolute -top-1 -right-2 bg-red-500 text-white text-xs font-medium rounded-full min-w-4.5 h-4.5 flex items-center justify-center px-1">
                         {unclaimedCount}
                       </span>
                     )}
