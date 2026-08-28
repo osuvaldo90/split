@@ -24,17 +24,78 @@ export const getByCode = query({
   },
 });
 
-// Delete session by code
+// Delete a session and everything belonging to it (host only)
 export const deleteByCode = mutation({
-  args: { code: v.string() },
+  args: {
+    code: v.string(),
+    participantId: v.id("participants"),
+  },
   handler: async (ctx, args) => {
     const normalizedCode = args.code.toUpperCase().trim();
     const session = await ctx.db
       .query("sessions")
       .withIndex("by_code", (q) => q.eq("code", normalizedCode))
       .first();
+
+    // Already gone - deleting is idempotent
     if (!session) return;
-    await ctx.db.delete("sessions", session._id);
+
+    // Verify participant is the host of this session
+    const participant = await ctx.db.get(args.participantId);
+    if (!participant || !participant.isHost) {
+      throw new Error("Only the host can delete this bill");
+    }
+    if (participant.sessionId !== session._id) {
+      throw new Error("Participant not in this session");
+    }
+
+    // Convex does not cascade deletes, so every child row has to go
+    // explicitly or it is orphaned forever (no way to reach it again).
+    const claims = await ctx.db
+      .query("claims")
+      .withIndex("by_session", (q) => q.eq("sessionId", session._id))
+      .collect();
+    for (const claim of claims) {
+      await ctx.db.delete(claim._id);
+    }
+
+    const items = await ctx.db
+      .query("items")
+      .withIndex("by_session", (q) => q.eq("sessionId", session._id))
+      .collect();
+    for (const item of items) {
+      await ctx.db.delete(item._id);
+    }
+
+    const fees = await ctx.db
+      .query("fees")
+      .withIndex("by_session", (q) => q.eq("sessionId", session._id))
+      .collect();
+    for (const fee of fees) {
+      await ctx.db.delete(fee._id);
+    }
+
+    const sessionParticipants = await ctx.db
+      .query("participants")
+      .withIndex("by_session", (q) => q.eq("sessionId", session._id))
+      .collect();
+    for (const sessionParticipant of sessionParticipants) {
+      await ctx.db.delete(sessionParticipant._id);
+    }
+
+    // Drop the uploaded receipt too, otherwise it lingers in file storage.
+    // Best effort on purpose: a missing file is already the desired end
+    // state, and letting the throw escape would roll back every delete
+    // above it and leave the bill permanently undeletable.
+    if (session.receiptImageId) {
+      try {
+        await ctx.storage.delete(session.receiptImageId);
+      } catch (error) {
+        console.error("Failed to delete receipt image:", error);
+      }
+    }
+
+    await ctx.db.delete(session._id);
   },
 });
 

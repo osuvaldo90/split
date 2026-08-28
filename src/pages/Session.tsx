@@ -6,6 +6,7 @@ import { Id, Doc } from "../../convex/_generated/dataModel";
 import JoinGate from "../components/JoinGate";
 import JoinToast from "../components/JoinToast";
 import TabNavigation from "../components/TabNavigation";
+import DeleteBillDialog from "../components/DeleteBillDialog";
 import { getStoredParticipant, clearParticipant } from "../lib/sessionStorage";
 import { clearOneBillFromHistory } from "../lib/billHistory";
 
@@ -91,6 +92,11 @@ export default function Session() {
 
   // Copy code state
   const [copied, setCopied] = useState(false);
+
+  // Delete bill state
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
 
   // Track join notifications
   const [joinToasts, setJoinToasts] = useState<
@@ -208,11 +214,25 @@ export default function Session() {
     }
   }
 
-  async function handleDeleteBillClick(code: string) {
-    await deleteSessionByCode({ code });
-    clearParticipant(code);
-    clearOneBillFromHistory(code);
-    navigate("/");
+  async function handleConfirmDelete() {
+    if (!session || !currentParticipantId) return;
+
+    setIsDeleting(true);
+    setDeleteError(null);
+    try {
+      await deleteSessionByCode({
+        code: session.code,
+        participantId: currentParticipantId,
+      });
+      clearParticipant(session.code);
+      clearOneBillFromHistory(session.code);
+      navigate("/");
+      // No setIsDeleting(false) on success - navigating away unmounts this
+    } catch (error) {
+      console.error("Failed to delete bill:", error);
+      setDeleteError("Could not delete this bill. Please try again.");
+      setIsDeleting(false);
+    }
   }
 
   return (
@@ -262,13 +282,32 @@ export default function Session() {
           </p>
         </button>
 
-        {/* Spacer to balance back button width */}
-        <div
-          className="w-18 shrink-0"
-          onClick={() => handleDeleteBillClick(session.code)}
-        >
-          Delete
-        </div>
+        {/* Delete bill (host only), otherwise a spacer to balance the back button */}
+        {isHost ? (
+          <button
+            onClick={() => {
+              setDeleteError(null);
+              setShowDeleteDialog(true);
+            }}
+            className="flex items-center justify-center w-18 py-4 shrink-0 text-red-600 hover:bg-red-50 active:bg-red-100 transition-colors"
+            aria-label="Delete bill"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-5 w-5"
+              viewBox="0 0 20 20"
+              fill="currentColor"
+            >
+              <path
+                fillRule="evenodd"
+                d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
+        ) : (
+          <div className="w-18 shrink-0" />
+        )}
       </div>
 
       <div>
@@ -288,6 +327,17 @@ export default function Session() {
 
       {/* Fixed Bottom Tab Navigation */}
       <TabNavigation unclaimedCount={unclaimedCount} />
+
+      {/* Delete confirmation */}
+      {showDeleteDialog && (
+        <DeleteBillDialog
+          billLabel={session.merchant ?? `Bill ${session.code}`}
+          isDeleting={isDeleting}
+          error={deleteError}
+          onConfirm={handleConfirmDelete}
+          onCancel={() => setShowDeleteDialog(false)}
+        />
+      )}
     </div>
   );
 }
