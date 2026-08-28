@@ -261,7 +261,7 @@ export default function TaxTipSettings() {
                       onBlur={() => handleFeeBlur(fee._id, "label")}
                       onFocus={(e) => e.target.select()}
                       placeholder="Label"
-                      className="flex-1 min-h-[44px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                      className="flex-1 min-h-[44px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent text-sm"
                     />
                     <div className="flex items-center gap-1">
                       <span className="text-gray-500">$</span>
@@ -279,7 +279,7 @@ export default function TaxTipSettings() {
                         onBlur={() => handleFeeBlur(fee._id, "amount")}
                         onFocus={(e) => e.target.select()}
                         placeholder="0.00"
-                        className="w-20 min-h-[44px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm"
+                        className="w-20 min-h-[44px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent text-sm"
                       />
                     </div>
                     <button
@@ -364,7 +364,7 @@ export default function TaxTipSettings() {
                 onClick={() => handleTipTypeChange("percent_subtotal")}
                 className={`px-3 py-2 rounded-md text-sm transition-colors ${
                   tipType === "percent_subtotal"
-                    ? "bg-blue-500 text-white"
+                    ? "bg-accent-500 text-white"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                 }`}
               >
@@ -374,7 +374,7 @@ export default function TaxTipSettings() {
                 onClick={() => handleTipTypeChange("percent_total")}
                 className={`px-3 py-2 rounded-md text-sm transition-colors ${
                   tipType === "percent_total"
-                    ? "bg-blue-500 text-white"
+                    ? "bg-accent-500 text-white"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                 }`}
               >
@@ -384,7 +384,7 @@ export default function TaxTipSettings() {
                 onClick={() => handleTipTypeChange("manual")}
                 className={`px-3 py-2 rounded-md text-sm transition-colors ${
                   tipType === "manual"
-                    ? "bg-blue-500 text-white"
+                    ? "bg-accent-500 text-white"
                     : "bg-gray-200 text-gray-700 hover:bg-gray-300"
                 }`}
               >
@@ -407,7 +407,7 @@ export default function TaxTipSettings() {
                     onBlur={handleTipBlur}
                     onFocus={(e) => e.target.select()}
                     placeholder="0.00"
-                    className="w-28 min-h-[44px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-28 min-h-[44px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent"
                   />
                 </>
               ) : (
@@ -422,7 +422,7 @@ export default function TaxTipSettings() {
                     onBlur={handleTipBlur}
                     onFocus={(e) => e.target.select()}
                     placeholder="0"
-                    className="w-20 min-h-[44px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    className="w-20 min-h-[44px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent"
                   />
                   <span className="text-gray-500">%</span>
                 </>
@@ -458,10 +458,10 @@ export default function TaxTipSettings() {
 
       {/* Grand Total Preview */}
       {groupSubtotal > 0 && (
-        <div className="p-4 bg-blue-50 rounded-lg">
+        <div className="p-4 bg-accent-50 rounded-lg">
           <div className="flex justify-between items-center">
             <span className="font-semibold text-gray-800">Group Total</span>
-            <span className="text-xl font-bold text-blue-600">
+            <span className="text-xl font-bold text-accent-600">
               $
               {(
                 (groupSubtotal + totalFees + currentGratuity + tipPreview) /

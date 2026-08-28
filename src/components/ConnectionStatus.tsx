@@ -1,5 +1,13 @@
 import { useConvexConnectionState } from "convex/react";
 
+/**
+ * Whether the connection banner is currently on screen. Layout uses this to
+ * shift the fixed tone picker out from under the banner.
+ */
+export function useConnectionBannerVisible(): boolean {
+  return !useConvexConnectionState().isWebSocketConnected;
+}
+
 export default function ConnectionStatus() {
   const connectionState = useConvexConnectionState();
 
@@ -22,7 +30,7 @@ export default function ConnectionStatus() {
 
   return (
     <div
-      className={`fixed top-0 left-0 right-0 z-50 ${displayBg} ${displayTextColor} text-center py-1.5 text-sm font-medium animate-fade-in`}
+      className={`fixed top-0 left-0 right-0 z-50 ${displayBg} ${displayTextColor} pointer-events-none text-center py-1.5 text-sm font-medium animate-fade-in`}
     >
       <div className="flex items-center justify-center gap-2">
         {!isConnectionLost && (

@@ -157,7 +157,10 @@ export default function Session() {
           Code "{code}" doesn't match any active bill. It might have expired or
           there's a typo.
         </p>
-        <Link to="/" className="text-blue-500 hover:text-blue-600 font-medium">
+        <Link
+          to="/"
+          className="text-accent-500 hover:text-accent-600 font-medium"
+        >
           ← Start a new bill
         </Link>
       </div>
@@ -217,11 +220,11 @@ export default function Session() {
       ))}
 
       {/* Session Header */}
-      <div className="sticky top-0 z-10 w-full bg-blue-50 border-b border-blue-100 flex items-center">
+      <div className="sticky top-0 z-10 w-full bg-accent-50 border-b border-accent-100 flex items-center">
         {/* Back button */}
         <Link
           to="/"
-          className="flex items-center gap-1 px-4 py-4 text-blue-600 hover:text-blue-800 active:text-blue-900 shrink-0"
+          className="flex items-center gap-1 px-4 py-4 text-accent-600 hover:text-accent-800 active:text-accent-900 shrink-0"
           aria-label="Back to home"
         >
           <svg
@@ -242,12 +245,12 @@ export default function Session() {
         {/* Tappable Session Code */}
         <button
           onClick={handleCopyCode}
-          className="flex-1 py-4 text-center active:bg-blue-100 transition-colors"
+          className="flex-1 py-4 text-center active:bg-accent-100 transition-colors"
         >
-          <span className="text-2xl font-mono font-bold tracking-widest text-blue-600">
+          <span className="text-2xl font-mono font-bold tracking-widest text-accent-600">
             {session.code}
           </span>
-          <p className="text-xs text-blue-500 mt-1">
+          <p className="text-xs text-accent-500 mt-1">
             {copied ? "Copied!" : "tap to copy URL"}
           </p>
         </button>

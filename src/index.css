@@ -1,5 +1,98 @@
 @import "tailwindcss";
 
+/*
+ * Accent color scale.
+ *
+ * Utilities like `bg-accent-600` resolve to the `--tone-*` variables below, so
+ * swapping `data-tone` on <html> re-colors the whole app with no re-render.
+ * `@theme inline` is required here: it inlines `var(--tone-*)` into each
+ * utility instead of snapshotting the value at build time.
+ */
+@theme inline {
+  --color-accent-50: var(--tone-50);
+  --color-accent-100: var(--tone-100);
+  --color-accent-200: var(--tone-200);
+  --color-accent-300: var(--tone-300);
+  --color-accent-400: var(--tone-400);
+  --color-accent-500: var(--tone-500);
+  --color-accent-600: var(--tone-600);
+  --color-accent-700: var(--tone-700);
+  --color-accent-800: var(--tone-800);
+  --color-accent-900: var(--tone-900);
+}
+
+/* Ocean is the default tone, applied before `data-tone` is set on <html> */
+:root,
+[data-tone="ocean"] {
+  --tone-50: #eff6ff;
+  --tone-100: #dbeafe;
+  --tone-200: #bfdbfe;
+  --tone-300: #93c5fd;
+  --tone-400: #60a5fa;
+  --tone-500: #3b82f6;
+  --tone-600: #2563eb;
+  --tone-700: #1d4ed8;
+  --tone-800: #1e40af;
+  --tone-900: #1e3a8a;
+}
+
+[data-tone="grape"] {
+  --tone-50: #f5f3ff;
+  --tone-100: #ede9fe;
+  --tone-200: #ddd6fe;
+  --tone-300: #c4b5fd;
+  --tone-400: #a78bfa;
+  --tone-500: #8b5cf6;
+  --tone-600: #7c3aed;
+  --tone-700: #6d28d9;
+  --tone-800: #5b21b6;
+  --tone-900: #4c1d95;
+}
+
+/*
+ * Forest and Sunset are shifted a step darker than the stock Tailwind emerald
+ * and orange scales: white-on-500 is a common pairing in this app, and the
+ * stock 500s are too light to stay legible.
+ */
+[data-tone="forest"] {
+  --tone-50: #ecfdf5;
+  --tone-100: #d1fae5;
+  --tone-200: #a7f3d0;
+  --tone-300: #6ee7b7;
+  --tone-400: #34d399;
+  --tone-500: #059669;
+  --tone-600: #047857;
+  --tone-700: #065f46;
+  --tone-800: #064e3b;
+  --tone-900: #022c22;
+}
+
+[data-tone="sunset"] {
+  --tone-50: #fff7ed;
+  --tone-100: #ffedd5;
+  --tone-200: #fed7aa;
+  --tone-300: #fdba74;
+  --tone-400: #fb923c;
+  --tone-500: #ea580c;
+  --tone-600: #c2410c;
+  --tone-700: #9a3412;
+  --tone-800: #7c2d12;
+  --tone-900: #611c08;
+}
+
+[data-tone="rose"] {
+  --tone-50: #fff1f2;
+  --tone-100: #ffe4e6;
+  --tone-200: #fecdd3;
+  --tone-300: #fda4af;
+  --tone-400: #fb7185;
+  --tone-500: #f43f5e;
+  --tone-600: #e11d48;
+  --tone-700: #be123c;
+  --tone-800: #9f1239;
+  --tone-900: #881337;
+}
+
 /* Safe area utilities for iOS notch handling */
 @utility pb-safe {
   padding-bottom: env(safe-area-inset-bottom);

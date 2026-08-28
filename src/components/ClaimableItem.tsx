@@ -175,7 +175,7 @@ export default function ClaimableItem({
           value={editName}
           onChange={(e) => setEditName(e.target.value)}
           placeholder="Item name"
-          className="w-full min-h-[44px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          className="w-full min-h-[44px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent"
         />
 
         {/* Row 2: Price + Quantity (if qty > 1) + Delete */}
@@ -197,7 +197,7 @@ export default function ClaimableItem({
                   setEditPriceInput(value.toFixed(2));
                 }
               }}
-              className="w-24 min-h-[44px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-24 min-h-[44px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent"
             />
           </div>
 
@@ -212,7 +212,7 @@ export default function ClaimableItem({
                   setEditQuantity(parseInt(e.target.value, 10) || 1)
                 }
                 min="1"
-                className="w-14 min-h-[44px] px-2 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                className="w-14 min-h-[44px] px-2 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent"
               />
             </div>
           )}
@@ -251,7 +251,7 @@ export default function ClaimableItem({
           </button>
           <button
             onClick={handleSave}
-            className="flex-1 min-w-0 min-h-[44px] px-3 py-2 text-white bg-blue-500 hover:bg-blue-600 rounded-md transition-colors"
+            className="flex-1 min-w-0 min-h-[44px] px-3 py-2 text-white bg-accent-500 hover:bg-accent-600 rounded-md transition-colors"
           >
             Save
           </button>
@@ -271,11 +271,11 @@ export default function ClaimableItem({
         canClaim ? "cursor-pointer active:bg-gray-100" : ""
       } ${
         hasClaimed
-          ? "bg-blue-50 border-l-4 border-l-blue-500 border-y border-r border-y-blue-200 border-r-blue-200"
+          ? "bg-accent-50 border-l-4 border-l-accent-500 border-y border-r border-y-accent-200 border-r-accent-200"
           : isUnclaimed
             ? "bg-gray-50 border border-dashed border-gray-300 opacity-70"
             : "bg-gray-50 border border-gray-200"
-      } ${isFlashing ? "ring-2 ring-blue-400 ring-opacity-75" : ""}`}
+      } ${isFlashing ? "ring-2 ring-accent-400 ring-opacity-75" : ""}`}
     >
       <div className="flex justify-between items-center">
         <div>
@@ -319,7 +319,7 @@ export default function ClaimableItem({
                 key={c._id}
                 className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs ${
                   isCurrentUser
-                    ? "bg-blue-100 text-blue-700 font-medium"
+                    ? "bg-accent-100 text-accent-700 font-medium"
                     : "bg-gray-200 text-gray-600"
                 }`}
               >

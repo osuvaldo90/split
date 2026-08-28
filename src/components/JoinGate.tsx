@@ -74,8 +74,8 @@ export default function JoinGate({ session, onJoined }: JoinGateProps) {
   return (
     <div className="max-w-md mx-auto">
       {/* Session Code Header */}
-      <div className="p-4 bg-blue-50 border-b border-blue-100 text-center">
-        <span className="text-2xl font-mono font-bold tracking-widest text-blue-600">
+      <div className="p-4 bg-accent-50 border-b border-accent-100 text-center">
+        <span className="text-2xl font-mono font-bold tracking-widest text-accent-600">
           {session.code}
         </span>
         <p className="text-sm text-gray-600 mt-1">
@@ -113,7 +113,7 @@ export default function JoinGate({ session, onJoined }: JoinGateProps) {
               autoComplete="name"
               autoCapitalize="words"
               autoFocus
-              className="w-full px-4 py-3 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent"
             />
           </div>
 
@@ -128,7 +128,7 @@ export default function JoinGate({ session, onJoined }: JoinGateProps) {
           <button
             onClick={handleJoin}
             disabled={!name.trim() || isJoining}
-            className="w-full py-4 text-lg font-semibold text-white bg-blue-500 rounded-lg hover:bg-blue-600 active:bg-blue-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+            className="w-full py-4 text-lg font-semibold text-white bg-accent-500 rounded-lg hover:bg-accent-600 active:bg-accent-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
           >
             {isJoining ? "Joining..." : "Join Bill"}
           </button>

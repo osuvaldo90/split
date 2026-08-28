@@ -243,7 +243,7 @@ export default function Items() {
                   </p>
                   <button
                     onClick={() => setShowReceiptImage(true)}
-                    className="text-sm text-blue-500 underline hover:text-blue-600"
+                    className="text-sm text-accent-500 underline hover:text-accent-600"
                   >
                     View original receipt
                   </button>
@@ -259,7 +259,7 @@ export default function Items() {
           {/* Uploading state */}
           {receiptState.step === "uploading" && (
             <div className="text-center py-6">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto"></div>
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent-500 mx-auto"></div>
               <p className="mt-3 text-gray-600">Uploading...</p>
             </div>
           )}
@@ -267,7 +267,7 @@ export default function Items() {
           {/* Processing state */}
           {receiptState.step === "processing" && (
             <div className="text-center py-6">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto"></div>
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent-500 mx-auto"></div>
               <p className="mt-3 text-gray-600">Analyzing receipt...</p>
               <p className="text-sm text-gray-500 mt-1">
                 Extracting items with AI
@@ -315,7 +315,7 @@ export default function Items() {
               )}
               <button
                 onClick={handleRetry}
-                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+                className="mt-4 px-4 py-2 bg-accent-500 text-white rounded-lg hover:bg-accent-600 transition-colors"
               >
                 Try Again
               </button>
