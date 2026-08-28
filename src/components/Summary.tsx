@@ -18,7 +18,7 @@ export default function Summary() {
   if (!totals) {
     return (
       <div className="text-center py-8">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-accent-500 mx-auto"></div>
         <p className="mt-3 text-gray-600">Loading totals...</p>
       </div>
     );
@@ -75,8 +75,8 @@ export default function Summary() {
               key={participant.participantId}
               className={`rounded-lg border-2 transition-colors ${
                 isCurrentUser
-                  ? "border-blue-500 bg-blue-50"
-                  : "border-gray-200 bg-white"
+                  ? "border-accent-500 bg-accent-50"
+                  : "border-gray-200 bg-surface"
               }`}
             >
               {/* Card Header - Clickable */}
@@ -90,7 +90,7 @@ export default function Summary() {
                       {participant.name}
                     </span>
                     {isCurrentUser && (
-                      <span className="text-xs bg-blue-500 text-white px-2 py-0.5 rounded-full">
+                      <span className="text-xs bg-accent-500 text-white px-2 py-0.5 rounded-full">
                         You
                       </span>
                     )}

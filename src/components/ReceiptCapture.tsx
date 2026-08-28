@@ -92,7 +92,7 @@ export default function ReceiptCapture({
         <button
           onClick={() => cameraInputRef.current?.click()}
           disabled={isDisabled}
-          className="flex-1 bg-blue-500 text-white font-medium py-3 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-600 transition-colors flex items-center justify-center gap-2"
+          className="flex-1 bg-accent-500 text-white font-medium py-3 px-4 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed hover:bg-accent-600 transition-colors flex items-center justify-center gap-2"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

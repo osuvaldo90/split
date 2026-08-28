@@ -109,7 +109,7 @@ export default function InlineItem({ item, participantId }: InlineItemProps) {
         value={editName}
         onChange={(e) => setEditName(e.target.value)}
         placeholder="Item name"
-        className="w-full min-h-[44px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        className="w-full min-h-[44px] px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent"
       />
 
       {/* Row 2: Price + Quantity (if qty > 1) + Delete */}
@@ -117,7 +117,7 @@ export default function InlineItem({ item, participantId }: InlineItemProps) {
         {/* Left group: Price and optional Quantity */}
         <div className="flex items-center gap-3">
           {/* Price input with $ prefix - grouped in a styled container */}
-          <div className="flex items-center border border-gray-300 rounded-md focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent">
+          <div className="flex items-center border border-gray-300 rounded-md focus-within:ring-2 focus-within:ring-accent-500 focus-within:border-transparent">
             <span className="pl-3 text-gray-500">$</span>
             <input
               type="text"
@@ -139,7 +139,7 @@ export default function InlineItem({ item, participantId }: InlineItemProps) {
 
           {/* Quantity input - only shown if quantity > 1 */}
           {editQuantity > 1 && (
-            <div className="flex items-center border border-gray-300 rounded-md focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-transparent">
+            <div className="flex items-center border border-gray-300 rounded-md focus-within:ring-2 focus-within:ring-accent-500 focus-within:border-transparent">
               <span className="pl-2 text-gray-500 text-sm">x</span>
               <input
                 type="number"
@@ -185,7 +185,7 @@ export default function InlineItem({ item, participantId }: InlineItemProps) {
         </button>
         <button
           onClick={handleSave}
-          className="flex-1 min-w-0 min-h-[44px] px-3 py-2 text-white bg-blue-500 hover:bg-blue-600 rounded-md transition-colors"
+          className="flex-1 min-w-0 min-h-[44px] px-3 py-2 text-white bg-accent-500 hover:bg-accent-600 rounded-md transition-colors"
         >
           Save
         </button>

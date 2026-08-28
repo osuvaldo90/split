@@ -211,7 +211,7 @@ export default function Home() {
               placeholder="Enter your name"
               autoComplete="name"
               autoCapitalize="words"
-              className="w-full px-4 py-3 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+              className="w-full px-4 py-3 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent"
             />
           </div>
 
@@ -235,7 +235,7 @@ export default function Home() {
               placeholder="ABC123"
               maxLength={6}
               autoComplete="off"
-              className="w-full px-4 py-3 text-lg font-mono tracking-widest text-center border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent uppercase"
+              className="w-full px-4 py-3 text-lg font-mono tracking-widest text-center border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-transparent uppercase"
             />
             {/* Code status message */}
             {isValidCode && (
@@ -270,9 +270,9 @@ export default function Home() {
             disabled={buttonDisabled}
             className={`w-full py-4 text-lg font-semibold text-white rounded-lg transition-colors ${
               isJoinMode
-                ? "bg-blue-500 hover:bg-blue-600 active:bg-blue-700"
-                : "bg-blue-600 hover:bg-blue-700 active:bg-blue-800"
-            } disabled:bg-gray-300 disabled:cursor-not-allowed`}
+                ? "bg-accent-500 hover:bg-accent-600 active:bg-accent-700"
+                : "bg-accent-600 hover:bg-accent-700 active:bg-accent-800"
+            } disabled:bg-gray-300 dark:disabled:text-gray-500 disabled:cursor-not-allowed`}
           >
             {buttonText}
           </button>
