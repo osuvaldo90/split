@@ -243,7 +243,7 @@ export default function Items() {
                   </p>
                   <button
                     onClick={() => setShowReceiptImage(true)}
-                    className="text-sm text-accent-500 underline hover:text-accent-600"
+                    className="text-sm text-accent-text underline hover:text-accent-text-strong"
                   >
                     View original receipt
                   </button>

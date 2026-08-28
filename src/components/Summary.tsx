@@ -76,7 +76,7 @@ export default function Summary() {
               className={`rounded-lg border-2 transition-colors ${
                 isCurrentUser
                   ? "border-accent-500 bg-accent-50"
-                  : "border-gray-200 bg-white"
+                  : "border-gray-200 bg-surface"
               }`}
             >
               {/* Card Header - Clickable */}

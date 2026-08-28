@@ -159,7 +159,7 @@ export default function Session() {
         </p>
         <Link
           to="/"
-          className="text-accent-500 hover:text-accent-600 font-medium"
+          className="text-accent-text hover:text-accent-text-strong font-medium"
         >
           ← Start a new bill
         </Link>
@@ -224,7 +224,7 @@ export default function Session() {
         {/* Back button */}
         <Link
           to="/"
-          className="flex items-center gap-1 px-4 py-4 text-accent-600 hover:text-accent-800 active:text-accent-900 shrink-0"
+          className="flex items-center gap-1 px-4 py-4 text-accent-text hover:text-accent-text-strong active:text-accent-text-strong shrink-0"
           aria-label="Back to home"
         >
           <svg
@@ -247,10 +247,10 @@ export default function Session() {
           onClick={handleCopyCode}
           className="flex-1 py-4 text-center active:bg-accent-100 transition-colors"
         >
-          <span className="text-2xl font-mono font-bold tracking-widest text-accent-600">
+          <span className="text-2xl font-mono font-bold tracking-widest text-accent-text">
             {session.code}
           </span>
-          <p className="text-xs text-accent-500 mt-1">
+          <p className="text-xs text-accent-text-muted mt-1">
             {copied ? "Copied!" : "tap to copy URL"}
           </p>
         </button>

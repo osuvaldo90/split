@@ -272,7 +272,7 @@ export default function Home() {
               isJoinMode
                 ? "bg-accent-500 hover:bg-accent-600 active:bg-accent-700"
                 : "bg-accent-600 hover:bg-accent-700 active:bg-accent-800"
-            } disabled:bg-gray-300 disabled:cursor-not-allowed`}
+            } disabled:bg-gray-300 dark:disabled:text-gray-500 disabled:cursor-not-allowed`}
           >
             {buttonText}
           </button>

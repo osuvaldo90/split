@@ -75,7 +75,7 @@ export default function JoinGate({ session, onJoined }: JoinGateProps) {
     <div className="max-w-md mx-auto">
       {/* Session Code Header */}
       <div className="p-4 bg-accent-50 border-b border-accent-100 text-center">
-        <span className="text-2xl font-mono font-bold tracking-widest text-accent-600">
+        <span className="text-2xl font-mono font-bold tracking-widest text-accent-text">
           {session.code}
         </span>
         <p className="text-sm text-gray-600 mt-1">
@@ -128,7 +128,7 @@ export default function JoinGate({ session, onJoined }: JoinGateProps) {
           <button
             onClick={handleJoin}
             disabled={!name.trim() || isJoining}
-            className="w-full py-4 text-lg font-semibold text-white bg-accent-500 rounded-lg hover:bg-accent-600 active:bg-accent-700 transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed"
+            className="w-full py-4 text-lg font-semibold text-white bg-accent-500 rounded-lg hover:bg-accent-600 active:bg-accent-700 transition-colors disabled:bg-gray-300 dark:disabled:text-gray-500 disabled:cursor-not-allowed"
           >
             {isJoining ? "Joining..." : "Join Bill"}
           </button>

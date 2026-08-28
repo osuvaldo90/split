@@ -8,7 +8,7 @@ export default function Layout() {
   const bannerVisible = useConnectionBannerVisible();
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-canvas">
       {/* Connection status indicator - shows when disconnected */}
       <ConnectionStatus />
 
@@ -29,7 +29,7 @@ export default function Layout() {
       </div>
 
       {/* Mobile-first container - max width for tablet/desktop */}
-      <div className="mx-auto max-w-md min-h-screen bg-white shadow-sm">
+      <div className="mx-auto max-w-md min-h-screen bg-surface shadow-sm">
         {/* Main content area */}
         <main className="pb-safe">
           <Outlet />

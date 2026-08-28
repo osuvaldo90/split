@@ -3,13 +3,14 @@
  * Stores user preferences like last used name for form pre-fill.
  */
 
-import { normalizeTone, ToneId } from "./theme";
+import { normalizeMode, normalizeTone, ThemeMode, ToneId } from "./theme";
 
 const STORAGE_KEY = "split_user_prefs";
 
 interface UserPreferences {
   lastUsedName: string;
   tone: ToneId;
+  mode: ThemeMode;
 }
 
 /**
@@ -71,5 +72,36 @@ export function setTone(tone: ToneId): void {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
   } catch {
     // Silently fail - the tone still applies for the current page load
+  }
+}
+
+/**
+ * Get the saved color mode (light/dark/system).
+ * @returns The saved mode, or the default mode if none is saved
+ */
+export function getMode(): ThemeMode {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return normalizeMode(undefined);
+    const prefs: UserPreferences = JSON.parse(raw);
+    return normalizeMode(prefs.mode);
+  } catch {
+    // localStorage can fail in private browsing mode or if storage is full
+    return normalizeMode(undefined);
+  }
+}
+
+/**
+ * Save the color mode (light/dark/system).
+ * @param mode - The mode to save
+ */
+export function setMode(mode: ThemeMode): void {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    const prefs: UserPreferences = raw ? JSON.parse(raw) : {};
+    prefs.mode = mode;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs));
+  } catch {
+    // Silently fail - the mode still applies for the current page load
   }
 }

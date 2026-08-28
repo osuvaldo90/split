@@ -319,7 +319,7 @@ export default function ClaimableItem({
                 key={c._id}
                 className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs ${
                   isCurrentUser
-                    ? "bg-accent-100 text-accent-700 font-medium"
+                    ? "bg-accent-100 text-accent-text-strong font-medium"
                     : "bg-gray-200 text-gray-600"
                 }`}
               >

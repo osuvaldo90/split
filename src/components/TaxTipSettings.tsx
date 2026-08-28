@@ -461,7 +461,7 @@ export default function TaxTipSettings() {
         <div className="p-4 bg-accent-50 rounded-lg">
           <div className="flex justify-between items-center">
             <span className="font-semibold text-gray-800">Group Total</span>
-            <span className="text-xl font-bold text-accent-600">
+            <span className="text-xl font-bold text-accent-text">
               $
               {(
                 (groupSubtotal + totalFees + currentGratuity + tipPreview) /

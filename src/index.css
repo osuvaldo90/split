@@ -1,14 +1,19 @@
 @import "tailwindcss";
 
+/* Manual dark variant - driven by `data-mode` on <html>, not the OS directly.
+   `system` mode is resolved to light/dark in JS so CSS only sees the result. */
+@custom-variant dark (&:where([data-mode="dark"], [data-mode="dark"] *));
+
 /*
- * Accent color scale.
- *
- * Utilities like `bg-accent-600` resolve to the `--tone-*` variables below, so
- * swapping `data-tone` on <html> re-colors the whole app with no re-render.
- * `@theme inline` is required here: it inlines `var(--tone-*)` into each
+ * Every themeable color resolves through a CSS custom property, so swapping
+ * `data-tone` / `data-mode` on <html> re-colors the whole app with no
+ * re-render. `@theme inline` is required: it inlines `var(...)` into each
  * utility instead of snapshotting the value at build time.
  */
 @theme inline {
+  /* Accent scale (tone-dependent).
+     50-200 are tinted surfaces and flip dark; 300-900 stay vivid so that
+     `bg-accent-500` + `text-white` buttons keep their contrast in both modes. */
   --color-accent-50: var(--tone-50);
   --color-accent-100: var(--tone-100);
   --color-accent-200: var(--tone-200);
@@ -19,9 +24,124 @@
   --color-accent-700: var(--tone-700);
   --color-accent-800: var(--tone-800);
   --color-accent-900: var(--tone-900);
+
+  /* Accent-as-text. Separate from the scale because accent text must go
+     *lighter* in dark mode while accent button fills must not. */
+  --color-accent-text: var(--tone-text);
+  --color-accent-text-strong: var(--tone-text-strong);
+  --color-accent-text-muted: var(--tone-text-muted);
+
+  /* Surfaces */
+  --color-canvas: var(--n-canvas);
+  --color-surface: var(--n-surface);
+  --color-hairline: var(--n-hairline);
+
+  /* Neutral ramp - inverted in dark mode, so `bg-gray-50` stays a subtle
+     fill and `text-gray-900` stays high-contrast body text in both modes. */
+  --color-gray-50: var(--n-50);
+  --color-gray-100: var(--n-100);
+  --color-gray-200: var(--n-200);
+  --color-gray-300: var(--n-300);
+  --color-gray-400: var(--n-400);
+  --color-gray-500: var(--n-500);
+  --color-gray-600: var(--n-600);
+  --color-gray-700: var(--n-700);
+  --color-gray-800: var(--n-800);
+  --color-gray-900: var(--n-900);
+
+  /* Status colors - only the steps this app actually uses */
+  --color-red-50: var(--s-red-50);
+  --color-red-100: var(--s-red-100);
+  --color-red-200: var(--s-red-200);
+  --color-red-500: var(--s-red-500);
+  --color-red-600: var(--s-red-600);
+  --color-red-800: var(--s-red-800);
+  --color-amber-100: var(--s-amber-100);
+  --color-amber-800: var(--s-amber-800);
+  --color-yellow-50: var(--s-yellow-50);
+  --color-yellow-200: var(--s-yellow-200);
+  --color-yellow-600: var(--s-yellow-600);
+  --color-yellow-800: var(--s-yellow-800);
+  --color-green-600: var(--s-green-600);
 }
 
-/* Ocean is the default tone, applied before `data-tone` is set on <html> */
+/* ---------------------------------------------------------------- *
+ * Mode: neutrals and status colors (tone-independent)
+ * ---------------------------------------------------------------- */
+
+:root {
+  color-scheme: light;
+
+  --n-canvas: #f9fafb;
+  --n-surface: #ffffff;
+  --n-hairline: rgb(0 0 0 / 0.1);
+
+  --n-50: #f9fafb;
+  --n-100: #f3f4f6;
+  --n-200: #e5e7eb;
+  --n-300: #d1d5db;
+  --n-400: #9ca3af;
+  --n-500: #6b7280;
+  --n-600: #4b5563;
+  --n-700: #374151;
+  --n-800: #1f2937;
+  --n-900: #111827;
+
+  --s-red-50: #fef2f2;
+  --s-red-100: #fee2e2;
+  --s-red-200: #fecaca;
+  --s-red-500: #ef4444;
+  --s-red-600: #dc2626;
+  --s-red-800: #991b1b;
+  --s-amber-100: #fef3c7;
+  --s-amber-800: #92400e;
+  --s-yellow-50: #fefce8;
+  --s-yellow-200: #fef08a;
+  --s-yellow-600: #ca8a04;
+  --s-yellow-800: #854d0e;
+  --s-green-600: #16a34a;
+}
+
+[data-mode="dark"] {
+  color-scheme: dark;
+
+  --n-canvas: #0b0d11;
+  --n-surface: #15181e;
+  --n-hairline: rgb(255 255 255 / 0.16);
+
+  --n-50: #1b1f26;
+  --n-100: #21262e;
+  --n-200: #292f38;
+  --n-300: #333a45;
+  --n-400: #5c6673;
+  --n-500: #8b95a3;
+  --n-600: #a7b1bf;
+  --n-700: #c2cad6;
+  --n-800: #dee4ec;
+  --n-900: #f2f5f9;
+
+  /* red-500 stays put: it is the one status color used as both a solid fill
+     (the unclaimed badge, white text) and as text on a surface. */
+  --s-red-50: #2a1316;
+  --s-red-100: #3b191d;
+  --s-red-200: #55242a;
+  --s-red-500: #ef4444;
+  --s-red-600: #f87171;
+  --s-red-800: #fca5a5;
+  --s-amber-100: #3a2a10;
+  --s-amber-800: #fcd34d;
+  --s-yellow-50: #2c2410;
+  --s-yellow-200: #4a3c15;
+  --s-yellow-600: #facc15;
+  --s-yellow-800: #fde68a;
+  --s-green-600: #4ade80;
+}
+
+/* ---------------------------------------------------------------- *
+ * Tones - one light block and one dark block each
+ * ---------------------------------------------------------------- */
+
+/* Ocean (default) */
 :root,
 [data-tone="ocean"] {
   --tone-50: #eff6ff;
@@ -34,8 +154,28 @@
   --tone-700: #1d4ed8;
   --tone-800: #1e40af;
   --tone-900: #1e3a8a;
+  --tone-text: #2563eb;
+  --tone-text-strong: #1e40af;
+  --tone-text-muted: #3b82f6;
 }
 
+[data-mode="dark"][data-tone="ocean"] {
+  --tone-50: #111c30;
+  --tone-100: #16253f;
+  --tone-200: #1e3155;
+  --tone-300: #93c5fd;
+  --tone-400: #60a5fa;
+  --tone-500: #3b82f6;
+  --tone-600: #2563eb;
+  --tone-700: #3b82f6;
+  --tone-800: #60a5fa;
+  --tone-900: #93c5fd;
+  --tone-text: #7cb0fb;
+  --tone-text-strong: #bfdbfe;
+  --tone-text-muted: #5f92d8;
+}
+
+/* Grape */
 [data-tone="grape"] {
   --tone-50: #f5f3ff;
   --tone-100: #ede9fe;
@@ -47,13 +187,28 @@
   --tone-700: #6d28d9;
   --tone-800: #5b21b6;
   --tone-900: #4c1d95;
+  --tone-text: #7c3aed;
+  --tone-text-strong: #5b21b6;
+  --tone-text-muted: #8b5cf6;
 }
 
-/*
- * Forest and Sunset are shifted a step darker than the stock Tailwind emerald
- * and orange scales: white-on-500 is a common pairing in this app, and the
- * stock 500s are too light to stay legible.
- */
+[data-mode="dark"][data-tone="grape"] {
+  --tone-50: #1c1633;
+  --tone-100: #241c42;
+  --tone-200: #2f2455;
+  --tone-300: #c4b5fd;
+  --tone-400: #a78bfa;
+  --tone-500: #8b5cf6;
+  --tone-600: #7c3aed;
+  --tone-700: #8b5cf6;
+  --tone-800: #a78bfa;
+  --tone-900: #c4b5fd;
+  --tone-text: #b197fc;
+  --tone-text-strong: #ddd6fe;
+  --tone-text-muted: #9179dd;
+}
+
+/* Forest */
 [data-tone="forest"] {
   --tone-50: #ecfdf5;
   --tone-100: #d1fae5;
@@ -65,8 +220,28 @@
   --tone-700: #065f46;
   --tone-800: #064e3b;
   --tone-900: #022c22;
+  --tone-text: #047857;
+  --tone-text-strong: #064e3b;
+  --tone-text-muted: #059669;
 }
 
+[data-mode="dark"][data-tone="forest"] {
+  --tone-50: #0c2320;
+  --tone-100: #0f2f29;
+  --tone-200: #143f36;
+  --tone-300: #6ee7b7;
+  --tone-400: #34d399;
+  --tone-500: #059669;
+  --tone-600: #047857;
+  --tone-700: #059669;
+  --tone-800: #34d399;
+  --tone-900: #6ee7b7;
+  --tone-text: #34d399;
+  --tone-text-strong: #a7f3d0;
+  --tone-text-muted: #2ba97b;
+}
+
+/* Sunset */
 [data-tone="sunset"] {
   --tone-50: #fff7ed;
   --tone-100: #ffedd5;
@@ -78,8 +253,28 @@
   --tone-700: #9a3412;
   --tone-800: #7c2d12;
   --tone-900: #611c08;
+  --tone-text: #c2410c;
+  --tone-text-strong: #7c2d12;
+  --tone-text-muted: #ea580c;
 }
 
+[data-mode="dark"][data-tone="sunset"] {
+  --tone-50: #2b1608;
+  --tone-100: #391d0a;
+  --tone-200: #4c280e;
+  --tone-300: #fdba74;
+  --tone-400: #fb923c;
+  --tone-500: #ea580c;
+  --tone-600: #c2410c;
+  --tone-700: #ea580c;
+  --tone-800: #fb923c;
+  --tone-900: #fdba74;
+  --tone-text: #fb923c;
+  --tone-text-strong: #fed7aa;
+  --tone-text-muted: #d97634;
+}
+
+/* Rose */
 [data-tone="rose"] {
   --tone-50: #fff1f2;
   --tone-100: #ffe4e6;
@@ -91,6 +286,25 @@
   --tone-700: #be123c;
   --tone-800: #9f1239;
   --tone-900: #881337;
+  --tone-text: #e11d48;
+  --tone-text-strong: #9f1239;
+  --tone-text-muted: #f43f5e;
+}
+
+[data-mode="dark"][data-tone="rose"] {
+  --tone-50: #2d1119;
+  --tone-100: #3d1620;
+  --tone-200: #521d2b;
+  --tone-300: #fda4af;
+  --tone-400: #fb7185;
+  --tone-500: #f43f5e;
+  --tone-600: #e11d48;
+  --tone-700: #f43f5e;
+  --tone-800: #fb7185;
+  --tone-900: #fda4af;
+  --tone-text: #fb7185;
+  --tone-text-strong: #fecdd3;
+  --tone-text-muted: #e2687f;
 }
 
 /* Safe area utilities for iOS notch handling */
